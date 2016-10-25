@@ -9,31 +9,33 @@
 import UIKit
 import Google
 import GoogleSignIn
-class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+import FBSDKLoginKit
+
+class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButtonDelegate {
     
     
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations on signed in user here.
-        let userId = user.userID
-        let idToken = user.authentication.idToken
-        let fullName = user.profile.name
-        let givenName = user.profile.givenName
-        let familyName = user.profile.familyName
-        let email = user.profile.email
-        let userImage = user.profile.imageURL(withDimension: 400)
-        print("idToken :\(idToken)")
-        print("fullName :\(fullName)")
-        print("givenName :\(givenName)")
-        print("familyName :\(familyName)")
-        print("email :\(email)")
-        print("userId :\(userId)")
-        print("userImage :\(userImage)")
+//        let userId = user.userID
+//        let idToken = user.authentication.idToken
+//        let fullName = user.profile.name
+//        let givenName = user.profile.givenName
+//        let familyName = user.profile.familyName
+//        let email = user.profile.email
+//        let userImage = user.profile.imageURL(withDimension: 400)
+//        print("idToken :\(idToken)")
+//        print("fullName :\(fullName)")
+//        print("givenName :\(givenName)")
+//        print("familyName :\(familyName)")
+//        print("email :\(email)")
+//        print("userId :\(userId)")
+//        print("userImage :\(userImage)")
 
         
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
-        print("A7a el wala tel3 wala  eah")
+        print(" el ")
     }
     
     override func viewDidLoad() {
@@ -41,6 +43,13 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 /*
         GIDSignIn.sharedInstance().signInSilently()
 */
+        
+        //Matk : - facebook Login
+        let FBLoginButton = FBSDKLoginButton()
+        view.addSubview(FBLoginButton)
+                FBLoginButton.frame = CGRect(x: 16, y: 50, width: view.frame.width - 32, height: 50)
+        FBLoginButton.delegate = self
+        //@End FB
         GIDSignIn.sharedInstance().signOut()
 
         
@@ -63,6 +72,22 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         view.addGestureRecognizer(tap)
     }
     
+    
+    //MARK : - Facebook deledate Protocoal 
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Did log out of facebook")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil {
+            print(error)
+            return
+        }
+        
+        print("Successfully logged in with facebook...")
+    }
+    
+    //@End FB Delegate
     //Calls this function when the tap is recognized.
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.

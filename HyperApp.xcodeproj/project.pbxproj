@@ -8,16 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		04893AD3A03E109591DCA751 /* Pods_HyperApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4928054FE68B839059B1790E /* Pods_HyperApp.framework */; };
+		71073D461DBEB40D00154B62 /* PromotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71073D441DBEB40D00154B62 /* PromotionVC.swift */; };
+		71073D471DBEB40D00154B62 /* PromotionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71073D451DBEB40D00154B62 /* PromotionVC.xib */; };
 		7108A6B21DB195910014E808 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7108A6B11DB195910014E808 /* MaterialView.swift */; };
 		7108A6B41DB19B050014E808 /* FavItemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7108A6B31DB19B050014E808 /* FavItemsCell.swift */; };
 		7108A6B61DB19BEA0014E808 /* FavListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7108A6B51DB19BEA0014E808 /* FavListVC.swift */; };
 		711342311DBAB68100BDC5D2 /* HomeCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711342301DBAB68100BDC5D2 /* HomeCategoriesCell.swift */; };
-		712407751DAFDBED00C458C4 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712407741DAFDBED00C458C4 /* HomeData.swift */; };
-		712CE5341DB1498800DC4D22 /* HyperApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 712CE5321DB1498800DC4D22 /* HyperApp.xcdatamodeld */; };
-		712CE5391DB1627B00DC4D22 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712CE5351DB1627B00DC4D22 /* Item+CoreDataClass.swift */; };
-		712CE53A1DB1627B00DC4D22 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712CE5361DB1627B00DC4D22 /* Item+CoreDataProperties.swift */; };
-		712CE53B1DB1627B00DC4D22 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712CE5371DB1627B00DC4D22 /* Image+CoreDataClass.swift */; };
-		712CE53C1DB1627B00DC4D22 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712CE5381DB1627B00DC4D22 /* Image+CoreDataProperties.swift */; };
+		712655AA1DBE4DC300466BB8 /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712655A91DBE4DC300466BB8 /* ProductDetailsVC.swift */; };
 		712E5A5E1DAA95B800990B26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E5A5D1DAA95B800990B26 /* AppDelegate.swift */; };
 		712E5A601DAA95B800990B26 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E5A5F1DAA95B800990B26 /* LoginVC.swift */; };
 		712E5A631DAA95B800990B26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 712E5A611DAA95B800990B26 /* Main.storyboard */; };
@@ -31,21 +28,20 @@
 		71C7E2BD1DB7A77F00045660 /* AukDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C7E2BA1DB7A77F00045660 /* AukDistrib.swift */; };
 		71C7E2BE1DB7A77F00045660 /* ScrollViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C7E2BB1DB7A77F00045660 /* ScrollViewEx.swift */; };
 		71C7E2BF1DB7A77F00045660 /* MoaDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C7E2BC1DB7A77F00045660 /* MoaDistrib.swift */; };
+		71F5ADAE1DBBDA7C00D68D41 /* ProductCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5ADAD1DBBDA7C00D68D41 /* ProductCategories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4928054FE68B839059B1790E /* Pods_HyperApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyperApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5297BE1BAF390F3E7C66AB8C /* Pods-HyperApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyperApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyperApp/Pods-HyperApp.debug.xcconfig"; sourceTree = "<group>"; };
+		71073D441DBEB40D00154B62 /* PromotionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionVC.swift; sourceTree = "<group>"; };
+		71073D451DBEB40D00154B62 /* PromotionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromotionVC.xib; sourceTree = "<group>"; };
+		71073D491DBED76900154B62 /* HyperApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyperApp.entitlements; sourceTree = "<group>"; };
 		7108A6B11DB195910014E808 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		7108A6B31DB19B050014E808 /* FavItemsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavItemsCell.swift; sourceTree = "<group>"; };
 		7108A6B51DB19BEA0014E808 /* FavListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavListVC.swift; sourceTree = "<group>"; };
 		711342301DBAB68100BDC5D2 /* HomeCategoriesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCategoriesCell.swift; sourceTree = "<group>"; };
-		712407741DAFDBED00C458C4 /* HomeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
-		712CE5331DB1498800DC4D22 /* HyperApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HyperApp.xcdatamodel; sourceTree = "<group>"; };
-		712CE5351DB1627B00DC4D22 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
-		712CE5361DB1627B00DC4D22 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		712CE5371DB1627B00DC4D22 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
-		712CE5381DB1627B00DC4D22 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		712655A91DBE4DC300466BB8 /* ProductDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
 		712E5A5A1DAA95B800990B26 /* HyperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		712E5A5D1DAA95B800990B26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HyperApp/AppDelegate.swift; sourceTree = "<group>"; };
 		712E5A5F1DAA95B800990B26 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -61,6 +57,7 @@
 		71C7E2BA1DB7A77F00045660 /* AukDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AukDistrib.swift; sourceTree = "<group>"; };
 		71C7E2BB1DB7A77F00045660 /* ScrollViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewEx.swift; sourceTree = "<group>"; };
 		71C7E2BC1DB7A77F00045660 /* MoaDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoaDistrib.swift; sourceTree = "<group>"; };
+		71F5ADAD1DBBDA7C00D68D41 /* ProductCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategories.swift; sourceTree = "<group>"; };
 		73EE83F8A7E5D8C178A0BE53 /* Pods-HyperApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyperApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-HyperApp/Pods-HyperApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,13 +81,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		71073D481DBEC4C200154B62 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				71073D451DBEB40D00154B62 /* PromotionVC.xib */,
+			);
+			name = Xib;
+			sourceTree = "<group>";
+		};
 		712407711DAFDBA900C458C4 /* M */ = {
 			isa = PBXGroup;
 			children = (
-				712CE53D1DB1628C00DC4D22 /* Genarated */,
-				712CE5351DB1627B00DC4D22 /* Item+CoreDataClass.swift */,
-				712CE5371DB1627B00DC4D22 /* Image+CoreDataClass.swift */,
-				712407741DAFDBED00C458C4 /* HomeData.swift */,
+				71F5ADAD1DBBDA7C00D68D41 /* ProductCategories.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -102,6 +104,8 @@
 				712E5A5F1DAA95B800990B26 /* LoginVC.swift */,
 				71C7E2B71DB6CD4600045660 /* HomePageVC.swift */,
 				711342301DBAB68100BDC5D2 /* HomeCategoriesCell.swift */,
+				712655A91DBE4DC300466BB8 /* ProductDetailsVC.swift */,
+				71073D441DBEB40D00154B62 /* PromotionVC.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -109,25 +113,16 @@
 		712407791DAFDF5000C458C4 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				71073D481DBEC4C200154B62 /* Xib */,
 				7108A6B11DB195910014E808 /* MaterialView.swift */,
 				7108A6B31DB19B050014E808 /* FavItemsCell.swift */,
 			);
 			name = V;
 			sourceTree = "<group>";
 		};
-		712CE53D1DB1628C00DC4D22 /* Genarated */ = {
-			isa = PBXGroup;
-			children = (
-				712CE5361DB1627B00DC4D22 /* Item+CoreDataProperties.swift */,
-				712CE5381DB1627B00DC4D22 /* Image+CoreDataProperties.swift */,
-			);
-			name = Genarated;
-			sourceTree = "<group>";
-		};
 		712E5A511DAA95B800990B26 = {
 			isa = PBXGroup;
 			children = (
-				712CE5321DB1498800DC4D22 /* HyperApp.xcdatamodeld */,
 				712E5A5D1DAA95B800990B26 /* AppDelegate.swift */,
 				712E5A6F1DAA960100990B26 /* Podfile */,
 				712E5A5C1DAA95B800990B26 /* HyperApp */,
@@ -148,6 +143,7 @@
 		712E5A5C1DAA95B800990B26 /* HyperApp */ = {
 			isa = PBXGroup;
 			children = (
+				71073D491DBED76900154B62 /* HyperApp.entitlements */,
 				712407711DAFDBA900C458C4 /* M */,
 				712407791DAFDF5000C458C4 /* V */,
 				712407781DAFDF3D00C458C4 /* C */,
@@ -217,7 +213,13 @@
 				TargetAttributes = {
 					712E5A591DAA95B800990B26 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = YKSLKY2D83;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -249,6 +251,7 @@
 				71C384751DAA993C005D156B /* GoogleService-Info.plist in Resources */,
 				712E5A701DAA960100990B26 /* Podfile in Resources */,
 				712E5A631DAA95B800990B26 /* Main.storyboard in Resources */,
+				71073D471DBEB40D00154B62 /* PromotionVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,20 +314,17 @@
 				71C7E2BF1DB7A77F00045660 /* MoaDistrib.swift in Sources */,
 				7193A4E01DAC3A7C005FFCCD /* SignupVC.swift in Sources */,
 				712E5A601DAA95B800990B26 /* LoginVC.swift in Sources */,
+				71F5ADAE1DBBDA7C00D68D41 /* ProductCategories.swift in Sources */,
 				711342311DBAB68100BDC5D2 /* HomeCategoriesCell.swift in Sources */,
 				7108A6B21DB195910014E808 /* MaterialView.swift in Sources */,
 				71C7E2BE1DB7A77F00045660 /* ScrollViewEx.swift in Sources */,
 				71C7E2B81DB6CD4600045660 /* HomePageVC.swift in Sources */,
+				71073D461DBEB40D00154B62 /* PromotionVC.swift in Sources */,
 				7108A6B61DB19BEA0014E808 /* FavListVC.swift in Sources */,
-				712CE5341DB1498800DC4D22 /* HyperApp.xcdatamodeld in Sources */,
 				7108A6B41DB19B050014E808 /* FavItemsCell.swift in Sources */,
 				712E5A5E1DAA95B800990B26 /* AppDelegate.swift in Sources */,
-				712CE53A1DB1627B00DC4D22 /* Item+CoreDataProperties.swift in Sources */,
-				712CE5391DB1627B00DC4D22 /* Item+CoreDataClass.swift in Sources */,
-				712407751DAFDBED00C458C4 /* HomeData.swift in Sources */,
 				71C7E2BD1DB7A77F00045660 /* AukDistrib.swift in Sources */,
-				712CE53B1DB1627B00DC4D22 /* Image+CoreDataClass.swift in Sources */,
-				712CE53C1DB1627B00DC4D22 /* Image+CoreDataProperties.swift in Sources */,
+				712655AA1DBE4DC300466BB8 /* ProductDetailsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +448,8 @@
 			baseConfigurationReference = 5297BE1BAF390F3E7C66AB8C /* Pods-HyperApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HyperApp/HyperApp.entitlements;
+				DEVELOPMENT_TEAM = YKSLKY2D83;
 				INFOPLIST_FILE = HyperApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ZeOwls.HyperApp;
@@ -461,6 +463,8 @@
 			baseConfigurationReference = 73EE83F8A7E5D8C178A0BE53 /* Pods-HyperApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HyperApp/HyperApp.entitlements;
+				DEVELOPMENT_TEAM = YKSLKY2D83;
 				INFOPLIST_FILE = HyperApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ZeOwls.HyperApp;
@@ -491,19 +495,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		712CE5321DB1498800DC4D22 /* HyperApp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				712CE5331DB1498800DC4D22 /* HyperApp.xcdatamodel */,
-			);
-			currentVersion = 712CE5331DB1498800DC4D22 /* HyperApp.xcdatamodel */;
-			path = HyperApp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 712E5A521DAA95B800990B26 /* Project object */;
 }

@@ -16,6 +16,8 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
+    var categoriesHomePageVC : HomePageVC?
+    var catIndexPath  : Int?
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Best New Apps"
@@ -70,47 +72,47 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
      func favButtonA(_ sender: UIButton) {
         
         print("that is the button index : \(sender.tag)")
-        sender.isSelected = !sender.isSelected
-        
-        if(sender.isSelected == true)
-        {
-            sender.setImage(UIImage(named:"heartitemenabled"), for: UIControlState.normal)
-        }
-        else
-        {
-            sender.setImage(UIImage(named:"heartitem"), for: UIControlState.normal)
-        }
+
+        selectedButton(sender: sender, selectedBtn: "heartitemenabled", disSelectImage: "heartitem")
     }
     
     func cartButtonA(_ sender: UIButton) {
         
         print("that is the button index : \(sender.tag)")
-        sender.isSelected = !sender.isSelected
-        
-        if(sender.isSelected == true)
-        {
-            sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
-        }
-        else
-        {
-            sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
-        }
+
+        selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
+
     }
     
     func shareButtonA(_ sender: UIButton) {
         
         print("that is the button index : \(sender.tag)")
+        selectedButton(sender: sender, selectedBtn: "favoriteditemenabled", disSelectImage: "favoriteditem")
+    }
+    
+    
+    
+    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
         sender.isSelected = !sender.isSelected
-        
         if(sender.isSelected == true)
         {
-            sender.setImage(UIImage(named:"favoriteditemenabled"), for: UIControlState.normal)
+            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
         }
         else
         {
-            sender.setImage(UIImage(named:"favoriteditem"), for: UIControlState.normal)
+            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
         }
     }
+    
+    // MARK: UICOllectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("selected Product")
+        categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!)
+    }
+    
+    
     
 }
 

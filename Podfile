@@ -8,5 +8,9 @@ target 'HyperApp' do
 pod 'Google/SignIn'
 pod 'Onboard'
 
+pod 'FBSDKCoreKit'
+pod 'FBSDKShareKit'
+pod 'FBSDKLoginKit'
+
 
 end

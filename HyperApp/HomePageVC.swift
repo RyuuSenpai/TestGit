@@ -8,9 +8,10 @@
 
 import UIKit
 
-class HomePageVC: UIViewController  , UIScrollViewDelegate   , UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
+class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
     
     
+    @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
     @IBOutlet weak var PromotionscrollView: UIScrollView!
     @IBOutlet weak var categoriesContainerView: UIView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
@@ -28,12 +29,14 @@ class HomePageVC: UIViewController  , UIScrollViewDelegate   , UICollectionViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.PromotionscrollView.delegate = self
+        PromotionImageProtocoal(scrollView : PromotionscrollView)
         
-        for x in imagelist {
-            PromotionscrollView.auk.show(image: x!)
+        if self.revealViewController() != nil {
+            sideMenuBOL.target = self.revealViewController()
+            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
+            //     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        PromotionscrollView.auk.startAutoScroll(delaySeconds: 3)
+        
         
         categoriesCollectionView.delegate = self
         categoriesCollectionView.dataSource = self
@@ -41,32 +44,11 @@ class HomePageVC: UIViewController  , UIScrollViewDelegate   , UICollectionViewD
         mainProductsRow.dataSource = self
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     
     @IBAction func tappedPromotionImage(_ sender: AnyObject) {
-        print("that is the index\(PromotionscrollView.auk.currentPageIndex)")
-        print("Scroll view page ya man \(PromotionscrollView.currentPage)")
-        let mySettings: PromotionVC = PromotionVC(nibName: "PromotionVC", bundle: nil)
-        let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.partialCurl
-        mySettings.modalTransitionStyle = modalStyle
-        if let currentImageIndex = PromotionscrollView.auk.currentPageIndex {
-            mySettings.promotionImageFlag = imagelist[currentImageIndex]
-
-        }
-        self.present(mySettings, animated: true, completion: nil)
         
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        if scrollView == PromotionscrollView {
-            PromotionscrollView.auk.stopAutoScroll()
-            PromotionscrollView.auk.startAutoScroll(delaySeconds: 3)
-        }
+tappedPromotionImg(scrollView : PromotionscrollView)
     }
     
     

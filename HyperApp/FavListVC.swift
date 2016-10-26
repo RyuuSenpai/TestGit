@@ -10,12 +10,19 @@ import UIKit
 
 class FavListVC: UIViewController , UITableViewDelegate, UITableViewDataSource {
     
-    
+    @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortSegment: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.revealViewController() != nil {
+            sideMenuBOL.target = self.revealViewController()
+            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
+            //     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.

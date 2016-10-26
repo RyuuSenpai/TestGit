@@ -8,12 +8,21 @@
 
 import UIKit
 
-class ProductDetailsVC: UIViewController {
+class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout*/ {
+    @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var productImagescrollView: UIScrollView!
 
+    @IBOutlet weak var reviewsCollectionView: UICollectionView!
+    
+    @IBOutlet weak var RelatedItemsCollectionView: UICollectionView!
     @IBOutlet weak var categoryID: UILabel!
     @IBOutlet weak var productID: UILabel!
+    @IBOutlet weak var numperOfReviews: UIButton!
+    @IBOutlet weak var priceOL: UILabel!
+    @IBOutlet weak var favItemBOL: UIButton!
+    @IBOutlet weak var addTOCarBOL: UIButton!
 
-    
+    var CurrentRating : String?
     var categoryNumber : Int? /*{
         didSet {
             if let catID = categoryNumber {
@@ -28,12 +37,17 @@ class ProductDetailsVC: UIViewController {
             }
         }
     }*/
-    
+        let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        PromotionImageProtocoal(scrollView: productImagescrollView)
+        RatingProtocoal()
+        exCollectionVDelegateProtocoal()
+        exCollectionVDataSourceProtocoal()
+        
+        
         print("\(categoryNumber)")
         print("\(productNumber)")
         if let productid  = productNumber {
@@ -45,8 +59,24 @@ class ProductDetailsVC: UIViewController {
     }
 
 
-    
+    @IBAction func tappedProdectImage(_ sender: AnyObject) {
+        
+        tappedPromotionImg(scrollView : productImagescrollView)
+    }
 
+    @IBAction func descriptionTapGesture(_ sender: AnyObject) {
+        print("Open description Page")
+    }
+    @IBAction func numberOfreviewBA(_ sender: AnyObject) {
+        print("that is the current rating : \(self.CurrentRating)")
+    }
+    @IBAction func specificationTapGesture(_ sender: AnyObject) {
+        print("That is Specifications TapGesture ")
+    }
+    
+    @IBAction func SeeAllBA(_ sender: UIButton) {
+        print("See All Button Tapped ")
+    }
     /*
     // MARK: - Navigation
 
@@ -56,5 +86,18 @@ class ProductDetailsVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func addTOCarBA(_ sender: AnyObject) {
+        print("add to Cart ")
+    }
+    @IBAction func favItemBA(_ sender: AnyObject) {
+        print("add to fav list  ")
+    }
+    @IBAction func buyNowBA(_ sender: AnyObject) {
+        print("Buy buyNow ")
+    }
+    
+    @IBAction func peopleAlsoViewdSeeAllBA(_ sender: AnyObject) {
+        
+    }
 
 }

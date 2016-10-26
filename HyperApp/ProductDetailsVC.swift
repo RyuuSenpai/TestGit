@@ -15,8 +15,8 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBOutlet weak var reviewsCollectionView: UICollectionView!
     
     @IBOutlet weak var RelatedItemsCollectionView: UICollectionView!
-    @IBOutlet weak var categoryID: UILabel!
-    @IBOutlet weak var productID: UILabel!
+//    @IBOutlet weak var categoryID: UILabel!
+//    @IBOutlet weak var productID: UILabel!
     @IBOutlet weak var numperOfReviews: UIButton!
     @IBOutlet weak var priceOL: UILabel!
     @IBOutlet weak var favItemBOL: UIButton!
@@ -50,12 +50,12 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
         print("\(categoryNumber)")
         print("\(productNumber)")
-        if let productid  = productNumber {
-            productID.text = " product ID : \(productid)"
-        }
-        if let catID = categoryNumber {
-            categoryID.text = " category ID : \(catID)"
-        }
+//        if let productid  = productNumber {
+//            productID.text = " product ID : \(productid)"
+//        }
+//        if let catID = categoryNumber {
+//            categoryID.text = " category ID : \(catID)"
+//        }
     }
 
 

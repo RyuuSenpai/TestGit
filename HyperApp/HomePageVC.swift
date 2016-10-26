@@ -110,8 +110,8 @@ tappedPromotionImg(scrollView : PromotionscrollView)
         if collectionView == self.categoriesCollectionView {
             
             let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-            productDetailController.productNumber =  0
-            productDetailController.categoryNumber = indexPath.row
+//            productDetailController.productNumber =  0
+//            productDetailController.categoryNumber = indexPath.row
             navigationController?.pushViewController(productDetailController, animated: true)
         
         }

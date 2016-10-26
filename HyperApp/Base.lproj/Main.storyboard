@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Phw-Ex-Ao4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WE6-ph-woC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -653,7 +653,7 @@
                                                                             </collectionViewFlowLayout>
                                                                             <cells>
                                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HProductCell" id="5sA-65-Eok" customClass="HomeProductCell" customModule="HyperApp" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="8" width="160" height="234"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="234"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="234"/>
@@ -821,11 +821,11 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ji0-zi-i2R">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionReusableView>
                                                         <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dhD-5N-nKL">
-                                                            <rect key="frame" x="0.0" y="265" width="335" height="5"/>
+                                                            <rect key="frame" x="0.0" y="265" width="1000" height="5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionReusableView>
                                                     </collectionView>
@@ -1720,7 +1720,7 @@
                                         <rect key="frame" x="0.0" y="28" width="383" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Oh-rF-ZR1" id="bkZ-27-8LS">
-                                            <frame key="frameInset" width="383" height="56"/>
+                                            <frame key="frameInset" width="383" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="qe1-yl-DWM">
@@ -1758,7 +1758,7 @@
                                         <rect key="frame" x="0.0" y="85" width="383" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IuW-id-0H1" id="KyY-ih-SO1">
-                                            <frame key="frameInset" width="383" height="56"/>
+                                            <frame key="frameInset" width="383" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="5IK-yO-1U0">
@@ -1905,7 +1905,7 @@
         <image name="searchglass_small" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fpa-1R-Use"/>
+        <segue reference="brs-la-qoN"/>
         <segue reference="6S3-Y3-So5"/>
     </inferredMetricsTieBreakers>
 </document>

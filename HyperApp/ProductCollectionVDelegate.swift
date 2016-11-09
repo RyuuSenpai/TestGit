@@ -24,43 +24,17 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDelegate
             
         }else {
             return CGSize(width: 150, height: 234)
-            
         }
-        
     }
-}
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == self.reviewsCollectionView {
 
-extension ProductDetailsVC : UICollectionViewDataSource {
-    
-    func exCollectionVDataSourceProtocoal() {
-        
-        self.reviewsCollectionView.dataSource = self
-        self.RelatedItemsCollectionView.dataSource = self
-    }
-    
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.reviewsCollectionView {
-            return 5
-        }else {
-            return 11
-        }
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //RelatedItemsCell
-        
-        if collectionView == self.reviewsCollectionView {
-            let cell : ProductReviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ProductReviewCell
-            return cell
-        }else {
-            let cell : RelatedItemsProductDetailsVCCell = collectionView.dequeueReusableCell(withReuseIdentifier: "RelatedItemsCell", for: indexPath) as! RelatedItemsProductDetailsVCCell
-            return cell
+        print("That is the index of the Review Cell : \(indexPath.row)")
+        } else {
+            print("That is the index of the Related item Cell : \(indexPath.row)")
+
         }
     }
 }

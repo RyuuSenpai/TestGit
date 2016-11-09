@@ -10,27 +10,38 @@ import UIKit
 import Google
 import GoogleSignIn
 import FBSDKLoginKit
-
+import CoreData
 class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButtonDelegate {
     
     
+    let userMail = ""
+    let userID = ""
+
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations on signed in user here.
-//        let userId = user.userID
-//        let idToken = user.authentication.idToken
-//        let fullName = user.profile.name
-//        let givenName = user.profile.givenName
-//        let familyName = user.profile.familyName
-//        let email = user.profile.email
-//        let userImage = user.profile.imageURL(withDimension: 400)
-//        print("idToken :\(idToken)")
-//        print("fullName :\(fullName)")
-//        print("givenName :\(givenName)")
-//        print("familyName :\(familyName)")
-//        print("email :\(email)")
-//        print("userId :\(userId)")
-//        print("userImage :\(userImage)")
+        guard user != nil else {
+            return
+        }
+        guard let id = user.userID , let email = user.profile.email else {  return
+            UserDefaults.standard.setValue(nil, forKey: "userID")
 
+        }
+        print("userId :\(id)")
+        print("email :\(email)")
+        
+        UserDefaults.standard.setValue(id, forKey: "userID")
+        /*
+        let idToken = user.authentication.idToken
+        let fullName = user.profile.name
+        let givenName = user.profile.givenName
+        let familyName = user.profile.familyName
+        let userImage = user.profile.imageURL(withDimension: 400)
+        print("idToken :\(idToken)")
+        print("fullName :\(fullName)")
+        print("givenName :\(givenName)")
+        print("familyName :\(familyName)")
+        print("userImage :\(userImage)")
+*/
         
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
@@ -44,13 +55,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
         GIDSignIn.sharedInstance().signInSilently()
 */
         
-        //Matk : - facebook Login
-        let FBLoginButton = FBSDKLoginButton()
-        view.addSubview(FBLoginButton)
-                FBLoginButton.frame = CGRect(x: 16, y: 50, width: view.frame.width - 32, height: 50)
-        FBLoginButton.delegate = self
-        //@End FB
-        GIDSignIn.sharedInstance().signOut()
+
+//        GIDSignIn.sharedInstance().signOut()
 
         
         var configureError: NSError?
@@ -85,6 +91,41 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
         }
         
         print("Successfully logged in with facebook...")
+        showFbEmailAddress()
+    }
+    
+    @IBAction func fbLoginBtnAct(_ sender: AnyObject) {
+        FBSDKLoginManager().logIn(withReadPermissions: ["email","public_profile"], from: self) { (result, err ) in
+            if err != nil {
+                print("Custom FB Login failed",err)
+                return
+            }
+//            print(result?.token.tokenString)
+            self.showFbEmailAddress()
+        }
+    }
+    
+    @IBAction func TestSignOut(_ sender: AnyObject) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+            GIDSignIn.sharedInstance().signOut()
+
+        UserDefaults.standard.setValue(nil, forKey: "userID")
+
+    }
+    func showFbEmailAddress(){
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields":"id, name, email,first_name,last_name,picture"]).start { (connection, result, err) in
+            
+            if err != nil {
+                print("failed to start graph request :  ",err)
+            }
+            print(result)
+            /*
+             var userID = user["id"] as NSString
+             var facebookProfileUrl = "http://graph.facebook.com/\(userID)/picture?type=large"
+ */
+            
+        }
     }
     
     //@End FB Delegate
@@ -100,7 +141,11 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
          GIDSignIn.sharedInstance().signOut()
  */
     }
+    
 
+    @IBAction func dismissView(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
+    }
 
 }
 

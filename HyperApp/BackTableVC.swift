@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSource {
+    @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var signin: UIButton!
+    @IBOutlet weak var signOut: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var SeugeIdArray = [String()]
 
@@ -19,7 +23,20 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self 
-        SeugeIdArray = ["HomePage","Wish List"]
+        SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart"]
+        
+         let x = (containerView.frame.size.height  * 0.3 * 0.6  / 2.7)
+
+        profileImage.layer.borderWidth = 3.0
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.white.cgColor
+        profileImage.layer.cornerRadius = x
+        profileImage.clipsToBounds = true
+        
+        
+        
+        
+
 
     }
     
@@ -55,6 +72,8 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
 //        UIGraphicsEndImageContext();
 //        return newImage!
 //    }
+    
+    
 }
 
 

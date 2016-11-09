@@ -17,24 +17,54 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
+    @IBOutlet weak var cartBarButton: UIBarButtonItem!
     
     
     private let reuseIdentifier = "CategoriesCell"
     
+    var itemsInCart : Int {
+        get {
+            do {
+                let items = try context.fetch(CDOnCart.fetchRequest())
+               return  items.count
+            } catch let error as NSError {
+                print("OnCart Badge error : \(error )")
+            }
+        return 0
+        }
+ 
+    }
     
-    
+    var productCategory : [ProductCategories]?
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     
+ 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        productCategory = ProductCategories.productCategories()
         PromotionImageProtocoal(scrollView : PromotionscrollView)
         
+        self.cartBarButton.badgeBGColor = UIColor.red
+        self.cartBarButton.badgeTextColor = UIColor.white
+        self.cartBarButton.badgeValue = "\(itemsInCart)"
+        self.cartBarButton.shouldAnimateBadge = true
+        self.cartBarButton.shouldHideBadgeAtZero = true
+        
+        if  itemsInCart >= 1 {
+            self.cartBarButton.tintColor = UIColor.black
+        }else {
+            self.cartBarButton.tintColor = UIColor.white
+        }
+
         if self.revealViewController() != nil {
             sideMenuBOL.target = self.revealViewController()
             sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-            //     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+                self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
+//                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
         
@@ -44,18 +74,52 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         mainProductsRow.dataSource = self
     }
     
+    
 
+    
+    func cartNumberOfItemsBadge(){
+        do {
+            let items = try context.fetch(CDOnCart.fetchRequest())
+            print("that is items in count \(items.count)")
+           
+            self.cartBarButton.badgeValue = "\(items.count)"
+            
+        } catch let error as NSError {
+            print("OnCart Badge error : \(error )")
+        }
+
+        self.cartBarButton.shouldAnimateBadge = true
+        self.cartBarButton.shouldHideBadgeAtZero = true
+        if  itemsInCart >= 1 {
+            self.cartBarButton.tintColor = UIColor.black
+            
+        }else {
+            self.cartBarButton.tintColor = UIColor.white
+        }
+    }
+    
+    
     
     @IBAction func tappedPromotionImage(_ sender: AnyObject) {
         
-tappedPromotionImg(scrollView : PromotionscrollView)
+        tappedPromotionImg(scrollView : PromotionscrollView)
+
     }
     
     
     @IBAction func searchGesture(_ sender: AnyObject) {
         print("Search clicked")
+        guard let userID =  (UserDefaults.standard.value(forKey: "userID")) else {
+            print(" USer ID = nil")
+            return
+        }
+        print("\(userID)")
+        
+
     }
     
+    
+
     /*
      // MARK: - Navigation
      
@@ -78,7 +142,10 @@ tappedPromotionImg(scrollView : PromotionscrollView)
         if collectionView == self.categoriesCollectionView {
             return 9
         }else {
-            return 5
+            if let count = productCategory?.count {
+                            return count
+            }
+            return 0
         }
     }
     
@@ -94,14 +161,23 @@ tappedPromotionImg(scrollView : PromotionscrollView)
             
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
+            cell.productCategory = productCategory?[indexPath.row]
+            
             return cell
             
         }
     }
-    func showProductDetailsVC(productDetails : Int , CatIndex : Int) {
+    
+    
+    
+    
+    
+    
+    func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : productDetails?) {
         let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-        productDetailController.productNumber = productDetails
-        productDetailController.categoryNumber = CatIndex
+
+        productDetailController.products = product
+        
         navigationController?.pushViewController(productDetailController, animated: true)
     }
     // MARK: UICOllectionViewDelegate
@@ -110,10 +186,10 @@ tappedPromotionImg(scrollView : PromotionscrollView)
         if collectionView == self.categoriesCollectionView {
             
             let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-//            productDetailController.productNumber =  0
-//            productDetailController.categoryNumber = indexPath.row
+            //            productDetailController.productNumber =  0
+            //            productDetailController.categoryNumber = indexPath.row
             navigationController?.pushViewController(productDetailController, animated: true)
-        
+            
         }
         
     }
@@ -133,5 +209,12 @@ tappedPromotionImg(scrollView : PromotionscrollView)
             //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)
         }
     }
+    @IBAction func CartBtnA(_ sender: AnyObject) {
+        
+        
+        
+    }
+    
+    
     
 }

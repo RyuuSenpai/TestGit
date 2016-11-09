@@ -18,9 +18,14 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
 //    @IBOutlet weak var categoryID: UILabel!
 //    @IBOutlet weak var productID: UILabel!
     @IBOutlet weak var numperOfReviews: UIButton!
-    @IBOutlet weak var priceOL: UILabel!
     @IBOutlet weak var favItemBOL: UIButton!
     @IBOutlet weak var addTOCarBOL: UIButton!
+
+    @IBOutlet weak var productTitle: UILabel?
+    
+    @IBOutlet weak var priceOL: UILabel!
+
+    @IBOutlet weak var preDicountPrice: UILabel!
 
     var CurrentRating : String?
     var categoryNumber : Int? /*{
@@ -37,6 +42,25 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             }
         }
     }*/
+    
+    var products : productDetails?
+    
+    func updateUI() {
+        
+        if let title = products?.name {
+            productTitle!.text = title
+        }
+        if let price = products?.price{
+            priceOL.text = "\(price) L.E"
+        }
+        if let prePrice = products?.preDiscountPrice {
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
+            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1.5, range: NSMakeRange(0, attributeString.length))
+            preDicountPrice.attributedText = attributeString
+        }
+
+    }
+
         let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     override func viewDidLoad() {
@@ -46,8 +70,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         RatingProtocoal()
         exCollectionVDelegateProtocoal()
         exCollectionVDataSourceProtocoal()
-        
-        
+        updateUI()
         print("\(categoryNumber)")
         print("\(productNumber)")
 //        if let productid  = productNumber {
@@ -59,10 +82,11 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
 
 
-    @IBAction func tappedProdectImage(_ sender: AnyObject) {
-        
+    @IBAction func tappedProductImage(_ sender: AnyObject) {
         tappedPromotionImg(scrollView : productImagescrollView)
+
     }
+
 
     @IBAction func descriptionTapGesture(_ sender: AnyObject) {
         print("Open description Page")
@@ -97,7 +121,9 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
     
     @IBAction func peopleAlsoViewdSeeAllBA(_ sender: AnyObject) {
-        
+       print("Related Item See All")
     }
+    
+    
 
 }

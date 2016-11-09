@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
-
+import GoogleSignIn
+import FBSDKLoginKit
 class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSource {
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -24,15 +25,28 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self 
         SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart"]
-        
          let x = (containerView.frame.size.height  * 0.3 * 0.6  / 2.7)
+        //        guard let userID =  (UserDefaults.standard.value(forKey: "userID")) else {
+        if let userLogged = UserDefaults.standard.value(forKey: "userID")  {
+            
+       
+        guard let image = UserDefaults.standard.value(forKey: "profileImage") else { return }
+        profileImage.image = UIImage(data: image as! Data )
 
         profileImage.layer.borderWidth = 3.0
         profileImage.layer.masksToBounds = false
         profileImage.layer.borderColor = UIColor.white.cgColor
         profileImage.layer.cornerRadius = x
         profileImage.clipsToBounds = true
-        
+            
+            profileImage.isHidden = false
+            signOut.isHidden = false
+            signin.isHidden = true
+        }else {
+            profileImage.isHidden = true
+            signOut.isHidden = true
+            signin.isHidden = false
+        }
         
         
         
@@ -73,7 +87,29 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
 //        return newImage!
 //    }
     
+    @IBAction func signOutBtnAct(_ sender: UIButton) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        GIDSignIn.sharedInstance().signOut()
+        
+        UserDefaults.standard.setValue(nil, forKey: "userID")
+
+        ad.reloadApp()
+
+    }
     
+}
+
+
+
+extension UINavigationController {
+    func pop(animated: Bool) {
+        _ = self.popViewController(animated: animated)
+    }
+    
+    func popToRoot(animated: Bool) {
+        _ = self.popToRootViewController(animated: animated)
+    }
 }
 
 

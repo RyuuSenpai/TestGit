@@ -357,20 +357,74 @@
                                     <constraint firstItem="b6p-gI-EfK" firstAttribute="top" secondItem="YDz-XJ-Gxz" secondAttribute="bottom" constant="28" id="wIv-qq-c8y"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C95-FQ-wN5">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3-userWelcomeingImage" translatesAutoresizingMaskIntoConstraints="NO" id="jMi-RD-Z1M">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jMi-RD-Z1M" secondAttribute="height" multiplier="187:188" id="QjI-gz-E3u"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCJ-03-P80">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="ub8-ka-YKv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
+                                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eslam" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDB-N0-eTY">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="vpd-8N-Yg0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
+                                        <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.018136160714285698" green="0.018136160714285698" blue="0.018136160714285698" alpha="0.92415552745664742" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="jMi-RD-Z1M" firstAttribute="top" secondItem="C95-FQ-wN5" secondAttribute="top" constant="60" id="587-vf-Bf6"/>
+                                    <constraint firstItem="jMi-RD-Z1M" firstAttribute="centerX" secondItem="C95-FQ-wN5" secondAttribute="centerX" id="8OV-GB-3B2"/>
+                                    <constraint firstItem="oCJ-03-P80" firstAttribute="top" secondItem="jMi-RD-Z1M" secondAttribute="bottom" constant="39" id="BvF-TI-gdZ"/>
+                                    <constraint firstItem="HDB-N0-eTY" firstAttribute="top" secondItem="oCJ-03-P80" secondAttribute="bottom" constant="20" id="WV8-gk-KX1"/>
+                                    <constraint firstItem="HDB-N0-eTY" firstAttribute="width" secondItem="oCJ-03-P80" secondAttribute="width" id="Y02-fJ-rzz"/>
+                                    <constraint firstItem="jMi-RD-Z1M" firstAttribute="width" secondItem="C95-FQ-wN5" secondAttribute="width" multiplier="0.5" id="eS7-9M-1wb"/>
+                                    <constraint firstItem="oCJ-03-P80" firstAttribute="width" secondItem="jMi-RD-Z1M" secondAttribute="width" id="jNl-aF-yL3"/>
+                                    <constraint firstItem="HDB-N0-eTY" firstAttribute="centerX" secondItem="oCJ-03-P80" secondAttribute="centerX" id="t43-c4-Nhk"/>
+                                    <constraint firstItem="oCJ-03-P80" firstAttribute="centerX" secondItem="jMi-RD-Z1M" secondAttribute="centerX" id="xmc-Bv-2eD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="C95-FQ-wN5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0R3-PY-V8p"/>
                             <constraint firstItem="3si-0k-O7a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1wS-b9-wcs"/>
                             <constraint firstAttribute="trailing" secondItem="3si-0k-O7a" secondAttribute="trailing" id="40C-SW-oSH"/>
+                            <constraint firstItem="C95-FQ-wN5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DIg-Tg-7Ak"/>
+                            <constraint firstAttribute="trailing" secondItem="C95-FQ-wN5" secondAttribute="trailing" id="H1S-a4-Wyl"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3si-0k-O7a" secondAttribute="bottom" id="VIX-pN-KE3"/>
                             <constraint firstItem="3si-0k-O7a" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ZVz-sU-M92"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="C95-FQ-wN5" secondAttribute="bottom" id="tOk-gv-8ds"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign in" id="FVk-tT-j5H"/>
+                    <connections>
+                        <outlet property="afterLogginUserName" destination="HDB-N0-eTY" id="Uxg-ES-d5Y"/>
+                        <outlet property="afterLogginView" destination="C95-FQ-wN5" id="WIU-P7-TdJ"/>
+                        <outlet property="dissMissView" destination="ZXj-hb-GwG" id="Iyp-tT-frJ"/>
+                        <outlet property="fbSigninBtnOL" destination="hDa-Id-6Es" id="vlL-XO-hdd"/>
+                        <outlet property="googleSigninBtnOL" destination="e6F-eb-TfW" id="fKb-cp-sRe"/>
+                        <outlet property="signBtnOL" destination="7LZ-ge-gDx" id="qNc-FM-KtY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-43754" y="-1684"/>
+            <point key="canvasLocation" x="-43754.400000000001" y="-1684.4077961019491"/>
         </scene>
         <!--Home-->
         <scene sceneID="SSo-Y7-nrT">
@@ -1820,6 +1874,9 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="signOutBtnAct:" destination="iI3-DQ-JwC" eventType="touchUpInside" id="hg2-qW-x5f"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2351,6 +2408,7 @@
         <image name="1-remove" width="24" height="24"/>
         <image name="2-sideMenuProfile" width="760" height="397"/>
         <image name="3" width="640" height="960"/>
+        <image name="3-userWelcomeingImage" width="96" height="96"/>
         <image name="5" width="6830" height="4264"/>
         <image name="Carrefour-logo" width="2272" height="1704"/>
         <image name="Heart With Pulse" width="50" height="50"/>
@@ -2370,7 +2428,7 @@
         <image name="searchglass_small" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fpa-1R-Use"/>
         <segue reference="7L1-l9-s2e"/>
+        <segue reference="fpa-1R-Use"/>
     </inferredMetricsTieBreakers>
 </document>

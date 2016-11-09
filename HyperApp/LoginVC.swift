@@ -14,9 +14,6 @@ import CoreData
 class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButtonDelegate {
     
     
-    let userMail = ""
-    let userID = ""
-    
     @IBOutlet weak var afterLogginView: UIView!
     @IBOutlet weak var afterLogginUserName: UILabel!
     
@@ -25,44 +22,47 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
     @IBOutlet weak var fbSigninBtnOL: UIButton!
     @IBOutlet weak var dissMissView: UIButton!
     
-    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations on signed in user here.
-        self.setUIEnabled(enabled: false)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard user != nil else {
-            self.setUIEnabled(enabled: true)
-            return
-        }
-        guard let id = user.userID , let email = user.profile.email ,  let userImage = user.profile.imageURL(withDimension: 400) else {
-            UserDefaults.standard.setValue(nil, forKey: "userID")
-            self.setUIEnabled(enabled: true)
-            return
-        }
+        googleProtocol()
         
-        print("userId :\(id)")
-        print("email :\(email)")
-        UIView.animate(withDuration: 5.0, delay: 0,
-                       options: UIViewAnimationOptions.curveEaseOut, animations: {
-                        self.afterLogginView.alpha = 1.0
-            },  completion: { [weak self] finished in
-                UserDefaults.standard.setValue(id, forKey: "userID")
-                self?.imageURlToImage(imageURL: userImage)
-                ad.reloadApp()
-            })
-        /*
-         let idToken = user.authentication.idToken
-         let fullName = user.profile.name
-         let givenName = user.profile.givenName
-         let familyName = user.profile.familyName
-         let userImage = user.profile.imageURL(withDimension: 400)
-         print("idToken :\(idToken)")
-         print("fullName :\(fullName)")
-         print("givenName :\(givenName)")
-         print("familyName :\(familyName)")
-         print("userImage :\(userImage)")
-         */
+        keyboardViewDIdLoad()
         
     }
+    
+    //MARK: - KeyBoardOutOfTheWay
+    func keyboardViewDIdLoad(){
+        NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignupVC.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    //@End of KeyBoard
     
     func setUIEnabled(enabled:Bool) {
         self.fbSigninBtnOL.isEnabled = enabled
@@ -71,14 +71,12 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
         self.dissMissView.isEnabled = enabled
         
         if enabled {
-            print("true")
             fbSigninBtnOL.alpha = 1.0
             googleSigninBtnOL.alpha = 1.0
             signBtnOL.alpha = 1.0
             dissMissView.alpha = 1.0
             
         }else {
-            print("false")
             fbSigninBtnOL.alpha = 0.5
             googleSigninBtnOL.alpha = 0.5
             signBtnOL.alpha = 0.5
@@ -87,74 +85,20 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
         
     }
     
-    func imageURlToImage(imageURL:URL) {
-        
-        
-        let imageData = NSData(contentsOf: imageURL)
-        
-        UserDefaults.standard.setValue(imageData, forKey: "profileImage")
-        
-    }
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        print(" el ")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        /*
-         GIDSignIn.sharedInstance().signInSilently()
-         */
-        
-//        setUIEnabled(enabled: true)
-        
-        //        GIDSignIn.sharedInstance().signOut()
-        
-        
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        
-        if configureError != nil {
-            print(configureError)
-        }
-        
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
-        
-        //        let button = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        //        button.center = view.center
-        //
-        //        view.addSubview(button)
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignupVC.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+    @IBAction func dismissView(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     
-    //MARK : - Facebook deledate Protocoal
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("Did log out of facebook")
-    }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-         self.setUIEnabled(enabled: false )
-        if error != nil {
-            print(error)
-             self.setUIEnabled(enabled: true)
-            return
-        }
-        
-        print("Successfully logged in with facebook...")
-        
-        showFbEmailAddress()
-    }
+    //MARK: - Facebook deledate Protocoal
     
     @IBAction func fbLoginBtnAct(_ sender: AnyObject) {
         
         FBSDKLoginManager().logIn(withReadPermissions: ["email","public_profile"], from: self) { (result, err ) in
             if err != nil {
                 print("Custom FB Login failed",err)
-                 self.setUIEnabled(enabled: true)
+                self.setUIEnabled(enabled: true)
                 return
             }
             //            print(result?.token.tokenString)
@@ -163,13 +107,22 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
         }
     }
     
-    @IBAction func TestSignOut(_ sender: AnyObject) {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        GIDSignIn.sharedInstance().signOut()
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Did log out of facebook")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        self.setUIEnabled(enabled: false )
+        if error != nil {
+            print(error)
+            self.setUIEnabled(enabled: true)
+            return
+        }
         
-        UserDefaults.standard.setValue(nil, forKey: "userID")
+        print("Successfully logged in with facebook...")
         
+        showFbEmailAddress()
     }
     
     func showFbEmailAddress(){
@@ -180,37 +133,96 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
                 self.setUIEnabled(enabled: true)
                 print("failed to start graph request :  ",err)
                 
+            }else {
+                
+                let resultD = result as? NSDictionary
+                if let result = resultD {
+                    
+                    guard let id = result["id"] as? String , let fName = result["first_name"] as? String ,let email  = result["email"] as? String  else {return }
+                    print(id)
+                    self.afterLogginUserName.text = fName
+                    let imageURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")
+                    let imageString : String =  "\(imageURL!)"
+                    
+                    self.afterLogginView.fadeIn(duration: 2.5, delay: 0, completion: { (finished: Bool) in
+
+                        ad.saveUserLogginData(email: email, photoUrl: imageString)
+                        ad.reloadApp()
+                    })
+                }
             }
-            print(result)
-            
-            /*
-             var userID = user["id"] as NSString
-             var facebookProfileUrl = "http://graph.facebook.com/\(userID)/picture?type=large"
-             */
-            
         }
     }
     
     //@End FB Delegate
-    //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
+    
+    
+    //MARK: - Google
     
     @IBAction func googleSignIn(_ sender: AnyObject) {
         self.setUIEnabled(enabled: false)
         GIDSignIn.sharedInstance().signIn()
+    }
+    
+    
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations on signed in user here.
+        self.setUIEnabled(enabled: false)
+        
+        guard user != nil else {
+            self.setUIEnabled(enabled: true)
+            return
+        }
+        guard let id = user.userID , let email = user.profile.email ,  let userImage = user.profile.imageURL(withDimension: 400) ,  let firstName = user.profile.givenName else {
+            ad.saveUserLogginData(email: nil, photoUrl: nil)
+            self.setUIEnabled(enabled: true)
+            return
+        }
+        
+        print("userId :\(id)")
+        print("email :\(email)")
+        let imageString : String = "\(userImage)"
+        self.afterLogginUserName.text = firstName
+        UIView.animate(withDuration: 2.5, delay: 0,
+                       options: UIViewAnimationOptions.curveEaseOut, animations: {
+                        self.afterLogginView.alpha = 1.0
+            },  completion: {  finished in
+                ad.saveUserLogginData(email: email, photoUrl: imageString)
+                ad.reloadApp()
+        })
+        
         
         /*
-         GIDSignIn.sharedInstance().signOut()
+         let idToken = user.authentication.idToken
+         let fullName = user.profile.name
+         let familyName = user.profile.familyName
+         let userImage = user.profile.imageURL(withDimension: 400)
+         print("idToken :\(idToken)")
+         print("fullName :\(fullName)")
+         print("familyName :\(familyName)")
+         print("userImage :\(userImage)")
          */
+        
     }
     
     
-    @IBAction func dismissView(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        print(" didDisconnectWith ")
     }
     
+    func googleProtocol() {
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        
+        if configureError != nil {
+            print(configureError)
+        }
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+    }
 }
+
+
 

@@ -19,30 +19,34 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     @IBOutlet weak var mainProductsRow: UICollectionView!
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
     
-    
+    static var profileImage : UIImage?
     private let reuseIdentifier = "CategoriesCell"
     
     var itemsInCart : Int {
         get {
             do {
                 let items = try context.fetch(CDOnCart.fetchRequest())
-               return  items.count
+                return  items.count
             } catch let error as NSError {
                 print("OnCart Badge error : \(error )")
             }
-        return 0
+            return 0
         }
- 
+        
     }
     
     var productCategory : [ProductCategories]?
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     
- 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       HomePageVC.profileImage = profileMenuImage()
+        
+        
         productCategory = ProductCategories.productCategories()
         PromotionImageProtocoal(scrollView : PromotionscrollView)
         
@@ -57,13 +61,13 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }else {
             self.cartBarButton.tintColor = UIColor.white
         }
-
+        
         if self.revealViewController() != nil {
             sideMenuBOL.target = self.revealViewController()
             sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-                self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
-//                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
+            //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
@@ -75,19 +79,19 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     
-
+    
     
     func cartNumberOfItemsBadge(){
         do {
             let items = try context.fetch(CDOnCart.fetchRequest())
             print("that is items in count \(items.count)")
-           
+            
             self.cartBarButton.badgeValue = "\(items.count)"
             
         } catch let error as NSError {
             print("OnCart Badge error : \(error )")
         }
-
+        
         self.cartBarButton.shouldAnimateBadge = true
         self.cartBarButton.shouldHideBadgeAtZero = true
         if  itemsInCart >= 1 {
@@ -103,23 +107,19 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     @IBAction func tappedPromotionImage(_ sender: AnyObject) {
         
         tappedPromotionImg(scrollView : PromotionscrollView)
-
+        
     }
     
     
     @IBAction func searchGesture(_ sender: AnyObject) {
         print("Search clicked")
-        guard let userID =  (UserDefaults.standard.value(forKey: "userID")) else {
-            print(" USer ID = nil")
-            return
-        }
-        print("\(userID)")
         
-
+        
+        
     }
     
     
-
+    
     /*
      // MARK: - Navigation
      
@@ -143,7 +143,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             return 9
         }else {
             if let count = productCategory?.count {
-                            return count
+                return count
             }
             return 0
         }
@@ -175,7 +175,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : productDetails?) {
         let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-
+        
         productDetailController.products = product
         
         navigationController?.pushViewController(productDetailController, animated: true)
@@ -214,6 +214,23 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         
         
     }
+    
+    func profileMenuImage() -> UIImage {
+        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
+            
+            do {
+                let image = try Data(contentsOf: imageURL )
+                return  UIImage(data: image)!
+            }catch let error as NSError {
+                print("Error in Sidmenu setImage",error )
+                return UIImage(named: "4-userProfileImagePlaceHolder")!
+            }
+            
+        }else {
+            return UIImage(named:"4-userProfileImagePlaceHolder")!
+        }
+    }
+
     
     
     

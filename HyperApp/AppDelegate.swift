@@ -128,8 +128,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.window?.rootViewController = storyboard.instantiateInitialViewController()
     }
-}
+    
+    func saveUserLogginData(email:String?,photoUrl : String?) {
+        
+        if   let email = email   {
+            UserDefaults.standard.setValue(email, forKey: "userEmail")
+        }else{
+            UserDefaults.standard.setValue(nil, forKey: "userEmail")
 
+        }
+        
+            if  let photo = photoUrl {
+            UserDefaults.standard.setValue(photo, forKey: "profileImage")
+        }else {
+            UserDefaults.standard.setValue(nil, forKey: "profileImage")
+        }
+}
+    
+    func isUserLoggedIn() -> Bool {
+        if (UserDefaults.standard.value(forKey: "userEmail") != nil) {
+            return true
+        }else {
+            return false 
+        }
+        
+    }
+   
+
+}
 let ad = UIApplication.shared.delegate as! AppDelegate
 let context = ad.persistentContainer.viewContext
 

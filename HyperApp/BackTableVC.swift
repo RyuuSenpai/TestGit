@@ -19,6 +19,7 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     var SeugeIdArray = [String()]
 
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +27,9 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         tableView.dataSource = self 
         SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart"]
          let x = (containerView.frame.size.height  * 0.3 * 0.6  / 2.7)
-        //        guard let userID =  (UserDefaults.standard.value(forKey: "userID")) else {
-        if let userLogged = UserDefaults.standard.value(forKey: "userID")  {
+        if UserDefaults.standard.value(forKey: "userEmail") != nil  {
             
-       
-        guard let image = UserDefaults.standard.value(forKey: "profileImage") else { return }
-        profileImage.image = UIImage(data: image as! Data )
-
+            profileImage.image = HomePageVC.profileImage!
         profileImage.layer.borderWidth = 3.0
         profileImage.layer.masksToBounds = false
         profileImage.layer.borderColor = UIColor.white.cgColor
@@ -92,8 +89,7 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         loginManager.logOut()
         GIDSignIn.sharedInstance().signOut()
         
-        UserDefaults.standard.setValue(nil, forKey: "userID")
-
+ad.saveUserLogginData(email: nil, photoUrl: nil)
         ad.reloadApp()
 
     }

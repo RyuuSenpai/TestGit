@@ -27,6 +27,7 @@
 		712E5A681DAA95B800990B26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 712E5A661DAA95B800990B26 /* LaunchScreen.storyboard */; };
 		712E5A701DAA960100990B26 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 712E5A6F1DAA960100990B26 /* Podfile */; };
 		7137C1111DAE6FA40056FD10 /* RegisterTextFieldDeledate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137C1101DAE6FA40056FD10 /* RegisterTextFieldDeledate.swift */; };
+		713DD2081DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713DD2071DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift */; };
 		7147C31C1DBFBC4E00CB97BC /* ProductDetailsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7147C31B1DBFBC4E00CB97BC /* ProductDetailsRating.swift */; };
 		7147C31E1DBFC0EF00CB97BC /* Rating MaterialKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7147C31D1DBFC0EF00CB97BC /* Rating MaterialKey.swift */; };
 		7147C3201DBFC62300CB97BC /* HomePagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7147C31F1DBFC62300CB97BC /* HomePagerExtension.swift */; };
@@ -72,6 +73,7 @@
 		712E5A691DAA95B800990B26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		712E5A6F1DAA960100990B26 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7137C1101DAE6FA40056FD10 /* RegisterTextFieldDeledate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTextFieldDeledate.swift; sourceTree = "<group>"; };
+		713DD2071DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFadeInOutExtension.swift; sourceTree = "<group>"; };
 		7147C31B1DBFBC4E00CB97BC /* ProductDetailsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsRating.swift; sourceTree = "<group>"; };
 		7147C31D1DBFC0EF00CB97BC /* Rating MaterialKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rating MaterialKey.swift"; sourceTree = "<group>"; };
 		7147C31F1DBFC62300CB97BC /* HomePagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePagerExtension.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				712E5A5F1DAA95B800990B26 /* LoginVC.swift */,
 				710787881DCFB1340032CA6F /* OnCartVC.swift */,
 				71073D441DBEB40D00154B62 /* PromotionVC.swift */,
+				7193A4DF1DAC3A7C005FFCCD /* SignupVC.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -192,7 +195,6 @@
 				712407791DAFDF5000C458C4 /* V */,
 				712407781DAFDF3D00C458C4 /* C */,
 				71C7E2B91DB7A76700045660 /* Others */,
-				7193A4DF1DAC3A7C005FFCCD /* SignupVC.swift */,
 				7137C1101DAE6FA40056FD10 /* RegisterTextFieldDeledate.swift */,
 				712E5A611DAA95B800990B26 /* Main.storyboard */,
 				712E5A641DAA95B800990B26 /* Assets.xcassets */,
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				71E089B81DBF84DF0082857B /* BackTableVC.swift */,
+				713DD2071DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift */,
 				711EF3FB1DBFB95A00187718 /* FloatRatingView.swift */,
 				7163DA4E1DD216C700863A37 /* RoundedImage.swift */,
 				715B0E121DC62EA200FF4CC3 /* UIBarButtonItem+Badge.h */,
@@ -397,6 +400,7 @@
 				712E5A601DAA95B800990B26 /* LoginVC.swift in Sources */,
 				71F5ADAE1DBBDA7C00D68D41 /* ProductCategories.swift in Sources */,
 				711EF3FC1DBFB95A00187718 /* FloatRatingView.swift in Sources */,
+				713DD2081DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift in Sources */,
 				711342311DBAB68100BDC5D2 /* HomeCategoriesCell.swift in Sources */,
 				711208561DC0F1CE0038EC61 /* RelatedItemsProductDetailsVCCell.swift in Sources */,
 				7147C3231DBFDE1D00CB97BC /* ProductDetailPagerExtension.swift in Sources */,

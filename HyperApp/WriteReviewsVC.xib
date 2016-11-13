@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteReviewsVC" customModule="HyperApp" customModuleProvider="target">
+            <connections>
+                <outlet property="floatRatingView" destination="UNY-Mz-502" id="few-CQ-wRn"/>
+                <outlet property="longReview" destination="TPp-LV-g61" id="ssQ-bG-jgU"/>
+                <outlet property="reviewTitle" destination="d2O-Wr-wxn" id="MnI-bV-F3l"/>
+                <outlet property="scrollView" destination="quu-mv-IHG" id="GWS-zc-cDD"/>
+                <outlet property="view" destination="GhJ-0j-nY9" id="QiE-y7-ZkF"/>
+                <outlet property="whatGoodText" destination="Id2-v8-KSM" id="VG0-Ol-d8k"/>
+                <outlet property="whatNotGood" destination="Hpc-yH-8Bx" id="hZc-uR-P9Q"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="GhJ-0j-nY9">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="quu-mv-IHG">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URJ-Jh-N2m">
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNY-Mz-502" customClass="FloatRatingView" customModule="HyperApp" customModuleProvider="target">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="210" id="0Z4-qK-uec"/>
+                                        <constraint firstAttribute="height" constant="50" id="BK7-8r-8ON"/>
+                                        <constraint firstAttribute="width" constant="210" id="QSU-13-2B0"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="eZp-gW-u6m"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="ratingMaterialDesign" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag on star to rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGS-JP-Yx0">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="140" id="LgW-Gd-htd"/>
+                                        <constraint firstAttribute="height" constant="17" id="SxX-aj-Jrf"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="e5z-Vy-Ab9"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="H9T-Bw-iAR">
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="S30-0t-feD">
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Review Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d2O-Wr-wxn">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Gwz-mJ-H0t"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What's good about this items" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Id2-v8-KSM">
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="what's not good about this items" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hpc-yH-8Bx">
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4gb-bn-oXd">
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review (Min 100 characters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2P-4A-oCV">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TPp-LV-g61">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="130" id="e0x-bi-ibC"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="TPp-LV-g61" secondAttribute="trailing" id="8zT-cN-cPM"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4gb-bn-oXd" firstAttribute="width" secondItem="S30-0t-feD" secondAttribute="width" id="WSk-vz-uNR"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="MGS-JP-Yx0" firstAttribute="centerX" secondItem="UNY-Mz-502" secondAttribute="centerX" id="4XJ-r4-c9g"/>
+                                <constraint firstItem="UNY-Mz-502" firstAttribute="centerX" secondItem="URJ-Jh-N2m" secondAttribute="centerX" id="4wR-XW-8Om"/>
+                                <constraint firstItem="H9T-Bw-iAR" firstAttribute="top" secondItem="MGS-JP-Yx0" secondAttribute="bottom" constant="18" id="Bup-nv-G1C"/>
+                                <constraint firstItem="d2O-Wr-wxn" firstAttribute="width" secondItem="URJ-Jh-N2m" secondAttribute="width" multiplier="0.83" id="Dkp-Ui-j65"/>
+                                <constraint firstItem="MGS-JP-Yx0" firstAttribute="top" secondItem="UNY-Mz-502" secondAttribute="bottom" constant="8" id="G15-pM-MDH"/>
+                                <constraint firstAttribute="height" constant="550" id="SPj-dP-y4i"/>
+                                <constraint firstItem="UNY-Mz-502" firstAttribute="top" secondItem="URJ-Jh-N2m" secondAttribute="top" constant="15" id="tbQ-eA-ibd"/>
+                                <constraint firstItem="H9T-Bw-iAR" firstAttribute="centerX" secondItem="MGS-JP-Yx0" secondAttribute="centerX" id="zBS-GM-Vuv"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="URJ-Jh-N2m" secondAttribute="bottom" id="aef-p4-oOI"/>
+                        <constraint firstAttribute="trailing" secondItem="URJ-Jh-N2m" secondAttribute="trailing" id="er5-wf-ujQ"/>
+                        <constraint firstItem="URJ-Jh-N2m" firstAttribute="leading" secondItem="quu-mv-IHG" secondAttribute="leading" id="pRr-zZ-JWf"/>
+                        <constraint firstItem="URJ-Jh-N2m" firstAttribute="top" secondItem="quu-mv-IHG" secondAttribute="top" id="uhc-bP-fJj"/>
+                    </constraints>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WlX-WD-jZR">
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHe-3c-752">
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                            <state key="normal" title="Submit review">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="cHe-3c-752" secondAttribute="trailing" constant="28" id="BpJ-i6-1rQ"/>
+                        <constraint firstItem="cHe-3c-752" firstAttribute="leading" secondItem="WlX-WD-jZR" secondAttribute="leading" constant="28" id="GlN-a8-2Ql"/>
+                        <constraint firstAttribute="bottom" secondItem="cHe-3c-752" secondAttribute="bottom" constant="15" id="ekE-zi-Kfz"/>
+                        <constraint firstItem="cHe-3c-752" firstAttribute="top" secondItem="WlX-WD-jZR" secondAttribute="top" constant="15" id="rAq-Qy-Ez4"/>
+                        <constraint firstAttribute="height" constant="87" id="xdv-QQ-5t9"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="WlX-WD-jZR" firstAttribute="top" secondItem="quu-mv-IHG" secondAttribute="bottom" id="0ze-9b-2Cv"/>
+                <constraint firstItem="WlX-WD-jZR" firstAttribute="leading" secondItem="GhJ-0j-nY9" secondAttribute="leading" id="71F-ZS-1Zy"/>
+                <constraint firstItem="URJ-Jh-N2m" firstAttribute="width" secondItem="GhJ-0j-nY9" secondAttribute="width" id="VXc-QJ-obK"/>
+                <constraint firstAttribute="trailing" secondItem="quu-mv-IHG" secondAttribute="trailing" id="Xo0-jX-lEG"/>
+                <constraint firstItem="quu-mv-IHG" firstAttribute="top" secondItem="GhJ-0j-nY9" secondAttribute="top" id="cjn-HM-PaY"/>
+                <constraint firstItem="quu-mv-IHG" firstAttribute="leading" secondItem="GhJ-0j-nY9" secondAttribute="leading" id="eFW-o5-1ig"/>
+                <constraint firstAttribute="trailing" secondItem="WlX-WD-jZR" secondAttribute="trailing" id="kCl-fT-xI3"/>
+                <constraint firstAttribute="bottom" secondItem="WlX-WD-jZR" secondAttribute="bottom" id="rLv-Mf-w4B"/>
+            </constraints>
+            <point key="canvasLocation" x="-259" y="-119"/>
+        </view>
+    </objects>
+</document>

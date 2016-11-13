@@ -93,8 +93,8 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
         if ad.isUserLoggedIn() {
             
-//            let writereviewVC = WriteReviewVC(nibName: "WriteReviewVC", bundle: nil)
-//            self.navigationController?.pushViewController(writereviewVC, animated: true)
+            let writereviewVC = WriteReviewsVC(nibName: "WriteReviewsVC", bundle: nil)
+            self.navigationController?.pushViewController(writereviewVC, animated: true)
 //            let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
 //            onCartVC.isNotSubView = false
 //            navigationController?.pushViewController(onCartVC, animated: true)

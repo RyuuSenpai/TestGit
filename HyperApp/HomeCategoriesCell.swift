@@ -109,7 +109,10 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     func shareButtonA(_ sender: UIButton) {
         
         print("that is the button index : \(sender.tag)")
-        selectedButton(sender: sender, selectedBtn: "favoriteditemenabled", disSelectImage: "favoriteditem")
+        let data = productCategory?.products?[sender.tag]
+
+        categoriesHomePageVC?.shareItems(sender : sender , data: data)
+        
     }
     
     

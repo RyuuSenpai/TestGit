@@ -12,9 +12,6 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
-    @IBOutlet weak var PromotionscrollView: UIScrollView!
-    @IBOutlet weak var categoriesContainerView: UIView!
-    @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
@@ -22,6 +19,11 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     static var profileImage : UIImage?
     private let reuseIdentifier = "CategoriesCell"
     
+    
+    //@AukHeaderID
+    let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
+
+    //@end Auk
     var itemsInCart : Int {
         get {
             do {
@@ -36,19 +38,20 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     var productCategory : [ProductCategories]?
-    let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        cartNumberOfItemsBadge()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
        HomePageVC.profileImage = profileMenuImage()
         
         
         productCategory = ProductCategories.productCategories()
-        PromotionImageProtocoal(scrollView : PromotionscrollView)
         
         self.cartBarButton.badgeBGColor = UIColor.red
         self.cartBarButton.badgeTextColor = UIColor.white
@@ -66,14 +69,12 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             sideMenuBOL.target = self.revealViewController()
             sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
             self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
-            //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+                             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+                        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
-        
-        categoriesCollectionView.delegate = self
-        categoriesCollectionView.dataSource = self
+        mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
     }
@@ -103,13 +104,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     
-    
-    @IBAction func tappedPromotionImage(_ sender: AnyObject) {
-        
-        tappedPromotionImg(scrollView : PromotionscrollView)
-        
-    }
-    
+
     
     @IBAction func searchGesture(_ sender: AnyObject) {
         print("Search clicked")
@@ -139,36 +134,41 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        if collectionView == self.categoriesCollectionView {
-            return 9
-        }else {
-            if let count = productCategory?.count {
-                return count
+       
+                if let count = productCategory?.count {
+                return count + 1 
             }
             return 0
-        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if collectionView == self.categoriesCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-            // Configure the cell  RowCell
+        if indexPath.row == 0 {
+            let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: LargeHomeCategoriesCell.identifier, for: indexPath) as! LargeHomeCategoriesCell
+            cell.categoriesHomePageVC = self
+            cell.catIndexPath = indexPath.row
+            cell.productCategory = productCategory?[indexPath.row]
+            cell.productCategories = productCategory
             return cell
-            
-        } else  {
+        }
             let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RowCell", for: indexPath) as! HomeCategoriesCell
             
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
-            cell.productCategory = productCategory?[indexPath.row]
+            cell.productCategory = productCategory?[indexPath.row - 1]
             
             return cell
             
-        }
+        
     }
     
-    
+    func showSubCategory(productDetails : Int , CatIndex : Int) {
+        let subCategoryVC = self.storyboard?.instantiateViewController(withIdentifier: "SubCategoryVC") as! SubCategoryVC
+        
+        
+        navigationController?.pushViewController(subCategoryVC, animated: true)
+    }
     
     
     
@@ -183,35 +183,26 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     // MARK: UICOllectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if collectionView == self.categoriesCollectionView {
-            
-            let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-            //            productDetailController.productNumber =  0
-            //            productDetailController.categoryNumber = indexPath.row
-            navigationController?.pushViewController(productDetailController, animated: true)
-            
-        }
+    
         
     }
     
     // MARK: UICOllectionViewLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.categoriesCollectionView {
-            
-            if indexPath.row == 0 {
-                return CGSize(width: 180, height: 180) // The size of one cell
-            }else {
-                return CGSize(width: 102, height: 102) // The size of one cell
-            }
-        }else {
-            
+        
+        if indexPath.item == 0 {
+            return CGSize(width: self.mainProductsRow.frame.width, height:300)
+
+        }
             return CGSize(width: self.mainProductsRow.frame.width, height:264)
             //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)
-        }
+        
     }
     @IBAction func CartBtnA(_ sender: AnyObject) {
-        
-        
+        let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
+
+        onCartVC.isNotSubView = false
+        navigationController?.pushViewController(onCartVC, animated: true)
         
     }
     
@@ -231,7 +222,56 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
+    
+    let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
+        
+        
+            let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
+            headerView.promotionScrollView.addGestureRecognizer(tap)
+            
+
+        return headerView
+        
+    }
+    func handleTap() {
+
+        print("that is the indexPath : \(HomeAukCollectionViewHeader.theIndex)")
+        let mySettings: PromotionVC = PromotionVC(nibName: "PromotionVC", bundle: nil)
+        let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.flipHorizontal    /*.partialCurl */
+        mySettings.modalTransitionStyle = modalStyle
+        if let currentImageIndex = HomeAukCollectionViewHeader.theIndex {
+            mySettings.promotionImageFlag = imagelist[currentImageIndex]
+            
+        }
+        self.present(mySettings, animated: true, completion: nil)
+    }
     
     
+
+
+    func shareItems(sender : UIButton , data:productDetails?) {
+        
+        guard let datA = data , let name = datA.name , let price = datA.price else { return }
+        let img: UIImage = UIImage(named: "1")!
+        let shareItems:Array = [img, name , price ] as [Any]
+        
+       let  activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+//        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone {
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+//
+//            if activityViewController.respondsToSelector(Selector("popoverPresentationController")) {
+//                activityViewController.popoverPresentationController?.sourceView = self.view
+//        }
+
+            
+            
+        
+        
+        }
+    }
     
 }
+

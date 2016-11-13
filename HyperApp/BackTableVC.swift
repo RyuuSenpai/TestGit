@@ -23,6 +23,9 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
         tableView.delegate = self
         tableView.dataSource = self 
         SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart"]

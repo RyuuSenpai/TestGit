@@ -77,12 +77,27 @@ class ProductCategories {
         tvProducts.append(large)
         TV.products = tvProducts
         
-        return [Mobiles , TV]
+        return [Mobiles , TV,Mobiles , TV,Mobiles , TV]
     }
     
 }
 
 class productDetails :NSObject {
+    
+    var id : NSNumber?
+    var name :String?
+    var image_url : String?
+    var id_parent : NSNumber?
+    var level_depth : NSNumber?
+    var price  : NSNumber?
+    var preDiscountPrice : NSNumber?
+    var isFav : Bool?
+    var onCart : Bool?
+    
+    
+}
+
+class CategoryMD :NSObject {
     
     var id : NSNumber?
     var name :String?

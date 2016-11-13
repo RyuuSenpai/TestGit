@@ -12,25 +12,28 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
     @IBOutlet weak var totalPriceValue: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var sideMenu: UIBarButtonItem!
     
     var items : [CDOnCart]?
-
+    var isNotSubView = true
     var totalPrice : Double = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         getTheData()
-        
+        if isNotSubView {
         if self.revealViewController() != nil {
-            sideMenu.target = self.revealViewController()
-            sideMenu.action = #selector(SWRevealViewController.revealToggle(_:))
+            let sideMenuBtn = UIBarButtonItem(image: UIImage(named: "browsebutton"), style: .plain, target: self.revealViewController(), action: #selector(getter: UIDynamicBehavior.action)) // action:#selector(Class.MethodName) for swift 3
+            
+            self.navigationItem.leftBarButtonItem  = sideMenuBtn
+            sideMenuBtn.action = #selector(SWRevealViewController.revealToggle(_:))
             //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
+        }
+        isNotSubView = true
     }
 
 
@@ -98,7 +101,7 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
                     let quantity = items[i].quantity
 //                totalPrice = totalPrice +  price
                     items[i].qXprice = price * Double(quantity)
-                    var y = items[i].qXprice
+                    let y = items[i].qXprice
                     totalPrice += y
   
                     
@@ -144,7 +147,12 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     }
     */
     @IBAction func checkOutBtnAct(_ sender: AnyObject) {
-        print("checkOutBtnAct")
+        if ad.isUserLoggedIn() {
+            print("checkOutBtnAct")
+
+        }else {
+            performSegue(withIdentifier: "login", sender: self )
+        }
     }
 
 }

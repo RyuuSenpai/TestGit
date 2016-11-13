@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
+            <connections>
+                <outlet property="floatRatingView" destination="Em4-uQ-m88" id="X5q-r8-6sS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMR-6C-ljS">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSR-95-orG">
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Em4-uQ-m88" customClass="FloatRatingView" customModule="HyperApp" customModuleProvider="target">
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="6NY-Ah-dCh"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="210" id="T6l-rg-eIS"/>
+                                        <constraint firstAttribute="width" constant="210" id="VFF-RQ-ai9"/>
+                                        <constraint firstAttribute="height" constant="50" id="ibK-Rc-Mat"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="ratingMaterialDesign" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on star to rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtE-ZQ-btK">
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="JTV-bk-uN7"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="119" id="TmJ-7R-JJl"/>
+                                        <constraint firstAttribute="height" constant="17" id="oFB-eu-5De"/>
+                                        <constraint firstAttribute="width" constant="119" id="vry-MX-N6H"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="wEd-MN-PHV">
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="foH-I7-elV">
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Review Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tbU-q7-lGO">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="OTM-Ne-IQq"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What's good about this items" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsr-Ie-D3U">
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="what's not good about this items" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WxZ-3b-F5X">
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="XW3-xL-Ru6">
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review (Min 100 characters)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18c-2r-zqP">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gyH-Ha-Wgk">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="131" id="ZUW-t7-Ur7"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gyH-Ha-Wgk" secondAttribute="trailing" id="m3z-k0-1LK"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="18c-2r-zqP" firstAttribute="height" secondItem="WxZ-3b-F5X" secondAttribute="height" id="Z0y-7b-l9X"/>
+                                        <constraint firstItem="18c-2r-zqP" firstAttribute="width" secondItem="WxZ-3b-F5X" secondAttribute="width" id="ohR-Ov-idc"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="tbU-q7-lGO" firstAttribute="width" secondItem="GSR-95-orG" secondAttribute="width" multiplier="0.83" id="002-Nf-Qtr"/>
+                                <constraint firstItem="UtE-ZQ-btK" firstAttribute="top" secondItem="Em4-uQ-m88" secondAttribute="bottom" constant="8" id="5JB-dL-Izh"/>
+                                <constraint firstItem="UtE-ZQ-btK" firstAttribute="centerX" secondItem="Em4-uQ-m88" secondAttribute="centerX" id="7eN-Bc-QxW"/>
+                                <constraint firstItem="wEd-MN-PHV" firstAttribute="top" secondItem="UtE-ZQ-btK" secondAttribute="bottom" constant="32" id="CnJ-TN-hN5"/>
+                                <constraint firstItem="wEd-MN-PHV" firstAttribute="centerX" secondItem="UtE-ZQ-btK" secondAttribute="centerX" id="SHU-MP-gaO"/>
+                                <constraint firstItem="Em4-uQ-m88" firstAttribute="centerX" secondItem="GSR-95-orG" secondAttribute="centerX" id="aut-qh-Nb8"/>
+                                <constraint firstItem="Em4-uQ-m88" firstAttribute="top" secondItem="GSR-95-orG" secondAttribute="top" constant="30" id="qaa-uZ-aS1"/>
+                                <constraint firstAttribute="height" constant="580" id="wDs-VY-EVi"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="GSR-95-orG" firstAttribute="top" secondItem="IMR-6C-ljS" secondAttribute="top" id="0OZ-rC-vHC"/>
+                        <constraint firstAttribute="bottom" secondItem="GSR-95-orG" secondAttribute="bottom" id="0oZ-iW-777"/>
+                        <constraint firstItem="GSR-95-orG" firstAttribute="leading" secondItem="IMR-6C-ljS" secondAttribute="leading" id="FVv-b8-TVs"/>
+                        <constraint firstAttribute="trailing" secondItem="GSR-95-orG" secondAttribute="trailing" id="pvj-ER-XIM"/>
+                    </constraints>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHK-gp-71U">
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HO1-rh-jVM">
+                            <frame key="frameInset" minX="28" minY="15" width="319" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.58916636560693647" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                            <state key="normal" title="Submit review">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="87" id="bLY-VW-rkM"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="IMR-6C-ljS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="04e-nT-irl"/>
+                <constraint firstItem="GSR-95-orG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="2QG-0S-Khy"/>
+                <constraint firstItem="XHK-gp-71U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9HF-a0-PYH"/>
+                <constraint firstAttribute="bottom" secondItem="XHK-gp-71U" secondAttribute="bottom" id="A4N-NF-dpb"/>
+                <constraint firstItem="XHK-gp-71U" firstAttribute="top" secondItem="IMR-6C-ljS" secondAttribute="bottom" id="Iq1-4I-VA4"/>
+                <constraint firstAttribute="trailing" secondItem="IMR-6C-ljS" secondAttribute="trailing" id="Xp4-93-p3p"/>
+                <constraint firstAttribute="trailing" secondItem="XHK-gp-71U" secondAttribute="trailing" id="erk-fr-VQn"/>
+                <constraint firstItem="IMR-6C-ljS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="m3o-9f-uTP"/>
+            </constraints>
+            <point key="canvasLocation" x="30" y="28"/>
+        </view>
+    </objects>
+</document>

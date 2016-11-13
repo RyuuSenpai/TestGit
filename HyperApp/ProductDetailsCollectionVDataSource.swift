@@ -60,7 +60,7 @@ extension ProductDetailsVC : UICollectionViewDataSource {
         
         print("that is the button index : \(sender.tag)")
         
-        selectedButton(sender: sender, selectedBtn: "heartitemenabled", disSelectImage: "heartitem")
+        selectedButton(sender: sender, selectedBtn: "heart_icon_selected", disSelectImage: "Heart_icon")
     }
     
     func cartButtonA(_ sender: UIButton) {
@@ -77,17 +77,17 @@ extension ProductDetailsVC : UICollectionViewDataSource {
         selectedButton(sender: sender, selectedBtn: "favoriteditemenabled", disSelectImage: "favoriteditem")
     }
     
-    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
-        sender.isSelected = !sender.isSelected
-        if(sender.isSelected == true)
-        {
-            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
-        }
-        else
-        {
-            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
-        }
-    }
+//    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
+//        sender.isSelected = !sender.isSelected
+//        if(sender.isSelected == true)
+//        {
+//            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
+//        }
+//        else
+//        {
+//            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
+//        }
+//    }
     
     
 }

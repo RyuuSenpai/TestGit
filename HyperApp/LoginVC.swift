@@ -144,7 +144,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
                     let imageURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")
                     let imageString : String =  "\(imageURL!)"
                     
-                    self.afterLogginView.fadeIn(duration: 2.5, delay: 0, completion: { (finished: Bool) in
+                    self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
 
                         ad.saveUserLogginData(email: email, photoUrl: imageString)
                         ad.reloadApp()

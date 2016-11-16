@@ -135,7 +135,7 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 250.0;//Choose your custom row height
+        return 240.0;//Choose your custom row height
     }
     /*
     // MARK: - Navigation

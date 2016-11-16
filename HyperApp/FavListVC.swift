@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import Alamofire
 class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
@@ -16,6 +17,8 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     let home = HomeCategoriesCell()
     var favList : [CDFavList]?
     
+    var fhp : FHP!
+    var almno = [FHP]()
     override func viewWillAppear(_ animated: Bool) {
         getTheData()
     }
@@ -31,12 +34,25 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        fhp = FHP()
+        fhp.downloadHomePageData { (almno) in
+            print(almno.count)
+            for x in (almno[0].productsList)! {
+                print(x.id)
+                
+            }
+            print(almno[1].catName )
+            for x in (almno[1].productsList)! {
+                print(x.id)
+            
+            }
+        }
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

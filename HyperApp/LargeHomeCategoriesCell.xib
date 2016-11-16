@@ -17,8 +17,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtZ-Hn-6Xm">
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oW7-E6-NpB">
-                                <frame key="frameInset" minX="8" minY="10" width="91" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oW7-E6-NpB">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="qOn-6Z-Y50"/>
                                 </constraints>
@@ -36,8 +35,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-aj-j2Q">
-                                <frame key="frameInset" minX="148" minY="5" width="66" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-aj-j2Q">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3QZ-EW-zQM"/>
                                     <constraint firstAttribute="width" constant="66" id="Rdc-7X-qA9"/>
@@ -71,7 +69,6 @@
             <size key="customSize" width="222" height="196"/>
             <connections>
                 <outlet property="CategoryCollectionView" destination="cTo-4j-DZ6" id="R7m-7k-2gy"/>
-                <outlet property="categorytitle" destination="oW7-E6-NpB" id="Iuf-5M-FxP"/>
             </connections>
             <point key="canvasLocation" x="73" y="-65"/>
         </collectionViewCell>

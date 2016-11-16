@@ -10,8 +10,26 @@
         <attribute name="qXprice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="CDSHomePage" representedClassName="CDSHomePage" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="onSale" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="prDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="preDiscountPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="productID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="prPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="toCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSHPCategories" inverseName="toProduct" inverseEntity="CDSHPCategories" syncable="YES"/>
+    </entity>
+    <entity name="CDSHPCategories" representedClassName="CDSHPCategories" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSHomePage" inverseName="toCategory" inverseEntity="CDSHomePage" syncable="YES"/>
+    </entity>
     <elements>
         <element name="CDFavList" positionX="-54" positionY="-9" width="128" height="60"/>
         <element name="CDOnCart" positionX="-36" positionY="18" width="128" height="120"/>
+        <element name="CDSHomePage" positionX="-18" positionY="72" width="128" height="195"/>
+        <element name="CDSHPCategories" positionX="0" positionY="126" width="128" height="75"/>
     </elements>
 </model>

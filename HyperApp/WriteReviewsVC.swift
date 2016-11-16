@@ -12,7 +12,7 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var floatRatingView: FloatRatingView!
-
+    
     @IBOutlet weak var reviewTitle: UITextField!
     
     @IBOutlet weak var whatGoodText: UITextField!
@@ -33,8 +33,8 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
         whatNotGood.delegate = self
         longReview.delegate = self
         
-
-      
+        
+        
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(WriteReviewsVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -57,7 +57,12 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
         }
         
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        
+    }
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
@@ -78,7 +83,7 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
             self.view.frame.origin.y += keyBoardheightSize
         }
         print("5")
-
+        
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
         print("3")

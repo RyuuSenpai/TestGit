@@ -11,6 +11,6 @@ pod 'Onboard'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
-
+    pod 'Alamofire', '~> 4.0'
 
 end

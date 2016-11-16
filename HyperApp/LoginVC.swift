@@ -140,7 +140,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
                     
                     guard let id = result["id"] as? String , let fName = result["first_name"] as? String ,let email  = result["email"] as? String  else {return }
                     print(id)
-                    self.afterLogginUserName.text = fName
+                    self.afterLogginUserName.text = fName.capitalized
                     let imageURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")
                     let imageString : String =  "\(imageURL!)"
                     

@@ -38,7 +38,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     var productCategory : [ProductCategories]?
-    
+    var productCatData : ProductCategories!
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,10 +48,21 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        productCatData = ProductCategories()
+        
+   productCatData.downloadHomePageData { (productCategory) in
+    
+    self.productCategory = productCategory
+        print("Done with getting Data")
+    self.mainProductsRow.reloadData()
+        }
+        
+        
+        
+        
        HomePageVC.profileImage = profileMenuImage()
         
-        
-        productCategory = ProductCategories.productCategories()
+//        productCategory = ProductCategories.productCategories()
         
         self.cartBarButton.badgeBGColor = UIColor.red
         self.cartBarButton.badgeTextColor = UIColor.white
@@ -136,7 +147,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         // #warning Incomplete implementation, return the number of items
        
                 if let count = productCategory?.count {
-                return count + 1 
+                return count + 1
             }
             return 0
         
@@ -148,7 +159,6 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: LargeHomeCategoriesCell.identifier, for: indexPath) as! LargeHomeCategoriesCell
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
-            cell.productCategory = productCategory?[indexPath.row]
             cell.productCategories = productCategory
             return cell
         }
@@ -156,7 +166,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
-            cell.productCategory = productCategory?[indexPath.row - 1]
+            cell.productCategory = productCategory?[indexPath.row - 1 ]
             
             return cell
             
@@ -206,21 +216,6 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         
     }
     
-    func profileMenuImage() -> UIImage {
-        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
-            
-            do {
-                let image = try Data(contentsOf: imageURL )
-                return  UIImage(data: image)!
-            }catch let error as NSError {
-                print("Error in Sidmenu setImage",error )
-                return UIImage(named: "4-userProfileImagePlaceHolder")!
-            }
-            
-        }else {
-            return UIImage(named:"4-userProfileImagePlaceHolder")!
-        }
-    }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
     
@@ -272,6 +267,23 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         
         }
     }
+    
+    func profileMenuImage() -> UIImage {
+        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
+            
+            do {
+                let image = try Data(contentsOf: imageURL )
+                return  UIImage(data: image)!
+            }catch let error as NSError {
+                print("Error in Sidmenu setImage",error )
+                return UIImage(named: "4-userProfileImagePlaceHolder")!
+            }
+            
+        }else {
+            return UIImage(named:"4-userProfileImagePlaceHolder")!
+        }
+    }
+
     
 }
 

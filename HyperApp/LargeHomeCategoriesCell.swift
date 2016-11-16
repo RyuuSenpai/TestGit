@@ -12,7 +12,6 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     @IBOutlet weak var CategoryCollectionView: UICollectionView!
 
-    @IBOutlet weak var categorytitle: UILabel!
     
     var productCategories : [ProductCategories]?
 
@@ -35,15 +34,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     }
     
     
-    
-    var productCategory : ProductCategories? {
-        didSet {
-            if let categoryTitle = productCategory?.name {
-                categorytitle.text = categoryTitle
-            }
-        }
-    }
-    
+  
     
     
     

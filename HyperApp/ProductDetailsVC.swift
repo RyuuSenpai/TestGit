@@ -191,7 +191,9 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
                 context.mergePolicy = CartItem
                 CartItem.name  = data?.name
                 CartItem.quantity = 1
-                CartItem.price = data?.price as! Double
+                if let price = data?.price {
+                    CartItem.price = price
+                }else { print("error saving the price in onCart on productDetailsVC"); }
                 ad.saveContext()
                 print("saved data")
             }

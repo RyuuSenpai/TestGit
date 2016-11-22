@@ -15,6 +15,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     
     
+    @IBOutlet weak var seeMore: UIButton!
     @IBOutlet weak var categorytitle: UILabel!
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
@@ -26,7 +27,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         }
     }
     
-    
+    var coredataClass = CoreDataProductFunctions()
     
     
     
@@ -72,8 +73,14 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
         cell.share.tag = indexPath.row
         cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-        
+        if coredataClass.checkIfFav(data: productCategory?.products?[indexPath.row]){
+            cell.isFav = true
+        }
+        if coredataClass.checkIfOncart(data: productCategory?.products?[indexPath.row]){
+            cell.onCart = true
+        }
         cell.products = productCategory?.products?[indexPath.item]
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -81,10 +88,9 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
     }
     
-    @IBAction func seeMore(_ sender: AnyObject) {
-        
-        
-    }
+    
+    
+    
     
     func favButtonA(_ sender: UIButton) {
         
@@ -110,7 +116,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
         print("that is the button index : \(sender.tag)")
         let data = productCategory?.products?[sender.tag]
-
+        
         categoriesHomePageVC?.shareItems(sender : sender , data: data)
         
     }
@@ -134,8 +140,6 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
                 let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
                 fetchRequest.predicate = predicate
                 do {
-                    
-                    
                     let fetcjResult = try context.fetch(fetchRequest)
                     if fetcjResult.count > 0 {
                         print("Already Fav")
@@ -146,7 +150,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
                         CartItem.name  = data?.name
                         CartItem.quantity = 1
                         if let price = data?.price {
-                        CartItem.price = price
+                            CartItem.price = price
                         }else { print("error in price in HomeCat save onCart")}
                         ad.saveContext()
                         print("saved data")
@@ -158,7 +162,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
                 
                 
             }else if selectedBtn ==  shareImage {
-            
+                
                 
             }else {
                 let data = productCategory?.products?[sender.tag]
@@ -202,9 +206,9 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
                     if fetcjResult.count > 0 {
                         print("Already Fav")
                         print("will delete : \((data?.name)!)")
-                    context.delete(fetcjResult[0])
+                        context.delete(fetcjResult[0])
                         ad.saveContext()
-                             categoriesHomePageVC?.cartNumberOfItemsBadge()
+                        categoriesHomePageVC?.cartNumberOfItemsBadge()
                     }
                 }catch {
                     print("Fetching failed")
@@ -268,7 +272,8 @@ class HomeProductCell: UICollectionViewCell {
     @IBOutlet weak var share: UIButton!
     @IBOutlet weak var favButton: UIButton!
     
-    
+    var isFav = false
+    var onCart = false
     var products : productDetails? {
         didSet {
             if let title = products?.name {
@@ -285,9 +290,25 @@ class HomeProductCell: UICollectionViewCell {
             if let id =  products?.id_parent {
                 discountLabel.text = "\(id)"
             }
+            if isFav {
+                favButton.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+                favButton.isSelected = true
+            }else {
+                favButton.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+                favButton.isSelected = false
+
+            }
+            if onCart {
+                addToCart.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+                addToCart.isSelected = true
+            }else {
+                addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+            addToCart.isSelected = false
+            }
         }
     }
-    
+
+
     override func awakeFromNib() {
         
         

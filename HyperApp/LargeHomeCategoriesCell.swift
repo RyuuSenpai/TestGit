@@ -12,6 +12,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     @IBOutlet weak var CategoryCollectionView: UICollectionView!
 
+    @IBOutlet weak var seeMore: UIButton!
     
     var productCategories : [ProductCategories]?
 
@@ -75,6 +76,9 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     }
 
     
+    @IBAction func seeMore(_ sender: AnyObject) {
+        
+    }
     
     
     

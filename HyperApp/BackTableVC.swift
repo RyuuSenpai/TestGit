@@ -28,7 +28,7 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         
         tableView.delegate = self
         tableView.dataSource = self 
-        SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart"]
+        SeugeIdArray = ["HomePage" ,"Wish List" , "My Cart" , "My Profile"]
          let x = (containerView.frame.size.height  * 0.3 * 0.6  / 2.7)
         if UserDefaults.standard.value(forKey: "userEmail") != nil  {
             

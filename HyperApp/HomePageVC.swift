@@ -18,7 +18,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     static var profileImage : UIImage?
     private let reuseIdentifier = "CategoriesCell"
-    
+    var dataISA :Bool?
     
     //@AukHeaderID
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
@@ -43,18 +43,30 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         cartNumberOfItemsBadge()
+        self.view.squareLoading.backgroundColor = UIColor.white
+        self.view.squareLoading.color = UIColor.red
+        if dataISA != nil {
+            sideMenuBOL.isEnabled  = true
+            cartBarButton.isEnabled = true
+        }else {
+        sideMenuBOL.isEnabled  = false
+        cartBarButton.isEnabled = false
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.squareLoading.start(0.0)
 
         productCatData = ProductCategories()
         
    productCatData.downloadHomePageData { (productCategory) in
-    
+    self.dataISA = true
     self.productCategory = productCategory
         print("Done with getting Data")
+    self.view.squareLoading.stop(0.0)
     self.mainProductsRow.reloadData()
+    self.revealMenu()
         }
         
         
@@ -75,22 +87,26 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }else {
             self.cartBarButton.tintColor = UIColor.white
         }
-        
-        if self.revealViewController() != nil {
-            sideMenuBOL.target = self.revealViewController()
-            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
-                             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-                        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
+
         
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
+        
     }
     
-    
+    func revealMenu() {
+        sideMenuBOL.isEnabled  = true
+        cartBarButton.isEnabled = true
+        if self.revealViewController() != nil {
+            sideMenuBOL.target = self.revealViewController()
+            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
+//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+    }
     
     
     func cartNumberOfItemsBadge(){
@@ -160,6 +176,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
             cell.productCategories = productCategory
+            cell.seeMore.addTarget(self, action: #selector(self.seeMoreCat(_:)), for: UIControlEvents.touchUpInside)
             return cell
         }
             let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RowCell", for: indexPath) as! HomeCategoriesCell
@@ -167,9 +184,26 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
             cell.productCategory = productCategory?[indexPath.row - 1 ]
+        cell.seeMore.tag = (indexPath.row - 1 )
+        cell.seeMore.addTarget(self, action: #selector(self.seeMore(_:)), for: UIControlEvents.touchUpInside)
             
             return cell
             
+        
+    }
+    func seeMore(_ sender:UIButton) {
+      print(sender.tag)
+        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
+        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        navigationController?.pushViewController(seeMoreA, animated: true)
+        
+    }
+    func seeMoreCat(_ sender:UIButton) {
+        print(sender.tag)
+        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreCategories") as! SeeMoreCategories
+//        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        seeMoreA.productCategories = productCategory
+        navigationController?.pushViewController(seeMoreA, animated: true)
         
     }
     

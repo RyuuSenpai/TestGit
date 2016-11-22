@@ -32,6 +32,10 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDelegate
         if collectionView == self.reviewsCollectionView {
 
         print("That is the index of the Review Cell : \(indexPath.row)")
+            
+            let reviewVC = storyboard?.instantiateViewController(withIdentifier: "SeeReviews") as! SeeReviews
+            reviewVC.indexIs = indexPath.row
+            navigationController?.pushViewController(reviewVC, animated: true )
         } else {
             print("That is the index of the Related item Cell : \(indexPath.row)")
 

@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>StretchHeader.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -57,6 +62,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>78AA5F047B539EDFB11413659F035DC1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
@@ -67,12 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7FF48F3092783E4E42B336F0DEF2D1A</key>
+		<key>BBAA4B02A79EDF87F43128A5951DE702</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E5BF4FB78ABEE1A85455D265F3BD4E97</key>
+		<key>D7FF48F3092783E4E42B336F0DEF2D1A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

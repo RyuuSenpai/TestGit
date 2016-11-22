@@ -55,7 +55,7 @@ extension ProductDetailsVC : UICollectionViewDataSource {
         }
     }
     
-    
+ 
     func favButtonA(_ sender: UIButton) {
         
         print("that is the button index : \(sender.tag)")

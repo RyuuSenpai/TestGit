@@ -11,13 +11,19 @@ import UIKit
 class DescriptionVC: UIViewController {
 
     
+    @IBOutlet weak var descriptionLabel: UITextView!
+    
+    
+    var product  : productDetails?
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.updateUI()
         // Do any additional setup after loading the view.
     }
 
@@ -26,7 +32,11 @@ class DescriptionVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func updateUI() {
+        if let descrip = product?.prDescription{
+            descriptionLabel.text = descrip
+        }
+    }
     /*
     // MARK: - Navigation
 

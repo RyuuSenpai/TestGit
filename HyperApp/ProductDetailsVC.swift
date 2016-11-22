@@ -20,12 +20,10 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBOutlet weak var numperOfReviews: UIButton!
     @IBOutlet weak var favItemBOL: UIButton!
     @IBOutlet weak var addTOCarBOL: UIButton!
-    @IBOutlet weak var cartBarButton: UIBarButtonItem!
 
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var productTitle: UILabel?
-    
     @IBOutlet weak var priceOL: UILabel!
-    
     @IBOutlet weak var preDicountPrice: UILabel!
     
     var CurrentRating : String?
@@ -59,7 +57,9 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1.5, range: NSMakeRange(0, attributeString.length))
             preDicountPrice.attributedText = attributeString
         }
-        
+        if let descrip = products?.prDescription {
+        descriptionLabel.text = descrip
+        }
     }
     
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
@@ -81,8 +81,16 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         //        if let catID = categoryNumber {
         //            categoryID.text = " category ID : \(catID)"
         //        }
+        
+        let button1 = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action : #selector(self.pushToOnCart(_:)))
+        self.navigationItem.rightBarButtonItem  = button1
     }
-    
+    func pushToOnCart(_ sender : UIButton) {
+       print("cart")
+        let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
+          onCartVC.isNotSubView = false
+        navigationController?.pushViewController(onCartVC, animated: true )
+    }
     
     @IBAction func tappedProductImage(_ sender: AnyObject) {
         tappedPromotionImg(scrollView : productImagescrollView)
@@ -110,12 +118,15 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
         //DescriptionVC
         let descriptionVC = DescriptionVC(nibName: "DescriptionVC", bundle: nil)
+        descriptionVC.product = products
         self.navigationController?.pushViewController(descriptionVC, animated: true)
         
     }
+    
     @IBAction func numberOfreviewBA(_ sender: AnyObject) {
         print("that is the current rating : \(self.CurrentRating)")
     }
+    
     @IBAction func specificationTapGesture(_ sender: AnyObject) {
         print("That is Specifications TapGesture ")
         let specificationsVC = SpecificationsVC(nibName: "SpecificationsVC", bundle: nil)

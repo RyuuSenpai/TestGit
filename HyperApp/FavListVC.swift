@@ -16,9 +16,8 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     @IBOutlet weak var collectionView: UICollectionView!
     let home = HomeCategoriesCell()
     var favList : [CDFavList]?
+
     
-    var fhp : FHP!
-    var almno = [FHP]()
     override func viewWillAppear(_ animated: Bool) {
         getTheData()
     }
@@ -35,19 +34,7 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
         
-        fhp = FHP()
-        fhp.downloadHomePageData { (almno) in
-            print(almno.count)
-            for x in (almno[0].productsList)! {
-                print(x.id)
-                
-            }
-            print(almno[1].catName )
-            for x in (almno[1].productsList)! {
-                print(x.id)
-            
-            }
-        }
+     
         
     }
 

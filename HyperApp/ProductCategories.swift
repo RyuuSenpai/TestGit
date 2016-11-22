@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import CoreData
+
 class ProductCategories {
     
     var name : String?
@@ -88,7 +88,6 @@ class ProductCategories {
         Alamofire.request( BASE_URL + HOME_PAGE, headers: header)
             .responseJSON { response in
                 var  productCat = [ProductCategories]()
-                var placeHolderP = 100.0
                 if let dict = response.result.value as? [Dictionary<String,AnyObject>] {
                     for obj in dict {
                         guard let name = obj["Catname"] as? String , let products = obj["Products"] as? [Dictionary<String,AnyObject>]
@@ -99,14 +98,13 @@ class ProductCategories {
                         prCat.name = name
                         var productDetailsA = [productDetails]()
                         for prodObj in products {
-                            guard let name = prodObj["name"] as? String /*, let price = prodObj["price"] as? String */, let id = prodObj["id"] as? Int , let getDescription = prodObj["description"] as? String
+                            guard let name = prodObj["name"] as? String , let price = prodObj["price"] as? Double , let id = prodObj["id"] as? Int , let getDescription = prodObj["description"] as? String
                                 else {
                                     print("faild to get name , price or id of product ")
                                     return }
-                            placeHolderP = placeHolderP + 100
                             let productDetail = productDetails()
                             productDetail.name = name
-                                productDetail.price = placeHolderP
+                                productDetail.price = price
                             productDetail.prDescription = getDescription
                             
                             productDetail.id = id

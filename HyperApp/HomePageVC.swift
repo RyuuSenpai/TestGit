@@ -24,21 +24,16 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
 
     //@end Auk
+    
     var itemsInCart : Int {
         get {
-            do {
-                let items = try context.fetch(CDOnCart.fetchRequest())
-                return  items.count
-            } catch let error as NSError {
-                print("OnCart Badge error : \(error )")
-            }
-            return 0
+               return 0
         }
         
     }
-    
+ 
     var productCategory : [ProductCategories]?
-    var productCatData : ProductCategories!
+    var productCatData : ProductCategories?
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,21 +47,26 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         sideMenuBOL.isEnabled  = false
         cartBarButton.isEnabled = false
         }
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.squareLoading.start(0.0)
 
-        productCatData = ProductCategories()
-        
-   productCatData.downloadHomePageData { (productCategory) in
-    self.dataISA = true
-    self.productCategory = productCategory
-        print("Done with getting Data")
-    self.view.squareLoading.stop(0.0)
-    self.mainProductsRow.reloadData()
-    self.revealMenu()
+        if productCatData != nil {
+            self.view.squareLoading.stop(0.0)
+
+        }else {
+            productCatData = ProductCategories()
+            productCatData?.downloadHomePageData { (productCategory) in
+                self.dataISA = true
+                self.productCategory = productCategory
+                print("Done with getting Data")
+                self.view.squareLoading.stop(0.0)
+                self.mainProductsRow.reloadData()
+                self.revealMenu()
+            }
         }
         
         
@@ -78,7 +78,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         
         self.cartBarButton.badgeBGColor = UIColor.red
         self.cartBarButton.badgeTextColor = UIColor.white
-        self.cartBarButton.badgeValue = "\(itemsInCart)"
+        //self.cartBarButton.badgeValue = "\(itemsInCart)"
         self.cartBarButton.shouldAnimateBadge = true
         self.cartBarButton.shouldHideBadgeAtZero = true
         
@@ -110,15 +110,9 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     
     func cartNumberOfItemsBadge(){
-        do {
-            let items = try context.fetch(CDOnCart.fetchRequest())
-            print("that is items in count \(items.count)")
-            
-            self.cartBarButton.badgeValue = "\(items.count)"
-            
-        } catch let error as NSError {
-            print("OnCart Badge error : \(error )")
-        }
+     
+            self.cartBarButton.badgeValue = "\(2)"
+       
         
         self.cartBarButton.shouldAnimateBadge = true
         self.cartBarButton.shouldHideBadgeAtZero = true
@@ -135,9 +129,6 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     @IBAction func searchGesture(_ sender: AnyObject) {
         print("Search clicked")
-        
-        
-        
     }
     
     
@@ -310,11 +301,11 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
                 return  UIImage(data: image)!
             }catch let error as NSError {
                 print("Error in Sidmenu setImage",error )
-                return UIImage(named: "4-userProfileImagePlaceHolder")!
+                return UIImage(named:"3-userWelcomeingImage")!
             }
             
         }else {
-            return UIImage(named:"4-userProfileImagePlaceHolder")!
+            return UIImage(named:"3-userWelcomeingImage")!
         }
     }
 

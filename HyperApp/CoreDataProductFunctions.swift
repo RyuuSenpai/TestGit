@@ -5,14 +5,45 @@
 //  Created by Killvak on 21/11/2016.
 //  Copyright © 2016 Killvak. All rights reserved.
 //
-
+/*
 import Foundation
 import CoreData
 
 
-class CoreDataProductFunctions {
+class CoreDataProductFunctions : NSObject {
     
 
+    func CoreDataFavCount() -> String {
+        do {
+            if #available(iOS 10.0, *) {
+                let items = try context.fetch(CDFavList.fetchRequest())
+            } else {
+                // Fallback on earlier versions
+            }
+            print("that is items in count \(items.count)")
+            
+                return "\(items.count)"
+        } catch let error as NSError {
+            print("OnCart Badge error : \(error )")
+            return "\(0)"
+        }
+        
+    }
+    
+    func CoreDataCartCount() -> String {
+        do {
+            let items = try context.fetch(CDOnCart.fetchRequest())
+            print("that is items in count \(items.count)")
+            
+            return "\(items.count)"
+        } catch let error as NSError {
+            print("OnCart Badge error : \(error )")
+            return "\(0)"
+        }
+        
+    }
+    
+    
     func checkIfFav(data:productDetails?) ->Bool {
         let fetchRequest : NSFetchRequest<CDFavList> = CDFavList.fetchRequest()
         let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
@@ -68,7 +99,7 @@ class CoreDataProductFunctions {
             if fetcjResult.count > 0 {
                 print("Already Fav")
                 if !favBool{
-                    print("will delete : \((data?.name)!)")
+                    print("will delete from Fav : \((data?.name)!)")
                     context.delete(fetcjResult[0])
                     ad.saveContext()
                 }
@@ -98,7 +129,7 @@ class CoreDataProductFunctions {
             if fetcjResult.count > 0 {
                 print("Already onCart")
                 if !onCart{
-                    print("will delete : \((data?.name)!)")
+                    print("will delete from Cart  : \((data?.name)!)")
                     context.delete(fetcjResult[0])
                     ad.saveContext()
                 }
@@ -123,3 +154,4 @@ class CoreDataProductFunctions {
     }
     
 }
+*/

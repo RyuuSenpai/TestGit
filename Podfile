@@ -12,6 +12,5 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
     pod 'Alamofire', '~> 4.0'
- pod 'StretchHeader'
 
 end

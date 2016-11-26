@@ -7,17 +7,25 @@
 //
 
 import UIKit
-import StretchHeader
 class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
-
+    
     @IBOutlet weak var tableView: UITableView!
-    var header : StretchHeader!
-
+    
+    var profileHeaderMC : ProfileHeaderM?
+    //var coredataCounterC : CoreDataProductFunctions?
+    
+    var titlesArray =  ["My Wish List","My Cart"]
+    var imagesArray = ["Heart With Pulse","Shopping Cart"]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.sectionHeaderHeight = 270
+        self.tableView.rowHeight = 45
         self.tableView.delegate = self
         self.tableView.dataSource = self
         if self.revealViewController() != nil {
@@ -27,78 +35,87 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        
-        setupHeaderView()
+        setHeaderCellUI()
+        if UserDefaults.standard.value(forKey: "userEmail") != nil  {
+            titlesArray = ["My Wish List","My Cart","My Orders","My AddressBook"]
+            imagesArray = ["Heart With Pulse","Shopping Cart" , "MyOrders" , "MyAddress"]
+        }
     }
-    
-    func setupHeaderView() {
-        
-        let options = StretchHeaderOptions()
-        options.position = .underNavigationBar
-        
-        header = StretchHeader()
-        header.stretchHeaderSize(headerSize: CGSize(width: view.frame.size.width, height: 220),
-                                 imageSize: CGSize(width: view.frame.size.width, height: 220),
-                                 controller: self,
-                                 options: options)
-        header.imageView.image = UIImage(named: "1")
-        
-        
-        // custom
-        
-        let avatarImage = UIImageView()
-        avatarImage.frame = CGRect(x: 10, y: header.imageView.frame.height / 2 , width: 100, height: 100)
-        avatarImage.image = UIImage(named: "2")
-        avatarImage.layer.cornerRadius = 5.0
-        avatarImage.layer.borderColor = UIColor.white.cgColor
-        avatarImage.layer.borderWidth = 3.0
-        avatarImage.clipsToBounds = true
-        avatarImage.contentMode = .scaleAspectFill
-        header.addSubview(avatarImage)
-        /*
-        let label = UILabel()
-        label.frame = CGRect(x: 10, y: header.frame.size.height - 40, width: header.frame.size.width - 20, height: 40)
-        label.textColor = UIColor.white
-        label.text = "StrechHeader Demo"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        header.addSubview(label)
-        */
-        tableView.tableHeaderView = header
-    }
-    
-    // MARK: - ScrollView Delegate
-     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        header.updateScrollViewOffset(scrollView)
-    }
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-        
+      
+        return titlesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = UIColor.red
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MyProfileMainCell
+        cell.configCell(name: titlesArray[indexPath.row], imageName: imagesArray[indexPath.row])
+        
         return cell
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch indexPath.row {
+        case 0:
+            let x = self.storyboard?.instantiateViewController(withIdentifier: "FavListVC") as! FavListVC
+            x.isnotSubV = false 
+            navigationController?.pushViewController(x, animated: true )
+        case 1:
+            print(1)
+            let x = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
+            x.isNotSubView = false
+            navigationController?.pushViewController(x, animated: true )
+        case 2:
+            print("My Orders")
+        case 3:
+            print("My Address")
+        default:
+            print("error in  my Profile  switch")
+        }
     }
-    */
-
+    
+  
+    
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! MyProfileCellHeader
+        headerCell.backgroundColor = UIColor.gray
+        headerCell.configCell(model: profileHeaderMC!)
+        return headerCell
+    }
+    
+    
+    func setHeaderCellUI() {
+        //coredataCounterC = CoreDataProductFunctions()
+        profileHeaderMC = ProfileHeaderM()
+        profileHeaderMC?.itemsOnCart = "0"
+        profileHeaderMC?.favCount = "0"
+        profileHeaderMC?.boughtItemsCount = "\(0)"
+        profileHeaderMC?.image = profileImage()
+    }
+    func profileImage() -> UIImage {
+        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
+            
+            do {
+                let image = try Data(contentsOf: imageURL )
+                return  UIImage(data: image)!
+            }catch let error as NSError {
+                print("Error in Sidmenu setImage",error )
+                return UIImage(named:"Ninja Head")!
+            }
+            
+        }else {
+            return UIImage(named:"Ninja Head")!
+        }
+    }
+    
 }
+
+

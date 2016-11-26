@@ -20,7 +20,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBOutlet weak var numperOfReviews: UIButton!
     @IBOutlet weak var favItemBOL: UIButton!
     @IBOutlet weak var addTOCarBOL: UIButton!
-
+    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var productTitle: UILabel?
     @IBOutlet weak var priceOL: UILabel!
@@ -58,7 +58,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             preDicountPrice.attributedText = attributeString
         }
         if let descrip = products?.prDescription {
-        descriptionLabel.text = descrip
+            descriptionLabel.text = descrip
         }
     }
     
@@ -86,9 +86,9 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         self.navigationItem.rightBarButtonItem  = button1
     }
     func pushToOnCart(_ sender : UIButton) {
-       print("cart")
+        print("cart")
         let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
-          onCartVC.isNotSubView = false
+        onCartVC.isNotSubView = false
         navigationController?.pushViewController(onCartVC, animated: true )
     }
     
@@ -103,14 +103,14 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             
             let writereviewVC = WriteReviewsVC(nibName: "WriteReviewsVC", bundle: nil)
             self.navigationController?.pushViewController(writereviewVC, animated: true)
-//            let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
-//            onCartVC.isNotSubView = false
-//            navigationController?.pushViewController(onCartVC, animated: true)
+            //            let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
+            //            onCartVC.isNotSubView = false
+            //            navigationController?.pushViewController(onCartVC, animated: true)
         }else {
             performSegue(withIdentifier: "login", sender: self )
         }
         
-
+        
     }
     
     @IBAction func descriptionTapGesture(_ sender: AnyObject) {
@@ -162,7 +162,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         print("Buy buyNow ")
         
         if ad.isUserLoggedIn() {
-
+            
             let data = products
             
             saveCartItemsInCoreData(data: data)
@@ -176,7 +176,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             performSegue(withIdentifier: "login", sender: self )
         }
         
-       
+        
         
         
     }
@@ -186,33 +186,33 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
     
     
-    func saveCartItemsInCoreData(data:productDetails?) {
-        let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
-        let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-        fetchRequest.predicate = predicate
-        do {
-            
-            
-            let fetcjResult = try context.fetch(fetchRequest)
-            if fetcjResult.count > 0 {
-                print("Already Fav")
-            }else {
-                
-                let CartItem = CDOnCart(context: context)
-                context.mergePolicy = CartItem
-                CartItem.name  = data?.name
-                CartItem.quantity = 1
-                if let price = data?.price {
-                    CartItem.price = price
-                }else { print("error saving the price in onCart on productDetailsVC"); }
-                ad.saveContext()
-                print("saved data")
-            }
-        } catch let error as NSError {
-            print("That is the error in FavListCoreData : \(error.localizedDescription)")
-        }
-        
-
+    func saveCartItemsInCoreData(data:productDetails?) {//GonCoreData
+        //        let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
+        //        let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
+        //        fetchRequest.predicate = predicate
+        //        do {
+        //
+        //
+        //            let fetcjResult = try context.fetch(fetchRequest)
+        //            if fetcjResult.count > 0 {
+        //                print("Already Fav")
+        //            }else {
+        //
+        //                let CartItem = CDOnCart(context: context)
+        //                context.mergePolicy = CartItem
+        //                CartItem.name  = data?.name
+        //                CartItem.quantity = 1
+        //                if let price = data?.price {
+        //                    CartItem.price = price
+        //                }else { print("error saving the price in onCart on productDetailsVC"); }
+        //                ad.saveContext()
+        //                print("saved data")
+        //            }
+        //        } catch let error as NSError {
+        //            print("That is the error in FavListCoreData : \(error.localizedDescription)")
+        //        }
+        //
+        print("saveCartItemInCoreData")
     }
     
     
@@ -227,81 +227,20 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
             if selectedBtn == "carticon" {
                 
-             saveCartItemsInCoreData(data: data)
+                saveCartItemsInCoreData(data: data)
                 
             }else if selectedBtn ==  shareImage {
                 
                 
-            }else {
-                
-                let fetchRequest : NSFetchRequest<CDFavList> = CDFavList.fetchRequest()
-                print("that is hte shit id : \((data?.id)!)"   )
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                    }else {
-                        
-                        let favItem = CDFavList(context: context)
-                        context.mergePolicy = favItem
-                        favItem.name  = data?.name
-                        ad.saveContext()
-                        print("saved data")
-                    }
-                } catch let error as NSError {
-                    print("That is the error in FavListCoreData : \(error.localizedDescription)")
-                }
-            }
+            }else {}
         }
         else
         {
             sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
             
-            if selectedBtn == "carticon" {
+            if selectedBtn == "carticon" {}else  if selectedBtn == shareImage {
                 
-                let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                        print("will delete : \((data?.name)!)")
-                        context.delete(fetcjResult[0])
-                        ad.saveContext()
-                    }
-                }catch {
-                    print("Fetching failed")
-                }
-                
-            }else  if selectedBtn == shareImage {
-                
-            } else {
-                
-                let fetchRequest : NSFetchRequest<CDFavList> = CDFavList.fetchRequest()
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                        print("will delete : \((data?.name)!)")
-                        context.delete(fetcjResult[0])
-                        ad.saveContext()
-                    }
-                }catch {
-                    print("Fetching failed")
-                }
-                
-            }
+            } else {}
         }
     }
     

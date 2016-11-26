@@ -45,7 +45,6 @@ PODS:
   - GoogleUtilities (1.3.2):
     - GoogleSymbolUtilities (~> 1.1)
   - Onboard (2.3.1)
-  - StretchHeader (1.0.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -54,7 +53,6 @@ DEPENDENCIES:
   - FBSDKShareKit
   - Google/SignIn
   - Onboard
-  - StretchHeader
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
@@ -74,8 +72,7 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
   Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
-  StretchHeader: abf0d6a795e8e7bf4000752c65c85bf274686f41
 
-PODFILE CHECKSUM: 1d50520ba2c46c25b9e4922e35a5f2f67e7d52e1
+PODFILE CHECKSUM: 663b309fceb0ea3e0941b58f1372666b7d2d5d1b
 
 COCOAPODS: 1.0.1

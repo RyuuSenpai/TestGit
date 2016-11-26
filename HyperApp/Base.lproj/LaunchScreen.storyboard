@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="37" id="sNy-H5-bC6"/>
                                 </constraints>
                             </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Carrefour-logo" translatesAutoresizingMaskIntoConstraints="NO" id="eH6-5B-6s0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="animation_background_by_mariankiller-d53788b" translatesAutoresizingMaskIntoConstraints="NO" id="eH6-5B-6s0">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="PJs-Sg-8bD"/>
                                     <constraint firstAttribute="width" constant="200" id="Xio-qH-7PB"/>
@@ -47,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Carrefour-logo" width="2272" height="1704"/>
+        <image name="animation_background_by_mariankiller-d53788b" width="1280" height="905"/>
     </resources>
 </document>

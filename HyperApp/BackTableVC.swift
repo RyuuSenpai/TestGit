@@ -92,12 +92,14 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         loginManager.logOut()
         GIDSignIn.sharedInstance().signOut()
         
-ad.saveUserLogginData(email: nil, photoUrl: nil)
-        ad.reloadApp()
+            ad.saveUserLogginData(email: nil, photoUrl: nil)
+            ad.reloadApp()
 
-    }
+
     
 }
+    
+}//class 
 
 
 

@@ -15,3 +15,6 @@ let BASE_URL = "http://hyper-techno-stage.herokuapp.com/"
 let HOME_PAGE = "HomePage"
 let HEADER_ID = "Authorization"
 let HEADER_PASSWORD = "627562626c6520617069206b6579"
+
+
+let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"

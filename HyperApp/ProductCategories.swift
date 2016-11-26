@@ -79,8 +79,7 @@ class ProductCategories {
 //        
 //        return [Mobiles , TV,Mobiles , TV,Mobiles , TV]
 //    }
-    
-    
+
     
     func downloadHomePageData( compeleted: @escaping ([ProductCategories]) -> ()){
         
@@ -98,7 +97,7 @@ class ProductCategories {
                         prCat.name = name
                         var productDetailsA = [productDetails]()
                         for prodObj in products {
-                            guard let name = prodObj["name"] as? String , let price = prodObj["price"] as? Double , let id = prodObj["id"] as? Int , let getDescription = prodObj["description"] as? String
+                            guard let name = prodObj["name"] as? String , let price = prodObj["price"] as? Double , let id = prodObj["id"] as? Int , let getDescription = prodObj["description"] as? String , let main_image = prodObj["main_image"] as? String
                                 else {
                                     print("faild to get name , price or id of product ")
                                     return }
@@ -106,7 +105,9 @@ class ProductCategories {
                             productDetail.name = name
                                 productDetail.price = price
                             productDetail.prDescription = getDescription
-                            
+                            productDetail.image_url  = IMAGE_HOME_PATH + "/" + main_image
+                           let imageUrl  = IMAGE_HOME_PATH + "/" + main_image
+                            productDetail.image_pr = self.getImage(image: imageUrl)
                             productDetail.id = id
                             productDetailsA.append(productDetail)
                         }
@@ -121,6 +122,17 @@ class ProductCategories {
         }//Alamnofire
         
     }//downloadHomePageData
+    
+    func getImage(image:String) ->UIImage {
+        
+        let imageURL = URL(string: image)
+        if let imageData = NSData(contentsOf: imageURL!){
+            return UIImage(data: imageData as Data)!
+        }
+        return #imageLiteral(resourceName: "PlaceHolder")
+        
+    }
+    
 }//class
 
 class productDetails :NSObject {
@@ -128,6 +140,7 @@ class productDetails :NSObject {
     var id : Int?
     var name :String?
     var image_url : String?
+    var image_pr :UIImage?
     var id_parent : NSNumber?
     var level_depth : NSNumber?
     var price  : Double?

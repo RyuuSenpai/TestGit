@@ -27,7 +27,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         }
     }
     
-    var coredataClass = CoreDataProductFunctions()
+ //   var coredataClass = CoreDataProductFunctions()
     
     
     
@@ -54,6 +54,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         productsCollectionView.backgroundColor = UIColor.clear
+    
     }
     
     
@@ -73,12 +74,12 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
         cell.share.tag = indexPath.row
         cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-        if coredataClass.checkIfFav(data: productCategory?.products?[indexPath.row]){
+       /* if coredataClass.checkIfFav(data: productCategory?.products?[indexPath.row]){
             cell.isFav = true
         }
         if coredataClass.checkIfOncart(data: productCategory?.products?[indexPath.row]){
             cell.onCart = true
-        }
+        }*/
         cell.products = productCategory?.products?[indexPath.item]
         
         return cell
@@ -97,7 +98,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         print("that is the button index : \(sender.tag)")
         
         
-        selectedButton(sender: sender, selectedBtn: "heart_icon_selected", disSelectImage: "Heart_icon")
+        //selectedButton(sender: sender, selectedBtn: "heart_icon_selected", disSelectImage: "Heart_icon")
         
         
         
@@ -108,7 +109,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
         print("that is the button index : \(sender.tag)")
         
-        selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
+       // selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
         
     }
     
@@ -123,121 +124,6 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     
     
-    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
-        sender.isSelected = !sender.isSelected
-        let shareImage = "favoriteditemenabled"
-        let data = productCategory?.products?[sender.tag]
-        
-        if(sender.isSelected == true)
-        {
-            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
-            if selectedBtn == "carticon" {
-                
-                
-                
-                
-                let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                    }else {
-                        
-                        let CartItem = CDOnCart(context: context)
-                        context.mergePolicy = CartItem
-                        CartItem.name  = data?.name
-                        CartItem.quantity = 1
-                        if let price = data?.price {
-                            CartItem.price = price
-                        }else { print("error in price in HomeCat save onCart")}
-                        ad.saveContext()
-                        print("saved data")
-                        categoriesHomePageVC?.cartNumberOfItemsBadge()
-                    }
-                } catch let error as NSError {
-                    print("That is the error in FavListCoreData : \(error.localizedDescription)")
-                }
-                
-                
-            }else if selectedBtn ==  shareImage {
-                
-                
-            }else {
-                let data = productCategory?.products?[sender.tag]
-                
-                let fetchRequest : NSFetchRequest<CDFavList> = CDFavList.fetchRequest()
-                print("that is hte shit id : \((data?.id)!)"   )
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                    }else {
-                        
-                        let favItem = CDFavList(context: context)
-                        context.mergePolicy = favItem
-                        favItem.name  = data?.name
-                        ad.saveContext()
-                        print("saved data")
-                    }
-                } catch let error as NSError {
-                    print("That is the error in FavListCoreData : \(error.localizedDescription)")
-                }
-            }
-        }
-        else
-        {
-            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
-            
-            if selectedBtn == "carticon" {
-                
-                let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                        print("will delete : \((data?.name)!)")
-                        context.delete(fetcjResult[0])
-                        ad.saveContext()
-                        categoriesHomePageVC?.cartNumberOfItemsBadge()
-                    }
-                }catch {
-                    print("Fetching failed")
-                }
-                
-            }else  if selectedBtn == shareImage {
-                
-            } else {
-                
-                let fetchRequest : NSFetchRequest<CDFavList> = CDFavList.fetchRequest()
-                let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-                fetchRequest.predicate = predicate
-                do {
-                    
-                    
-                    let fetcjResult = try context.fetch(fetchRequest)
-                    if fetcjResult.count > 0 {
-                        print("Already Fav")
-                        print("will delete : \((data?.name)!)")
-                        context.delete(fetcjResult[0])
-                        ad.saveContext()
-                    }
-                }catch {
-                    print("Fetching failed")
-                }
-                
-            }
-        }
-    }
     
     
     
@@ -305,6 +191,10 @@ class HomeProductCell: UICollectionViewCell {
                 addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
             addToCart.isSelected = false
             }
+            
+            if let imageUrl = products?.image_pr {
+                productImage.image = imageUrl
+            }
         }
     }
 
@@ -313,8 +203,7 @@ class HomeProductCell: UICollectionViewCell {
         
         
     }
-    
-    
+
     
     
     

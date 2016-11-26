@@ -145,7 +145,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
                     let imageString : String =  "\(imageURL!)"
                     
                     self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
-
+                        
                         ad.saveUserLogginData(email: email, photoUrl: imageString)
                         ad.reloadApp()
                     })
@@ -174,7 +174,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
             return
         }
         guard let id = user.userID , let email = user.profile.email ,  let userImage = user.profile.imageURL(withDimension: 400) ,  let firstName = user.profile.givenName else {
-            ad.saveUserLogginData(email: nil, photoUrl: nil)
+                ad.saveUserLogginData(email: nil, photoUrl: nil)
             self.setUIEnabled(enabled: true)
             return
         }
@@ -187,8 +187,9 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
                        options: UIViewAnimationOptions.curveEaseOut, animations: {
                         self.afterLogginView.alpha = 1.0
             },  completion: {  finished in
-                ad.saveUserLogginData(email: email, photoUrl: imageString)
-                ad.reloadApp()
+                    ad.saveUserLogginData(email: email, photoUrl: imageString)
+                    ad.reloadApp()
+         
         })
         
         

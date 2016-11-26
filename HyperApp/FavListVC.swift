@@ -11,33 +11,73 @@ import CoreData
 import Alamofire
 class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
 
-    @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
 
     @IBOutlet weak var collectionView: UICollectionView!
     let home = HomeCategoriesCell()
     var favList : [CDFavList]?
+    var favImages : [UIImage]!
+    var productCatData : ProductCategories!
 
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getTheData()
-    }
+     var isnotSubV = true
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.revealViewController() != nil {
-            sideMenuBOL.target = self.revealViewController()
-            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-            //     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
+
+        self.view.squareLoading.start(0.0)
+
+      
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
         
-     
-        
+        self.revealMenu()
+//     productCatData = ProductCategories()
+//        productCatData.getFavImageFromCD(mainFavList: { (list) in
+//            
+//            print("Done with getting the Images")
+//            self.favList = list
+//            }) { (images ) in
+//                
+//                self.favImages = [UIImage]()
+//                self.favImages = images
+//                self.view.squareLoading.stop(0.0)
+//                self.revealMenu()
+//                self.collectionView.reloadData()
+//        }
+ 
     }
 
+
+    
+    func getImage(image:String) ->UIImage {
+        
+        let imageURL = URL(string: image)
+        if let imageData = NSData(contentsOf: imageURL!){
+            return UIImage(data: imageData as Data)!
+        }
+        return #imageLiteral(resourceName: "PlaceHolder")
+        
+    }
+    
+    func revealMenu() {
+        
+        if isnotSubV {
+            
+        
+        if self.revealViewController() != nil {
+            let sideMenuBtn = UIBarButtonItem(image: UIImage(named: "browsebutton"), style: .plain, target: self.revealViewController(), action: #selector(getter: UIDynamicBehavior.action)) // action:#selector(Class.MethodName) for swift 3
+            
+            self.navigationItem.leftBarButtonItem  = sideMenuBtn
+            sideMenuBtn.action = #selector(SWRevealViewController.revealToggle(_:))
+            //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+        }
+        isnotSubV = true
+
+    }
     
     
     
@@ -54,36 +94,20 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavItemsCell", for: indexPath) as! FavItemsCell
-        
+        cell.imageData = favImages?[indexPath.row]
         cell.favItem = favList?[indexPath.row]
         cell.removeFromFav.layer.setValue(indexPath.row, forKey: "index")
+        cell.removeFromFav.tag = indexPath.row
         cell.removeFromFav.addTarget(self, action: #selector(removeFav(sender:)) , for: .touchUpInside)
 
-        
         return cell
     }
     
-    func removeFav(sender:UIButton) {
-          let i : Int = (sender.layer.value(forKey: "index")) as! Int
-        guard let fav = favList else {
-            return
-        }
-        let deletedObject = fav[i]
-        context.delete(deletedObject)
-        ad.saveContext()
-        getTheData()
-        
-    }
+    func removeFav(sender:UIButton) {}
     
     func getTheData() {
         
-        do {
-            
-            favList = try context.fetch(CDFavList.fetchRequest())
-            
-        }catch {
-            print("Fetching failed")
-        }
+       
         collectionView.reloadData()
     }
     

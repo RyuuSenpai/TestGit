@@ -26,6 +26,10 @@ class FavItemsCell: UICollectionViewCell{
     @IBOutlet weak var share: UIButton!
     @IBOutlet weak var addToCart: UIButton!
     
+    var imageData : UIImage? {
+        didSet {
+        productImage.image = self.imageData
+        }  }
     var favItem : CDFavList? {
         didSet {
             
@@ -42,6 +46,9 @@ class FavItemsCell: UICollectionViewCell{
 //            }
             
 //        }
+//            if let image = productDetails?.image_pr {
+//                productImage.image = image 
+//            }
     }
     }
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
     @IBOutlet weak var totalPriceValue: UILabel!
@@ -63,7 +62,7 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
  
     
     func addToQuantity(sender:UIButton)  {
-        
+        /*
         let onCart = items?[sender.tag]
         guard let itemQuantity = onCart?.quantity , itemQuantity >= Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else {  return }
         let count = Int(itemQuantity) + 1
@@ -72,9 +71,9 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 //        onCart?.qXprice = price
         
         ad.saveContext()
-        getTheData()
+        getTheData()*/
     }
-    func subtractFromQuantity(sender:UIButton)  {
+    func subtractFromQuantity(sender:UIButton)  {/*
         let onCart = items?[sender.tag]
         guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,  itemQuantity >= Int16(2) else {  return }
 
@@ -84,41 +83,11 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 //        onCart?.qXprice = price
 
         ad.saveContext()
-        getTheData()
-    }
+        getTheData()*/    }
     
     
     func getTheData() {
-        do {
-            items = try context.fetch(CDOnCart.fetchRequest())
-          
-            if let items = items  {
-                totalPrice = 0
-
-                for i in 0..<items.count {
-
-                    let price =  items[i].price
-                    let quantity = items[i].quantity
-//                totalPrice = totalPrice +  price
-                    items[i].qXprice = price * Double(quantity)
-                    let y = items[i].qXprice
-                    totalPrice += y
-  
-                    
-                }
-                
-                if items.count == 0 {
-                    totalPrice = 0
-                }
-                
-            }
-            self.totalPriceValue.text = "\(totalPrice) L.E"
-            
-        }catch let error as NSError {
-            print("that is the error in Oncart DataBase : \(error.localizedDescription)")
-            self.totalPriceValue.text = " "
-        }
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -127,8 +96,6 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
                 return
             }
             let item = items[indexPath.row]
-            context.delete(item)
-            ad.saveContext()
             getTheData()
             
         }

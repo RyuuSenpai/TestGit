@@ -28,6 +28,9 @@ class SeeMoreCell: UICollectionViewCell {
         if let pricee = product?.price{
             price.text = "\(pricee) L.E"
         }//price
+        if let image = product?.image_pr {
+            self.image.image = image 
+        }
         
     }
 }

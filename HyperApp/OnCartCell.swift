@@ -43,10 +43,7 @@ class OnCartCell: UITableViewCell {
 
     @IBAction func stepperbtnAct(_ sender: UIStepper) {
 
-        Productquantaty.text = Int(sender.value).description
-    
-        onCart?.quantity =  Int16(sender.value)
-        ad.saveContext()
+
         
     }
     

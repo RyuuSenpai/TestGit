@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,6 +39,7 @@
                                     <constraint firstAttribute="height" constant="30" id="3QZ-EW-zQM"/>
                                     <constraint firstAttribute="width" constant="66" id="Rdc-7X-qA9"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="See More">
                                     <color key="titleColor" red="0.99888950590000003" green="0.21123051640000001" blue="0.077281214299999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -52,7 +52,7 @@
                             <constraint firstAttribute="trailing" secondItem="cTo-4j-DZ6" secondAttribute="trailing" id="N7W-H7-3Kw"/>
                             <constraint firstItem="cTo-4j-DZ6" firstAttribute="top" secondItem="oW7-E6-NpB" secondAttribute="bottom" constant="10" id="YV5-bH-bYO"/>
                             <constraint firstItem="Clg-aj-j2Q" firstAttribute="top" secondItem="gtZ-Hn-6Xm" secondAttribute="top" constant="5" id="fgf-iD-uW3"/>
-                            <constraint firstAttribute="trailing" secondItem="Clg-aj-j2Q" secondAttribute="trailing" constant="10" id="mhJ-Yc-RRC"/>
+                            <constraint firstAttribute="trailing" secondItem="Clg-aj-j2Q" secondAttribute="trailing" constant="5" id="mhJ-Yc-RRC"/>
                             <constraint firstItem="oW7-E6-NpB" firstAttribute="leading" secondItem="gtZ-Hn-6Xm" secondAttribute="leading" constant="8" id="qDY-Zd-rTo"/>
                             <constraint firstItem="oW7-E6-NpB" firstAttribute="top" secondItem="gtZ-Hn-6Xm" secondAttribute="top" constant="10" id="rZa-Qg-3yu"/>
                             <constraint firstAttribute="bottom" secondItem="cTo-4j-DZ6" secondAttribute="bottom" id="vot-5V-vwN"/>

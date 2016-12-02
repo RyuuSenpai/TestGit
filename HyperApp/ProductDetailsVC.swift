@@ -84,7 +84,52 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
         let button1 = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action : #selector(self.pushToOnCart(_:)))
         self.navigationItem.rightBarButtonItem  = button1
+        favAndCartIconState()
+        recivedNotification()
     }
+    
+    func favAndCartIconState() {
+        let favFuncsClass = FavItemsFunctionality()
+        let onCartFuncsClass = OnCartFunctionality()
+    if favFuncsClass.saveFavData(data: products, state: nil){
+        favItemBOL.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+        favItemBOL.isSelected = true
+    }else {
+        favItemBOL.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+        favItemBOL.isSelected = false
+        
+        }
+    if onCartFuncsClass.saveCartData(data: products, state: nil){
+        addTOCarBOL.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+        addTOCarBOL.isSelected = true
+    }else {
+        addTOCarBOL.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+        addTOCarBOL.isSelected = false
+        }
+    }
+    
+    func recivedNotification() {
+        NotificationCenter.default.addObserver(forName: REFRESH_PRODUCT_DETAILS_ICONS, object: nil, queue: nil) { notification  in
+            //            let largerCell = HomeCategoriesCell()
+            //            largerCell.reloadData()
+            self.favAndCartIconState()
+            print("recivedNotification : \(notification)")
+        }
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        sendNotification()
+        
+    }
+    func sendNotification() {
+        
+        NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
+        
+    }
+    
     func pushToOnCart(_ sender : UIButton) {
         print("cart")
         let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
@@ -148,26 +193,28 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
      */
     @IBAction func addTOCarBA(_ sender: UIButton) {
         print("add to Cart ")
-        selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
+        let onCartFuncs = OnCartFunctionality()
+        onCartFuncs.cartBtnAct(sender: sender, data: products,buyNow:false)
         
         
     }
     @IBAction func favItemBA(_ sender: UIButton) {
         print("add to fav list  ")
-        selectedButton(sender: sender, selectedBtn: "hearticon", disSelectImage: "heart")
         
+        let favFuncs = FavItemsFunctionality()
+        favFuncs.FavBtnAct(sender: sender, data: products)
         
     }
+    
+    
     @IBAction func buyNowBA(_ sender: UIButton) {
         print("Buy buyNow ")
         
         if ad.isUserLoggedIn() {
             
-            let data = products
             
-            saveCartItemsInCoreData(data: data)
-            
-            
+            let onCartFuncs = OnCartFunctionality()
+            onCartFuncs.cartBtnAct(sender: sender, data: products,buyNow:true)
             
             let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
             onCartVC.isNotSubView = false
@@ -186,63 +233,10 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
     
     
-    func saveCartItemsInCoreData(data:productDetails?) {//GonCoreData
-        //        let fetchRequest : NSFetchRequest<CDOnCart> = CDOnCart.fetchRequest()
-        //        let  predicate = NSPredicate(format: "name == %@", (data?.name)!)
-        //        fetchRequest.predicate = predicate
-        //        do {
-        //
-        //
-        //            let fetcjResult = try context.fetch(fetchRequest)
-        //            if fetcjResult.count > 0 {
-        //                print("Already Fav")
-        //            }else {
-        //
-        //                let CartItem = CDOnCart(context: context)
-        //                context.mergePolicy = CartItem
-        //                CartItem.name  = data?.name
-        //                CartItem.quantity = 1
-        //                if let price = data?.price {
-        //                    CartItem.price = price
-        //                }else { print("error saving the price in onCart on productDetailsVC"); }
-        //                ad.saveContext()
-        //                print("saved data")
-        //            }
-        //        } catch let error as NSError {
-        //            print("That is the error in FavListCoreData : \(error.localizedDescription)")
-        //        }
-        //
-        print("saveCartItemInCoreData")
-    }
+  
     
     
     
-    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
-        sender.isSelected = !sender.isSelected
-        let shareImage = "favoriteditemenabled"
-        let data = products
-        
-        if(sender.isSelected == true)
-        {
-            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
-            if selectedBtn == "carticon" {
-                
-                saveCartItemsInCoreData(data: data)
-                
-            }else if selectedBtn ==  shareImage {
-                
-                
-            }else {}
-        }
-        else
-        {
-            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
-            
-            if selectedBtn == "carticon" {}else  if selectedBtn == shareImage {
-                
-            } else {}
-        }
-    }
     
     
     

@@ -7,21 +7,26 @@
 //
 
 import Foundation
+import RealmSwift
 
-class CDFavList {
-    var image_URL : String?
-    var name : String?
-    var price : Double?
+class CDFavList : Object {
+  dynamic var image_URL = ""
+   dynamic var name  = ""
+   dynamic var price : Double = 0.0
+
+    override static func primaryKey() -> String {
+        return "name"
+    }
 }
 
-class CDOnCart {
-    
-    var name : String?
-    var price : Double?
-    var quantity : Int16?
-    var qXprice : Double?
-    var totalPrice : Double?
-}
+//class CDOnCart {
+//    
+//    var name : String?
+//    var price : Double?
+//    var quantity : Int16?
+//    var qXprice : Double?
+//    var totalPrice : Double?
+//}
 
 class CDSHomePage {
     

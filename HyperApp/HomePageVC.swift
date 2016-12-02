@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
     
     
@@ -25,19 +25,13 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
 
     //@end Auk
     
-    var itemsInCart : Int {
-        get {
-               return 0
-        }
-        
-    }
+    var itemsInCart : Int = 0
  
     var productCategory : [ProductCategories]?
     var productCatData : ProductCategories?
     
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        cartNumberOfItemsBadge()
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
         if dataISA != nil {
@@ -47,38 +41,22 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         sideMenuBOL.isEnabled  = false
         cartBarButton.isEnabled = false
         }
-
+        upDateItemInCart()
+        cartNumberOfItemsBadge()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.squareLoading.start(0.0)
+        updateData()
+       
 
-        if productCatData != nil {
-            self.view.squareLoading.stop(0.0)
-
-        }else {
-            productCatData = ProductCategories()
-            productCatData?.downloadHomePageData { (productCategory) in
-                self.dataISA = true
-                self.productCategory = productCategory
-                print("Done with getting Data")
-                self.view.squareLoading.stop(0.0)
-                self.mainProductsRow.reloadData()
-                self.revealMenu()
-            }
-        }
-        
-        
-        
-        
-       HomePageVC.profileImage = profileMenuImage()
-        
+        HomePageVC.profileImage = profileMenuImage()
+        recivedNotification()
 //        productCategory = ProductCategories.productCategories()
-        
+        /*
         self.cartBarButton.badgeBGColor = UIColor.red
         self.cartBarButton.badgeTextColor = UIColor.white
-        //self.cartBarButton.badgeValue = "\(itemsInCart)"
+        self.cartBarButton.badgeValue = "\(itemsInCart)"
         self.cartBarButton.shouldAnimateBadge = true
         self.cartBarButton.shouldHideBadgeAtZero = true
         
@@ -86,14 +64,36 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             self.cartBarButton.tintColor = UIColor.black
         }else {
             self.cartBarButton.tintColor = UIColor.white
-        }
-
-        
+        }*/
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
         
     }
+    
+    func updateData() {
+        self.view.squareLoading.start(0.0)
+        productCatData = ProductCategories()
+        productCatData?.downloadHomePageData { (productCategory) in
+            self.dataISA = true
+            self.productCategory = productCategory
+            print("Done with getting Data")
+            self.view.squareLoading.stop(0.0)
+            self.mainProductsRow.reloadData()
+            self.revealMenu()
+        }
+    }
+    
+    func recivedNotification() {
+        NotificationCenter.default.addObserver(forName: UPDATE_CART_BADGE, object: nil , queue: nil) { notification  in
+            //            let largerCell = HomeCategoriesCell()
+            //            largerCell.reloadData()
+            self.upDateItemInCart()
+            self.cartNumberOfItemsBadge()
+            print("recivedNotification : \(notification)")
+        }
+    }
+    
     
     func revealMenu() {
         sideMenuBOL.isEnabled  = true
@@ -111,9 +111,10 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func cartNumberOfItemsBadge(){
      
-            self.cartBarButton.badgeValue = "\(2)"
-       
-        
+            self.cartBarButton.badgeValue = "\(itemsInCart)"
+
+        self.cartBarButton.badgeBGColor = UIColor.red
+        self.cartBarButton.badgeTextColor = UIColor.white
         self.cartBarButton.shouldAnimateBadge = true
         self.cartBarButton.shouldHideBadgeAtZero = true
         if  itemsInCart >= 1 {

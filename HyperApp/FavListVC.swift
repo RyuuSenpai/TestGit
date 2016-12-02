@@ -7,10 +7,9 @@
 //
 import Foundation
 import UIKit
-import CoreData
+import RealmSwift
 import Alamofire
 class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
-
 
     @IBOutlet weak var collectionView: UICollectionView!
     let home = HomeCategoriesCell()
@@ -24,7 +23,7 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.squareLoading.start(0.0)
+//        self.view.squareLoading.start(0.0)
 
       
         collectionView.delegate = self
@@ -45,9 +44,8 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
 //                self.revealMenu()
 //                self.collectionView.reloadData()
 //        }
- 
+ getTheData()
     }
-
 
     
     func getImage(image:String) ->UIImage {
@@ -103,14 +101,39 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         return cell
     }
     
-    func removeFav(sender:UIButton) {}
     
     func getTheData() {
+        do {
+            let realm = try Realm()
+            let favL = realm.objects(CDFavList.self)
+            favList = [CDFavList]()
+            for y in favL {
+                favList?.append(y)
+            }
+            collectionView.reloadData()
+        }catch let err as NSError {
+            print("that is error ya man   :   \(err)")
+        }
         
-       
-        collectionView.reloadData()
     }
     
+    func removeFav(sender:UIButton) {
+       
+        do {
+            let realm = try Realm()
+            let objectD = ((favList?[sender.tag])!)
+            print("will deleet : \(objectD)")
+            realm.beginWrite()
+            realm.delete(objectD)
+           try  realm.commitWrite()
+            getTheData()
+        }catch let err as NSError {
+            print("that is error ya man   :   \(err)")
+        }
+        
+    }
+    
+   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height  :CGFloat = 229.0
         var width : CGFloat = 160.0

@@ -58,23 +58,20 @@ extension ProductDetailsVC : UICollectionViewDataSource {
  
     func favButtonA(_ sender: UIButton) {
         
-        print("that is the button index : \(sender.tag)")
+        print("Related Item in : \(sender.tag)")
         
-        selectedButton(sender: sender, selectedBtn: "heart_icon_selected", disSelectImage: "Heart_icon")
     }
     
     func cartButtonA(_ sender: UIButton) {
         
-        print("that is the button index : \(sender.tag)")
+        print("Related Item in : \(sender.tag)")
         
-        selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
         
     }
     
     func shareButtonA(_ sender: UIButton) {
         
-        print("that is the button index : \(sender.tag)")
-        selectedButton(sender: sender, selectedBtn: "favoriteditemenabled", disSelectImage: "favoriteditem")
+        print("Related Item in : \(sender.tag)")
     }
     
 //    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {

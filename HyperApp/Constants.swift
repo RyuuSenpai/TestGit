@@ -18,3 +18,8 @@ let HEADER_PASSWORD = "627562626c6520617069206b6579"
 
 
 let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
+
+
+let REFRESH_HOMEPAGE_CELLS = NSNotification.Name("RefreshHPNotification")
+let UPDATE_CART_BADGE = NSNotification.Name("UPDATE_CART_BADGE")
+let REFRESH_PRODUCT_DETAILS_ICONS = NSNotification.Name("REFRESH_PRODUCT_DETAILS_ICONS")

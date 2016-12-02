@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
     @IBOutlet weak var totalPriceValue: UILabel!
@@ -19,7 +20,6 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-
         getTheData()
         if isNotSubView {
         if self.revealViewController() != nil {
@@ -34,7 +34,17 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         }
         isNotSubView = true
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        sendNotification()
 
+    }
+    func sendNotification() {
+    
+        NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
+        NotificationCenter.default.post(name: REFRESH_PRODUCT_DETAILS_ICONS, object: nil)
+
+    }
 
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,6 +72,27 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
  
     
     func addToQuantity(sender:UIButton)  {
+        
+        do {
+            let realm = try Realm()
+            let onCart = items?[sender.tag]
+            print("that is the quantity :  \(onCart?.quantity)")
+            guard let itemQuantity = onCart?.quantity , itemQuantity > Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else { print("addToQuantity error in guard Statement"); return }
+            let count = Int(itemQuantity) + 1
+            let price = Double(count) * Double(itemPrice)
+
+            try realm.write{
+                onCart?.quantity = Int16(count)
+                onCart?.qXprice = price
+
+                //                realm.add(onCart)
+//                print("that Saved ya Man \(onCart.name)")
+            }
+            self.getTheData()
+        }catch let err as NSError {
+            print("that is error ya man   :   \(err)")
+        }
+        
         /*
         let onCart = items?[sender.tag]
         guard let itemQuantity = onCart?.quantity , itemQuantity >= Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else {  return }
@@ -73,22 +104,46 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         ad.saveContext()
         getTheData()*/
     }
-    func subtractFromQuantity(sender:UIButton)  {/*
-        let onCart = items?[sender.tag]
-        guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,  itemQuantity >= Int16(2) else {  return }
-
-        let count = Int(itemQuantity) - 1
-        onCart?.quantity = Int16(count)
-//        let price =   Double(quantXprice) / Double(itemQuantity)
-//        onCart?.qXprice = price
-
-        ad.saveContext()
-        getTheData()*/    }
-    
-    
-    func getTheData() {
-        self.tableView.reloadData()
+    func subtractFromQuantity(sender:UIButton)  {
+        
+        do {
+            let realm = try Realm()
+            let onCart = items?[sender.tag]
+            guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,let itemPrice = onCart?.price ,  itemQuantity >= Int16(2) else { print("subtractFromQuantity error in guard Statement"); return }
+            let count = Int(itemQuantity) - 1
+            print("that is the quantitiy \( Double(itemQuantity)) and that is the qprice : \( Double(quantXprice))")
+            let price =   Double(quantXprice) - Double(itemPrice)
+            print("the actual Price : \(price)")
+            
+            try realm.write{
+                onCart?.quantity = Int16(count)
+                onCart?.qXprice = price
+                
+                //                realm.add(onCart)
+                //                print("that Saved ya Man \(onCart.name)")
+            }
+            self.getTheData()
+        }catch let err as NSError {
+            print("that is error ya man   :   \(err)")
+        }
+        
+        
+        /*
+         let onCart = items?[sender.tag]
+         guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,  itemQuantity >= Int16(2) else {  return }
+         
+         let count = Int(itemQuantity) - 1
+         onCart?.quantity = Int16(count)
+         let price =   Double(quantXprice) / Double(itemQuantity)
+         onCart?.qXprice = price
+         
+         ad.saveContext()
+         getTheData()*/
+        
     }
+    
+    
+
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -96,10 +151,23 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
                 return
             }
             let item = items[indexPath.row]
-            getTheData()
+            do {
+                let realm = try Realm()
+                realm.beginWrite()
+                realm.delete(item)
+                try realm.commitWrite()
+                getTheData()
+
+            }catch let err as NSError {
+                print("error while deleting Row OnCart rror  : \(err)")
+            }
+            
             
         }
     }
+    
+  
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 240.0;//Choose your custom row height
@@ -122,4 +190,70 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         }
     }
 
+    func getTheData() {
+        do {
+            let realm = try Realm()
+            let cartL = realm.objects(CDOnCart.self)
+            items = [CDOnCart]()
+            for y in cartL {
+                items?.append(y)
+            }
+            
+            if let items = items {
+                totalPrice = 0
+                
+                for i in 0..<items.count {
+                    
+                    let price =  items[i].price
+                    let quantity = items[i].quantity
+                    //                totalPrice = totalPrice +  price
+                    let y  = price * Double(quantity)
+                    totalPrice += y
+                    
+                    
+                }
+                
+                if items.count == 0 {
+                    totalPrice = 0
+                }
+                
+            }
+            self.totalPriceValue.text = "\(totalPrice) L.E"
+
+            /*
+             {
+             items = try context.fetch(CDOnCart.fetchRequest())
+             
+             if let items = items  {
+             totalPrice = 0
+             
+             for i in 0..<items.count {
+             
+             let price =  items[i].price
+             let quantity = items[i].quantity
+             //                totalPrice = totalPrice +  price
+             items[i].qXprice = price * Double(quantity)
+             var y = items[i].qXprice
+             totalPrice += y
+             
+             
+             }
+             
+             if items.count == 0 {
+             totalPrice = 0
+             }
+             
+             }
+             self.totalPriceValue.text = "\(totalPrice) L.E"
+             
+             }
+ 
+ */
+            tableView.reloadData()
+
+        }catch let err as NSError {
+            print("that is error ya man   :   \(err)")
+        }
+    
+    }
 }

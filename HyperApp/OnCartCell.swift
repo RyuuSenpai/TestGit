@@ -30,7 +30,9 @@ class OnCartCell: UITableViewCell {
             if let quantity = onCart?.quantity {
                 Productquantaty.text = "\(quantity)"
             }
-            if let price = onCart?.qXprice   {
+            if let price = onCart?.qXprice , price > 0  {
+                productPRice.text = "\(price) L.E"
+            }else if let price = onCart?.price  {
                 productPRice.text = "\(price) L.E"
             }
         }

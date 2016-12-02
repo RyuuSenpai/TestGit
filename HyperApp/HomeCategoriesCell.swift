@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import CoreData
-
+import RealmSwift 
 
 class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout , UICollectionViewDelegate{
     
@@ -18,7 +17,8 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     @IBOutlet weak var seeMore: UIButton!
     @IBOutlet weak var categorytitle: UILabel!
     @IBOutlet weak var productsCollectionView: UICollectionView!
-    
+    let favFuncsClass = FavItemsFunctionality()
+    let onCartFuncsClass = OnCartFunctionality()
     var productCategory : ProductCategories? {
         didSet {
             if let categoryTitle = productCategory?.name {
@@ -50,14 +50,37 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     
     override func awakeFromNib() {
-        
+        recivedNotification()
+
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         productsCollectionView.backgroundColor = UIColor.clear
-    
     }
     
+    func recivedNotification() {
+        NotificationCenter.default.addObserver(forName: REFRESH_HOMEPAGE_CELLS, object: nil, queue: nil) { notification  in
+            //            let largerCell = HomeCategoriesCell()
+            //            largerCell.reloadData()
+            
+            self.productsCollectionView.reloadData()
+            print("recivedNotification : \(notification)")
+        }
+    }
     
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+     func reloadData() {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.9) {
+//            }
+        perform(#selector(HomeCategoriesCell.Test), with: nil, afterDelay: 2)
+    }
+    func Test() {
+    print("YAY")
+//        self.productsCollectionView.reloadData()
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = productCategory?.products?.count {
@@ -74,12 +97,12 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
         cell.share.tag = indexPath.row
         cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-       /* if coredataClass.checkIfFav(data: productCategory?.products?[indexPath.row]){
+        if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
             cell.isFav = true
-        }
-        if coredataClass.checkIfOncart(data: productCategory?.products?[indexPath.row]){
+        }else { cell.isFav = false }
+        if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
             cell.onCart = true
-        }*/
+        }else { cell.onCart = false }
         cell.products = productCategory?.products?[indexPath.item]
         
         return cell
@@ -89,28 +112,18 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
     }
     
-    
-    
-    
-    
+ 
+  
     func favButtonA(_ sender: UIButton) {
-        
-        print("that is the button index : \(sender.tag)")
-        
-        
-        //selectedButton(sender: sender, selectedBtn: "heart_icon_selected", disSelectImage: "Heart_icon")
-        
-        
-        
-        
+        let data = productCategory?.products?[sender.tag]
+
+       favFuncsClass.FavBtnAct(sender: sender, data: data )
     }
     
     func cartButtonA(_ sender: UIButton) {
-        
-        print("that is the button index : \(sender.tag)")
-        
-       // selectedButton(sender: sender, selectedBtn: "carticon", disSelectImage: "cart")
-        
+        let data = productCategory?.products?[sender.tag]
+
+        onCartFuncsClass.cartBtnAct(sender: sender, data: data,buyNow : false)
     }
     
     func shareButtonA(_ sender: UIButton) {
@@ -122,16 +135,18 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
     }
     
-    
-    
-    
-    
+   
     
     // MARK: UICOllectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print("selected Product")
+//        if saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
+//            print("selected Product and teh state is √")
+//
+//        }else {
+//            print("selected Product and teh state is X ")
+//
+//        }
         let data = productCategory?.products?[indexPath.row]
         
         categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!, product : data)

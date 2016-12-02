@@ -1936,6 +1936,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuV-XU-9fA">
                                         <color key="backgroundColor" red="0.20094434579802845" green="1" blue="0.24910802125531895" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Buy Now">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1958,7 +1959,7 @@
                                             <constraint firstAttribute="height" constant="50" id="BM4-Sa-dV7"/>
                                             <constraint firstAttribute="width" constant="50" id="i3n-Jd-P8O"/>
                                         </constraints>
-                                        <state key="normal" image="heart"/>
+                                        <state key="normal" image="Heart_icon"/>
                                         <connections>
                                             <action selector="favItemBA:" destination="Phw-Ex-Ao4" eventType="touchUpInside" id="thr-vp-w4B"/>
                                         </connections>
@@ -2567,7 +2568,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnj-4r-AHF">
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="umi-gU-0p0"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="umi-gU-0p0"/>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hu0-kE-wLA">
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23% off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8t-gr-7zz">
@@ -3049,13 +3050,12 @@
         <image name="commenticon" width="10" height="8"/>
         <image name="favoriteditem" width="24" height="24"/>
         <image name="forwardtick" width="9" height="16"/>
-        <image name="heart" width="30" height="30"/>
         <image name="hotitems" width="22" height="31"/>
         <image name="mario" width="500" height="500"/>
         <image name="searchglass_small" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="x08-Ch-NF0"/>
-        <segue reference="brs-la-qoN"/>
+        <segue reference="GeP-oi-tdp"/>
+        <segue reference="fpa-1R-Use"/>
     </inferredMetricsTieBreakers>
 </document>

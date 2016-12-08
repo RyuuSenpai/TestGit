@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
+class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSource  {
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
     
     @IBOutlet weak var tableView: UITableView!
@@ -28,12 +28,8 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         self.tableView.rowHeight = 45
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        if self.revealViewController() != nil {
-            sideMenuBOL.target = self.revealViewController()
-            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-            //     self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
+    
+        revealMenu()
         
         setHeaderCellUI()
         if UserDefaults.standard.value(forKey: "userEmail") != nil  {
@@ -41,6 +37,8 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             imagesArray = ["Heart With Pulse","Shopping Cart" , "MyOrders" , "MyAddress"]
         }
     }
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -98,23 +96,15 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         profileHeaderMC?.itemsOnCart = "0"
         profileHeaderMC?.favCount = "0"
         profileHeaderMC?.boughtItemsCount = "\(0)"
-        profileHeaderMC?.image = profileImage()
-    }
-    func profileImage() -> UIImage {
-        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
-            
-            do {
-                let image = try Data(contentsOf: imageURL )
-                return  UIImage(data: image)!
-            }catch let error as NSError {
-                print("Error in Sidmenu setImage",error )
-                return UIImage(named:"Ninja Head")!
-            }
-            
+        if let image = BackTableVC.profileImage {
+            profileHeaderMC?.image =  image
+
         }else {
-            return UIImage(named:"Ninja Head")!
+            profileHeaderMC?.image =   UIImage(named:"3-userWelcomeingImage")
+
         }
     }
+
     
 }
 

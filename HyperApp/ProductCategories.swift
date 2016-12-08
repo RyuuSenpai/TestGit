@@ -105,7 +105,7 @@ class ProductCategories {
                             productDetail.name = name
                                 productDetail.price = price
                             productDetail.prDescription = getDescription
-//                            productDetail.image_url  = IMAGE_HOME_PATH + "/" + main_image
+                            productDetail.image_url  = IMAGE_HOME_PATH + "/" + main_image
 //                           let imageUrl  = IMAGE_HOME_PATH + "/" + main_image
 //                            productDetail.image_pr = self.getImage(image: imageUrl)
                             productDetail.id = id
@@ -123,7 +123,8 @@ class ProductCategories {
         
     }//downloadHomePageData
     
-    func getImage(image:String) ->UIImage {
+   
+    func getImagee(image:String) ->UIImage {
         
         let imageURL = URL(string: image)
         if let imageData = NSData(contentsOf: imageURL!){

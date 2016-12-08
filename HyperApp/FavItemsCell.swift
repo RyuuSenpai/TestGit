@@ -26,19 +26,16 @@ class FavItemsCell: UICollectionViewCell{
     @IBOutlet weak var share: UIButton!
     @IBOutlet weak var addToCart: UIButton!
     
-    var imageData : UIImage? {
-        didSet {
-        productImage.image = self.imageData
-        }  }
+  
     var favItem : CDFavList? {
         didSet {
             
             if let title = favItem?.name {
                 productTitle.text = title
             }
-//            if let price = productDetails?.price {
-//                self.price.text = "\(price)"
-//            }
+            if let price = productDetails?.price {
+                self.price.text = "\(price) L.E"
+            }
 //            if let prePrice = productDetails?.preDiscountPrice {
 //                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
 //                attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
@@ -46,9 +43,6 @@ class FavItemsCell: UICollectionViewCell{
 //            }
             
 //        }
-//            if let image = productDetails?.image_pr {
-//                productImage.image = image 
-//            }
     }
     }
     
@@ -60,7 +54,7 @@ class FavItemsCell: UICollectionViewCell{
                 productTitle.text = title
             }
             if let price = productDetails?.price {
-                self.price.text = "\(price)"
+                self.price.text = "\(price) L.E"
             }
             if let prePrice = productDetails?.preDiscountPrice {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")

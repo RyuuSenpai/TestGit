@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 import RealmSwift
 import Alamofire
-class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout  {
 
     @IBOutlet weak var collectionView: UICollectionView!
     let home = HomeCategoriesCell()
     var favList : [CDFavList]?
     var favImages : [UIImage]!
     var productCatData : ProductCategories!
-
+let getImageClass = GetImage()
      var isnotSubV = true
 
     
@@ -29,8 +29,11 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
-        
+        if isnotSubV {
+
         self.revealMenu()
+        }
+        isnotSubV = true 
 //     productCatData = ProductCategories()
 //        productCatData.getFavImageFromCD(mainFavList: { (list) in
 //            
@@ -58,26 +61,7 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         
     }
     
-    func revealMenu() {
-        
-        if isnotSubV {
-            
-        
-        if self.revealViewController() != nil {
-            let sideMenuBtn = UIBarButtonItem(image: UIImage(named: "browsebutton"), style: .plain, target: self.revealViewController(), action: #selector(getter: UIDynamicBehavior.action)) // action:#selector(Class.MethodName) for swift 3
-            
-            self.navigationItem.leftBarButtonItem  = sideMenuBtn
-            sideMenuBtn.action = #selector(SWRevealViewController.revealToggle(_:))
-            //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
-        }
-        isnotSubV = true
-
-    }
-    
-    
+ 
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -92,14 +76,17 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavItemsCell", for: indexPath) as! FavItemsCell
-        cell.imageData = favImages?[indexPath.row]
         cell.favItem = favList?[indexPath.row]
         cell.removeFromFav.layer.setValue(indexPath.row, forKey: "index")
         cell.removeFromFav.tag = indexPath.row
         cell.removeFromFav.addTarget(self, action: #selector(removeFav(sender:)) , for: .touchUpInside)
-
+        cell.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+        getImageClass.getFavListImages(data: favList?[indexPath.row]) { (img) in
+            cell.productImage.image = img
+        }
         return cell
     }
+    
     
     
     func getTheData() {
@@ -135,14 +122,18 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var height  :CGFloat = 229.0
-        var width : CGFloat = 160.0
-        if (self.view.frame.size.width * 0.45) > width {
-            width = (self.view.frame.size.width * 0.45)
-        }
-        if (width * 1.43) > height {
-            height = (width * 1.43)
-        }
+        let height  :CGFloat = (self.view.frame.size.width * 0.43) * 1.5
+        let width : CGFloat = self.view.frame.size.width * 0.43
+        print("that is the not fixed width \(self.view.frame.size.width * 0.45)")
+//        if (self.view.frame.size.width * 0.45) > width {
+//            width = (self.view.frame.size.width * 0.40)
+//        }
+//        if (width * 1.43) > height {
+//            height = (width * 1.43)
+//        }
+        print("that is the not fixed width \(width)")
+        print("that is the not fixed height \(height)")
+
         return CGSize(width: width , height: height) // The size of one cell
         
             //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)

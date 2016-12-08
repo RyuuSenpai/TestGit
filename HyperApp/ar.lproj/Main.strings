@@ -1,0 +1,312 @@
+
+/* Class = "UILabel"; text = "My Cart"; ObjectID = "0OY-tC-fXz"; */
+"0OY-tC-fXz.text" = "My Cart";
+
+/* Class = "UILabel"; text = "What's not good about this item?"; ObjectID = "1Wx-dS-5um"; */
+"1Wx-dS-5um.text" = "What's not good about this item?";
+
+/* Class = "UILabel"; text = "Mobile Number"; ObjectID = "2Di-7h-bLG"; */
+"2Di-7h-bLG.text" = "Mobile Number";
+
+/* Class = "UILabel"; text = "Price"; ObjectID = "38D-kl-Swn"; */
+"38D-kl-Swn.text" = "Price";
+
+/* Class = "UILabel"; text = "The cheetah (pronounced /ˈtʃiːtə/) (Acinonyx jubatus), also known as the hunting leopard."; ObjectID = "3fU-ld-qdu"; */
+"3fU-ld-qdu.text" = "The cheetah (pronounced /ˈtʃiːtə/) (Acinonyx jubatus), also known as the hunting leopard.";
+
+/* Class = "UILabel"; text = "<- colors and other stuffs ->"; ObjectID = "4Rv-Mt-yOF"; */
+"4Rv-Mt-yOF.text" = "<- colors and other stuffs ->";
+
+/* Class = "UILabel"; text = "Reviews"; ObjectID = "4vl-lJ-IXp"; */
+"4vl-lJ-IXp.text" = "Reviews";
+
+/* Class = "UILabel"; text = "on  26 October 2016"; ObjectID = "5wg-VD-kHu"; */
+"5wg-VD-kHu.text" = "on  26 October 2016";
+
+/* Class = "UILabel"; text = "23% off"; ObjectID = "7Em-Hm-bFF"; */
+"7Em-Hm-bFF.text" = "23% off";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "7LZ-ge-gDx"; */
+"7LZ-ge-gDx.normalTitle" = "Sign in";
+
+/* Class = "UILabel"; text = "Orange - Black - White"; ObjectID = "7W3-2d-oYG"; */
+"7W3-2d-oYG.text" = "Orange - Black - White";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "8w9-q7-5vb"; */
+"8w9-q7-5vb.title" = "الصفحة الرئيسية";
+
+/* Class = "UILabel"; text = "eslamaboelfetouh@Gmail.com"; ObjectID = "9Zl-Sa-Khb"; */
+"9Zl-Sa-Khb.text" = "eslamaboelfetouh@Gmail.com";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9hI-2n-i4u"; */
+"9hI-2n-i4u.text" = "Label";
+
+/* Class = "UILabel"; text = "Or"; ObjectID = "9j7-sE-eX9"; */
+"9j7-sE-eX9.text" = "Or";
+
+/* Class = "UILabel"; text = "23% off"; ObjectID = "AJ4-vy-pKa"; */
+"AJ4-vy-pKa.text" = "23% off";
+
+/* Class = "UILabel"; text = "Read full review"; ObjectID = "BSg-Xz-xrA"; */
+"BSg-Xz-xrA.text" = "Read full review";
+
+/* Class = "UILabel"; text = "The title of the product item"; ObjectID = "BlE-4c-5cF"; */
+"BlE-4c-5cF.text" = "The title of the product item";
+
+/* Class = "UILabel"; text = "Write Review"; ObjectID = "Buz-4v-PZp"; */
+"Buz-4v-PZp.text" = "Write Review";
+
+/* Class = "UILabel"; text = "23% off"; ObjectID = "C8t-gr-7zz"; */
+"C8t-gr-7zz.text" = "23% off";
+
+/* Class = "UILabel"; text = "Don't have an account yet?"; ObjectID = "Cz3-kZ-2JC"; */
+"Cz3-kZ-2JC.text" = "Don't have an account yet?";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "DK7-Qp-dGi"; */
+"DK7-Qp-dGi.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "E8L-LP-QCS"; */
+"E8L-LP-QCS.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Sign in"; ObjectID = "FVk-tT-j5H"; */
+"FVk-tT-j5H.title" = "Sign in";
+
+/* Class = "UILabel"; text = "on  26 October 2016"; ObjectID = "FdA-tb-ytN"; */
+"FdA-tb-ytN.text" = "on  26 October 2016";
+
+/* Class = "UILabel"; text = "On Cart Items :"; ObjectID = "FsJ-ru-N57"; */
+"FsJ-ru-N57.text" = "On Cart Items :";
+
+/* Class = "UILabel"; text = "Rated : "; ObjectID = "GOz-am-6qg"; */
+"GOz-am-6qg.text" = "Rated : ";
+
+/* Class = "UILabel"; text = "The title of the product item"; ObjectID = "GpC-5V-7Og"; */
+"GpC-5V-7Og.text" = "The title of the product item";
+
+/* Class = "UITextField"; placeholder = "Enter your Email here"; ObjectID = "Gtk-SR-cCJ"; */
+"Gtk-SR-cCJ.placeholder" = "Enter your Email here";
+
+/* Class = "UILabel"; text = "User"; ObjectID = "HDB-N0-eTY"; */
+"HDB-N0-eTY.text" = "User";
+
+/* Class = "UILabel"; text = "20% Off"; ObjectID = "IAS-Uj-Moy"; */
+"IAS-Uj-Moy.text" = "20% Off";
+
+/* Class = "UILabel"; text = "What's good about this item?"; ObjectID = "Iqo-fM-ZwT"; */
+"Iqo-fM-ZwT.text" = "What's good about this item?";
+
+/* Class = "UIButton"; normalTitle = "Buy Now"; ObjectID = "IuV-XU-9fA"; */
+"IuV-XU-9fA.normalTitle" = "Buy Now";
+
+/* Class = "UITextField"; placeholder = "Enter your password here"; ObjectID = "MTM-Sn-Egh"; */
+"MTM-Sn-Egh.placeholder" = "Enter your password here";
+
+/* Class = "UILabel"; text = "666"; ObjectID = "Mnm-EK-qXp"; */
+"Mnm-EK-qXp.text" = "666";
+
+/* Class = "UILabel"; text = "My Profile"; ObjectID = "O32-D9-3IG"; */
+"O32-D9-3IG.text" = "My Profile";
+
+/* Class = "UITextField"; placeholder = "Enter your Password here"; ObjectID = "ORX-fK-WVw"; */
+"ORX-fK-WVw.placeholder" = "Enter your Password here";
+
+/* Class = "UILabel"; text = "Sub Total"; ObjectID = "OXf-LC-ZRd"; */
+"OXf-LC-ZRd.text" = "Sub Total";
+
+/* Class = "UILabel"; text = "699.00 L.E"; ObjectID = "PQW-3P-rZd"; */
+"PQW-3P-rZd.text" = "699.00 L.E";
+
+/* Class = "UILabel"; text = "Model"; ObjectID = "PoM-Ug-McL"; */
+"PoM-Ug-McL.text" = "Model";
+
+/* Class = "UILabel"; text = "2016-2017"; ObjectID = "QTa-HD-Akt"; */
+"QTa-HD-Akt.text" = "2016-2017";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "Qgr-dI-Iux"; */
+"Qgr-dI-Iux.text" = "Email";
+
+/* Class = "UILabel"; text = "5.0"; ObjectID = "RqV-Ys-cVL"; */
+"RqV-Ys-cVL.text" = "5.0";
+
+/* Class = "UILabel"; text = "Read More"; ObjectID = "RuG-le-fnv"; */
+"RuG-le-fnv.text" = "Read More";
+
+/* Class = "UILabel"; text = "Cat Name"; ObjectID = "SW8-sq-xQi"; */
+"SW8-sq-xQi.text" = "Cat Name";
+
+/* Class = "UILabel"; text = "55.0 L.E"; ObjectID = "Sgc-jr-Ro2"; */
+"Sgc-jr-Ro2.text" = "55.0 L.E";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Txd-rm-w9e"; */
+"Txd-rm-w9e.text" = "0";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "U5k-NL-VEa"; */
+"U5k-NL-VEa.text" = "Full Name";
+
+/* Class = "UILabel"; text = "Very good product , but it all depends "; ObjectID = "UlB-eh-hIx"; */
+"UlB-eh-hIx.text" = "Very good product , but it all depends ";
+
+/* Class = "UILabel"; text = "People Also Viewed"; ObjectID = "VVf-Ac-4XB"; */
+"VVf-Ac-4XB.text" = "People Also Viewed";
+
+/* Class = "UILabel"; text = "The title of the product item"; ObjectID = "Vih-cO-Q7E"; */
+"Vih-cO-Q7E.text" = "The title of the product item";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Wu7-GL-Q3S"; */
+"Wu7-GL-Q3S.text" = "Label";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "YbC-7q-Qj4"; */
+"YbC-7q-Qj4.text" = "Description";
+
+/* Class = "UILabel"; text = "Favorites Items :"; ObjectID = "YpR-Mk-ORC"; */
+"YpR-Mk-ORC.text" = "Favorites Items :";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "ZS7-Hc-Dgv"; */
+"ZS7-Hc-Dgv.text" = "Password";
+
+/* Class = "UILabel"; text = "title"; ObjectID = "ZjM-GD-sOS"; */
+"ZjM-GD-sOS.text" = "title";
+
+/* Class = "UILabel"; text = "Brand"; ObjectID = "axS-A9-72d"; */
+"axS-A9-72d.text" = "Brand";
+
+/* Class = "UITextField"; placeholder = "Enter your Email here"; ObjectID = "b6p-gI-EfK"; */
+"b6p-gI-EfK.placeholder" = "Enter your Email here";
+
+/* Class = "UIButton"; normalTitle = "See More"; ObjectID = "cRg-bk-Iz5"; */
+"cRg-bk-Iz5.normalTitle" = "See More";
+
+/* Class = "UILabel"; text = "Rated : "; ObjectID = "dnS-Uu-WDe"; */
+"dnS-Uu-WDe.text" = "Rated : ";
+
+/* Class = "UIButton"; normalTitle = "Sign in with google"; ObjectID = "e6F-eb-TfW"; */
+"e6F-eb-TfW.normalTitle" = "Sign in with google";
+
+/* Class = "UILabel"; text = "Home"; ObjectID = "eCg-pZ-cZK"; */
+"eCg-pZ-cZK.text" = "Home";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "eIi-99-5Qw"; */
+"eIi-99-5Qw.text" = "0";
+
+/* Class = "UILabel"; text = " is a big cat that occurs mainly in eastern and southern Africa and a few parts of Iran. The only extant member of the genus Acinonyx, the cheetah was first described by Johann Christian Daniel von Schreber in 1775. The cheetah is characterised by a slender body, deep chest, spotted coat, a small rounded head, black tear-like streaks on the face, long thin legs and a long spotted tail. Its lightly built, slender form is in sharp contrast with the robust build of the other big cats. The cheetah reaches nearly 70 to 90 cm (28 to 35 in) at the shoulder, and weighs 21–72 kg (46–159 lb). Though taller than the leopard, it is notably smaller than the lion. Basically yellowish tan or rufous to greyish white, the coat is uniformly covered with nearly 2,000 solid black spots."; ObjectID = "eZL-De-cjA"; */
+"eZL-De-cjA.text" = " is a big cat that occurs mainly in eastern and southern Africa and a few parts of Iran. The only extant member of the genus Acinonyx, the cheetah was first described by Johann Christian Daniel von Schreber in 1775. The cheetah is characterised by a slender body, deep chest, spotted coat, a small rounded head, black tear-like streaks on the face, long thin legs and a long spotted tail. Its lightly built, slender form is in sharp contrast with the robust build of the other big cats. The cheetah reaches nearly 70 to 90 cm (28 to 35 in) at the shoulder, and weighs 21–72 kg (46–159 lb). Though taller than the leopard, it is notably smaller than the lion. Basically yellowish tan or rufous to greyish white, the coat is uniformly covered with nearly 2,000 solid black spots.";
+
+/* Class = "UIButton"; normalTitle = "888 reviews"; ObjectID = "ebV-fB-Mwq"; */
+"ebV-fB-Mwq.normalTitle" = "888 reviews";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "emy-cL-Rcz"; */
+"emy-cL-Rcz.text" = "Label";
+
+/* Class = "UILabel"; text = "The vernacular name \"cheetah\" is derived from the Hindi word चीता (cītā), which in turn comes from the Sanskrit word चित्रकायः (citrakāyaḥ) meaning \"bright\" or \"variegated\". The first recorded use of this word was in 1610.[3][4] An alternative name for the cheetah is \"hunting leopard\".[5] The scientific name of the cheetah is Acinonyx jubatus"; ObjectID = "fq3-eH-KCt"; */
+"fq3-eH-KCt.text" = "The vernacular name \"cheetah\" is derived from the Hindi word चीता (cītā), which in turn comes from the Sanskrit word चित्रकायः (citrakāyaḥ) meaning \"bright\" or \"variegated\". The first recorded use of this word was in 1610.[3][4] An alternative name for the cheetah is \"hunting leopard\".[5] The scientific name of the cheetah is Acinonyx jubatus";
+
+/* Class = "UILabel"; text = "<- Shiping  whithin 3-7 days ->"; ObjectID = "fvX-Gz-OcJ"; */
+"fvX-Gz-OcJ.text" = "<- Shiping  whithin 3-7 days ->";
+
+/* Class = "UILabel"; text = "Qty :"; ObjectID = "gGq-X3-9XK"; */
+"gGq-X3-9XK.text" = "Qty :";
+
+/* Class = "UIButton"; normalTitle = "Signin"; ObjectID = "h5J-ru-6Xn"; */
+"h5J-ru-6Xn.normalTitle" = "Signin";
+
+/* Class = "UIButton"; normalTitle = "Sign in with facebook"; ObjectID = "hDa-Id-6Es"; */
+"hDa-Id-6Es.normalTitle" = "Sign in with facebook";
+
+/* Class = "UIButton"; normalTitle = "Checkout"; ObjectID = "hH5-X4-Nkg"; */
+"hH5-X4-Nkg.normalTitle" = "Checkout";
+
+/* Class = "UILabel"; text = "Bought Items :"; ObjectID = "hti-1P-u41"; */
+"hti-1P-u41.text" = "Bought Items :";
+
+/* Class = "UITextField"; placeholder = "Enter your Full name here"; ObjectID = "iav-Zc-Kda"; */
+"iav-Zc-Kda.placeholder" = "Enter your Full name here";
+
+/* Class = "UILabel"; text = "20% off"; ObjectID = "idJ-aF-L9A"; */
+"idJ-aF-L9A.text" = "20% off";
+
+/* Class = "UILabel"; text = "ZeOwls"; ObjectID = "ifP-GP-bzt"; */
+"ifP-GP-bzt.text" = "ZeOwls";
+
+/* Class = "UILabel"; text = "Read More"; ObjectID = "jVi-oi-u8f"; */
+"jVi-oi-u8f.text" = "Read More";
+
+/* Class = "UILabel"; text = "Search"; ObjectID = "kEe-Ny-AC0"; */
+"kEe-Ny-AC0.text" = "Search";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "kwB-1T-vx4"; */
+"kwB-1T-vx4.normalTitle" = "Sign Up";
+
+/* Class = "UITextField"; placeholder = "Enter your Mobile Number here"; ObjectID = "l1d-ZN-vJu"; */
+"l1d-ZN-vJu.placeholder" = "Enter your Mobile Number here";
+
+/* Class = "UILabel"; text = "699.00 L.E"; ObjectID = "nVF-uo-wuC"; */
+"nVF-uo-wuC.text" = "699.00 L.E";
+
+/* Class = "UIButton"; normalTitle = "SignOut"; ObjectID = "njW-Oh-TUJ"; */
+"njW-Oh-TUJ.normalTitle" = "SignOut";
+
+/* Class = "UILabel"; text = "699.00 L.E"; ObjectID = "o3K-eH-E7Q"; */
+"o3K-eH-E7Q.text" = "699.00 L.E";
+
+/* Class = "UILabel"; text = "Welcome"; ObjectID = "oCJ-03-P80"; */
+"oCJ-03-P80.text" = "Welcome";
+
+/* Class = "UILabel"; text = "Storage"; ObjectID = "od3-3g-fz2"; */
+"od3-3g-fz2.text" = "Storage";
+
+/* Class = "UILabel"; text = "Specifications"; ObjectID = "p2F-8N-pZm"; */
+"p2F-8N-pZm.text" = "Specifications";
+
+/* Class = "UILabel"; text = "Colors"; ObjectID = "pxe-UD-0J5"; */
+"pxe-UD-0J5.text" = "Colors";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "s4R-mz-BHS"; */
+"s4R-mz-BHS.text" = "0";
+
+/* Class = "UILabel"; text = "10,900 L.E"; ObjectID = "srJ-pO-47i"; */
+"srJ-pO-47i.text" = "10,900 L.E";
+
+/* Class = "UILabel"; text = "Very good product , but it all depends "; ObjectID = "u5i-tv-irf"; */
+"u5i-tv-irf.text" = "Very good product , but it all depends ";
+
+/* Class = "UILabel"; text = "23% off"; ObjectID = "uE2-xp-QxT"; */
+"uE2-xp-QxT.text" = "23% off";
+
+/* Class = "UIButton"; normalTitle = "See All"; ObjectID = "uwd-hV-9HF"; */
+"uwd-hV-9HF.normalTitle" = "See All";
+
+/* Class = "UILabel"; text = "eslamaboelfetouh@Gmail.com"; ObjectID = "vHb-xr-YdT"; */
+"vHb-xr-YdT.text" = "eslamaboelfetouh@Gmail.com";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "vXb-vr-jqB"; */
+"vXb-vr-jqB.text" = "0";
+
+/* Class = "UILabel"; text = "5.0"; ObjectID = "wYc-6s-PlU"; */
+"wYc-6s-PlU.text" = "5.0";
+
+/* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "wZe-61-KJp"; */
+"wZe-61-KJp.title" = "Sign Up";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "we8-JC-Yxo"; */
+"we8-JC-Yxo.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "See All"; ObjectID = "wh0-Ev-bhz"; */
+"wh0-Ev-bhz.normalTitle" = "See All";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "xgx-jL-bUR"; */
+"xgx-jL-bUR.normalTitle" = "Sign Up";
+
+/* Class = "UILabel"; text = "0 EGP"; ObjectID = "yhr-24-vGP"; */
+"yhr-24-vGP.text" = "0 EGP";
+
+/* Class = "UILabel"; text = "My Wish List"; ObjectID = "zOj-39-U0G"; */
+"zOj-39-U0G.text" = "My Wish List";
+
+/* Class = "UILabel"; text = "The title of the product item"; ObjectID = "zSL-Jp-m2S"; */
+"zSL-Jp-m2S.text" = "The title of the product item";
+
+/* Class = "UILabel"; text = "Very good product , but it all depends "; ObjectID = "zYe-jK-aOv"; */
+"zYe-jK-aOv.text" = "Very good product , but it all depends ";
+
+/* Class = "UILabel"; text = "699.00 L.E"; ObjectID = "zYf-xT-vlm"; */
+"zYf-xT-vlm.text" = "699.00 L.E";

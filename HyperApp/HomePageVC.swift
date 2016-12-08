@@ -1,4 +1,4 @@
-//
+ //
 //  HomePageVC.swift
 //  HyperApp
 //
@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
+class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout  {
     
     
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
@@ -16,9 +16,8 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     @IBOutlet weak var mainProductsRow: UICollectionView!
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
     
-    static var profileImage : UIImage?
     private let reuseIdentifier = "CategoriesCell"
-    var dataISA :Bool?
+    var dataISA :Bool = true
     
     //@AukHeaderID
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
@@ -34,13 +33,16 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     override func viewWillAppear(_ animated: Bool) {
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
-        if dataISA != nil {
-            sideMenuBOL.isEnabled  = true
-            cartBarButton.isEnabled = true
+        if dataISA {
+            self.cartBarButton.isEnabled = false
+            self.sideMenuBOL.isEnabled = false
         }else {
-        sideMenuBOL.isEnabled  = false
-        cartBarButton.isEnabled = false
+            self.cartBarButton.isEnabled = true
+            self.sideMenuBOL.isEnabled = true
         }
+        
+        
+        
         upDateItemInCart()
         cartNumberOfItemsBadge()
     }
@@ -49,38 +51,33 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         super.viewDidLoad()
         updateData()
        
-
-        HomePageVC.profileImage = profileMenuImage()
+   
         recivedNotification()
 //        productCategory = ProductCategories.productCategories()
-        /*
-        self.cartBarButton.badgeBGColor = UIColor.red
-        self.cartBarButton.badgeTextColor = UIColor.white
-        self.cartBarButton.badgeValue = "\(itemsInCart)"
-        self.cartBarButton.shouldAnimateBadge = true
-        self.cartBarButton.shouldHideBadgeAtZero = true
-        
-        if  itemsInCart >= 1 {
-            self.cartBarButton.tintColor = UIColor.black
-        }else {
-            self.cartBarButton.tintColor = UIColor.white
-        }*/
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
+        self.sendNotification()
+    }
+    
+    func sendNotification() {
         
+        NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
     }
     
     func updateData() {
         self.view.squareLoading.start(0.0)
         productCatData = ProductCategories()
         productCatData?.downloadHomePageData { (productCategory) in
-            self.dataISA = true
-            self.productCategory = productCategory
-            print("Done with getting Data")
-            self.view.squareLoading.stop(0.0)
-            self.mainProductsRow.reloadData()
-            self.revealMenu()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 9.9) {
+                self.dataISA = false
+                self.productCategory = productCategory
+                print("Done with getting Data")
+                self.view.squareLoading.stop(0.0)
+                self.mainProductsRow.reloadData()
+                self.revealMenu()
+            }
+           
         }
     }
     
@@ -94,21 +91,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }
     }
     
-    
-    func revealMenu() {
-        sideMenuBOL.isEnabled  = true
-        cartBarButton.isEnabled = true
-        if self.revealViewController() != nil {
-            sideMenuBOL.target = self.revealViewController()
-            sideMenuBOL.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.revealViewController().rearViewRevealWidth = self.view.frame.width * 0.75
-//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-//            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
-    }
-    
-    
+  
     func cartNumberOfItemsBadge(){
      
             self.cartBarButton.badgeValue = "\(itemsInCart)"
@@ -175,10 +158,14 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
-            cell.productCategory = productCategory?[indexPath.row - 1 ]
         cell.seeMore.tag = (indexPath.row - 1 )
         cell.seeMore.addTarget(self, action: #selector(self.seeMore(_:)), for: UIControlEvents.touchUpInside)
-            
+        cell.tag = indexPath.row - 1
+        cell.productCategory = nil
+        if cell.tag == indexPath.row - 1{
+            cell.productCategory = productCategory?[indexPath.row - 1 ]
+
+        }
             return cell
             
         
@@ -294,21 +281,26 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }
     }
     
-    func profileMenuImage() -> UIImage {
-        if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
+    @IBAction func switchLanguage(_ sender: UIBarButtonItem) {
+        var transition: UIViewAnimationOptions = .transitionFlipFromLeft
+        if L102Language.currentAppleLanguage() == "en" {
+            L102Language.setAppleLAnguageTo(lang: "ar")
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+        } else {
+            L102Language.setAppleLAnguageTo(lang: "en")
+            transition = .transitionFlipFromRight
+            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        }
+        let rootviewcontroller: UIWindow = ((UIApplication.shared.delegate?.window)!)!
+        rootviewcontroller.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "rootnav")
+        let mainwindow = (UIApplication.shared.delegate?.window!)!
+        mainwindow.backgroundColor = UIColor(hue: 0.6477, saturation: 0.6314, brightness: 0.6077, alpha: 0.8)
+        UIView.transition(with: mainwindow, duration: 0.55001, options: transition, animations: { () -> Void in
+        }) { (finished) -> Void in
             
-            do {
-                let image = try Data(contentsOf: imageURL )
-                return  UIImage(data: image)!
-            }catch let error as NSError {
-                print("Error in Sidmenu setImage",error )
-                return UIImage(named:"3-userWelcomeingImage")!
-            }
-            
-        }else {
-            return UIImage(named:"3-userWelcomeingImage")!
         }
     }
+    
 
     
 }

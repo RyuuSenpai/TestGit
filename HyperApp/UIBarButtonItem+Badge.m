@@ -52,6 +52,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
     self.badgeOriginY   = -4;
     self.shouldHideBadgeAtZero = YES;
     self.shouldAnimateBadge = YES;
+    self.badge.tag = 1 ;
 }
 
 #pragma mark - Utility methods

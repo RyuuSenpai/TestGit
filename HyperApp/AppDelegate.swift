@@ -7,7 +7,6 @@
     //
     
     import UIKit
-    import CoreData
     import GoogleSignIn
     import Onboard
     import FBSDKCoreKit
@@ -34,7 +33,8 @@
         func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
             // Override point for customization after application launch.
             FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-            
+            L102Localizer.DoTheMagic()
+
             return true
         }
         

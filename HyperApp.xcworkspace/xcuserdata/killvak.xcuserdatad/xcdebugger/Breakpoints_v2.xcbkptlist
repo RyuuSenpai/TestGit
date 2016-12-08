@@ -47,6 +47,38 @@
             endingLineNumber = "112"
             landmarkName = "recivedNotification()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductDetailsVC.recivedNotification () -&gt; ()"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductDetailsVC.swift"
+                  timestampString = "502893834.212532"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductDetailsVC.(recivedNotification () -&gt; ()).(closure #1)"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductDetailsVC.swift"
+                  timestampString = "502893834.219844"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,16 +100,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/OnCartVC.swift"
-            timestampString = "502328042.106619"
+            filePath = "HyperApp/HomeCategoriesCell.swift"
+            timestampString = "502402008.847085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "addToQuantity(sender:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -87,13 +119,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/OnCartVC.swift"
-            timestampString = "502328042.106619"
+            filePath = "HyperApp/GetImage.swift"
+            timestampString = "502754138.261324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "addToQuantity(sender:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "getFavListImages(data:completed:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -103,13 +135,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/OnCartVC.swift"
-            timestampString = "502328020.936987"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502860880.391289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "addToQuantity(sender:)"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "layoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -119,13 +151,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/OnCartVC.swift"
-            timestampString = "502328338.802141"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502860880.923559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "subtractFromQuantity(sender:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "layoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -135,13 +167,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/OnCartVC.swift"
-            timestampString = "502328339.497801"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502860882.086489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "subtractFromQuantity(sender:)"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "layoutSubviews()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502860882.502162"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "MirroringLabel"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502861126.813564"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "layoutSubviews()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Downloads/Localization102-master-2/Localization102/MirroringLabel.swift"
+            timestampString = "502861129.607454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "layoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

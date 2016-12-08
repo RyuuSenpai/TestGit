@@ -30,8 +30,10 @@ class FavItemsFunctionality  {
     func saveFavData(data : productDetails? ,state : Bool?  ) -> Bool {
         let fav = CDFavList()
         
-        guard let name = data?.name else { print("name in favBtnAction = nil "); return false }
+        guard let name = data?.name , let price = data?.price , let imgString = data?.image_url else { print("name in CDFavList = nil "); return false  }
         fav.name = name
+        fav.price = price
+        fav.image_URL = imgString
         do {
             
             let realm = try Realm()

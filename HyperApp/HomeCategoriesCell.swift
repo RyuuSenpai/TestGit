@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift 
+import RealmSwift
 
 class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout , UICollectionViewDelegate{
     
@@ -27,7 +27,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         }
     }
     
- //   var coredataClass = CoreDataProductFunctions()
+    //   var coredataClass = CoreDataProductFunctions()
     
     
     
@@ -51,7 +51,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     override func awakeFromNib() {
         recivedNotification()
-
+        
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         productsCollectionView.backgroundColor = UIColor.clear
@@ -71,16 +71,11 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         NotificationCenter.default.removeObserver(self)
     }
     
-     func reloadData() {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.9) {
-//            }
-        perform(#selector(HomeCategoriesCell.Test), with: nil, afterDelay: 2)
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        productsCollectionView.reloadData()
     }
-    func Test() {
-    print("YAY")
-//        self.productsCollectionView.reloadData()
-    }
-
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = productCategory?.products?.count {
@@ -89,40 +84,50 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        print(indexPath.row)
         let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "HProductCell", for: indexPath) as! HomeProductCell
-        cell.favButton.tag = indexPath.row
-        cell.favButton.addTarget(self, action: #selector(HomeCategoriesCell.favButtonA(_:)), for: .touchUpInside)
-        cell.addToCart.tag = indexPath.row
-        cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
-        cell.share.tag = indexPath.row
-        cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-        if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
-            cell.isFav = true
-        }else { cell.isFav = false }
-        if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
-            cell.onCart = true
-        }else { cell.onCart = false }
-        cell.products = productCategory?.products?[indexPath.item]
+        cell.tag = indexPath.row
+                cell.favButton.tag = indexPath.row
+                cell.favButton.addTarget(self, action: #selector(HomeCategoriesCell.favButtonA(_:)), for: .touchUpInside)
+                cell.addToCart.tag = indexPath.row
+                cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
+                cell.share.tag = indexPath.row
+                cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
+                if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
+                    cell.isFav = true
+                    print("that is the index :  \(indexPath.row) in row  : \(catIndexPath)")
+                }else { cell.isFav = false }
+                if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
+                    cell.onCart = true
+                }else { cell.onCart = false }
+//        cell.configCell(products: nil)
+        if cell.tag == indexPath.row {
+            cell.configCell(products: productCategory?.products?[indexPath.item])
+        }
+        cell.catNum = indexPath.row
         
         return cell
     }
+    
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 234)
         
     }
     
- 
-  
+    
+    
     func favButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]
-
-       favFuncsClass.FavBtnAct(sender: sender, data: data )
+        
+        favFuncsClass.FavBtnAct(sender: sender, data: data )
     }
     
     func cartButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]
-
+        
         onCartFuncsClass.cartBtnAct(sender: sender, data: data,buyNow : false)
     }
     
@@ -135,91 +140,26 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         
     }
     
-   
+    
     
     // MARK: UICOllectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
-//            print("selected Product and teh state is √")
-//
+//        if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
+//            print("selected Product and teh state is √ \(catIndexPath)")
+//            
 //        }else {
-//            print("selected Product and teh state is X ")
-//
+//            print("selected Product and teh state is X \(catIndexPath)")
+//            
 //        }
-        let data = productCategory?.products?[indexPath.row]
+                let data = productCategory?.products?[indexPath.row]
         
-        categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!, product : data)
+                categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!, product : data)
     }
     
     
-    //Test
-    
-    
-    
+
 }
 
 
 
-class HomeProductCell: UICollectionViewCell {
-    
-    @IBOutlet weak var productImage: UIImageView!
-    @IBOutlet weak var discountLabel: UILabel!
-    @IBOutlet weak var discountView: UIView!
-    @IBOutlet weak var productTitle: UILabel!
-    @IBOutlet weak var preDiscountedPrice: UILabel!
-    @IBOutlet weak var productPrice: UILabel!
-    @IBOutlet weak var addToCart: UIButton!
-    @IBOutlet weak var share: UIButton!
-    @IBOutlet weak var favButton: UIButton!
-    
-    var isFav = false
-    var onCart = false
-    var products : productDetails? {
-        didSet {
-            if let title = products?.name {
-                productTitle.text = title
-            }
-            if let price = products?.price {
-                productPrice.text = "\(price)"
-            }
-            if let prePrice = products?.preDiscountPrice {
-                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
-                attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
-                preDiscountedPrice.attributedText = attributeString
-            }
-            if let id =  products?.id_parent {
-                discountLabel.text = "\(id)"
-            }
-            if isFav {
-                favButton.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
-                favButton.isSelected = true
-            }else {
-                favButton.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
-                favButton.isSelected = false
-
-            }
-            if onCart {
-                addToCart.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
-                addToCart.isSelected = true
-            }else {
-                addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
-            addToCart.isSelected = false
-            }
-            
-            if let imageUrl = products?.image_pr {
-                productImage.image = imageUrl
-            }
-        }
-    }
-
-
-    override func awakeFromNib() {
-        
-        
-    }
-
-    
-    
-    
-}

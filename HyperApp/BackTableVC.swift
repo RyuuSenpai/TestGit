@@ -18,6 +18,7 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
     @IBOutlet weak var signOut: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var SeugeIdArray = [String()]
+    static var profileImage : UIImage?
 
     
 
@@ -25,6 +26,12 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         super.viewDidLoad()
         
 
+        getProfileImage { (img) in
+            
+            BackTableVC.profileImage = img
+            self.profileImage.image = img
+
+        }
         
         tableView.delegate = self
         tableView.dataSource = self 
@@ -32,7 +39,6 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
          let x = (containerView.frame.size.height  * 0.3 * 0.6  / 2.7)
         if UserDefaults.standard.value(forKey: "userEmail") != nil  {
             
-            profileImage.image = HomePageVC.profileImage!
         profileImage.layer.borderWidth = 3.0
         profileImage.layer.masksToBounds = false
         profileImage.layer.borderColor = UIColor.white.cgColor
@@ -52,6 +58,30 @@ class  BackTableVC : UIViewController, UITableViewDelegate , UITableViewDataSour
         
 
 
+    }
+    
+    func getProfileImage(completionHandler handler: @escaping (_ image : UIImage) -> Void) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            () -> Void in
+            var image = UIImage(named:"3-userWelcomeingImage")
+            
+            if let imageString = UserDefaults.standard.value(forKey: "profileImage") , let imageURL = URL(string: imageString as! String){
+                do {
+                    let imageData = try Data(contentsOf: imageURL )
+                    image = UIImage(data: imageData)
+                }catch let error as NSError {
+                    print("Error in Sidmenu setImage",error )
+                }
+                
+            }
+            DispatchQueue.main.async(execute: {
+                () -> Void in
+                handler(image!)
+                
+            })
+        }
+        
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

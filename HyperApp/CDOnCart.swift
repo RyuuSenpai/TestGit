@@ -16,8 +16,8 @@ class CDOnCart : Object{
     dynamic  var quantity : Int16 = 1
     dynamic  var qXprice : Double = 0.0
     dynamic var totalPrice : Double = 0.0
-    dynamic var sname : String  = ""
-    
+    dynamic var imgString : String  = ""
+    dynamic var imageData : Data? = nil
     
     override static func primaryKey() -> String {
         return "name"

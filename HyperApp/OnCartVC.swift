@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
+class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  {
 
     @IBOutlet weak var totalPriceValue: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -22,19 +22,12 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         tableView.dataSource = self
         getTheData()
         if isNotSubView {
-        if self.revealViewController() != nil {
-            let sideMenuBtn = UIBarButtonItem(image: UIImage(named: "browsebutton"), style: .plain, target: self.revealViewController(), action: #selector(getter: UIDynamicBehavior.action)) // action:#selector(Class.MethodName) for swift 3
-            
-            self.navigationItem.leftBarButtonItem  = sideMenuBtn
-            sideMenuBtn.action = #selector(SWRevealViewController.revealToggle(_:))
-            //                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            //            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
+            self.revealMenu()
         }
         isNotSubView = true
     }
     
+        
     override func viewWillDisappear(_ animated: Bool) {
         sendNotification()
 
@@ -65,7 +58,30 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
         cell.removeFromQuantity.addTarget(self, action: #selector(subtractFromQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         cell.addToQuantity.addTarget(self, action: #selector(addToQuantity(sender:)) , for: UIControlEvents.touchUpInside)
-        
+        if let item = items?[indexPath.row] {
+//            getImage(data: item, completed: { (img) in
+//                
+//            cell.configCell(img: img)
+//            })
+            let imageUrl = URL(string: item.imgString)
+            cell.tag = indexPath.row
+            var img : UIImage?
+    
+            DispatchQueue.global(qos: .userInteractive).async { () -> Void in
+                if cell.tag == indexPath.row
+                {
+                guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
+                img = UIImage(data: imageData )
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    if cell.tag == indexPath.row
+                    {
+                        cell.configCell(img: img)
+                    }
+                })
+            }//Dispatch
+
+        }
      
         return cell
     }
@@ -104,6 +120,9 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
         ad.saveContext()
         getTheData()*/
     }
+    
+  
+    
     func subtractFromQuantity(sender:UIButton)  {
         
         do {

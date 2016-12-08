@@ -19,14 +19,6 @@ class CDFavList : Object {
     }
 }
 
-//class CDOnCart {
-//    
-//    var name : String?
-//    var price : Double?
-//    var quantity : Int16?
-//    var qXprice : Double?
-//    var totalPrice : Double?
-//}
 
 class CDSHomePage {
     

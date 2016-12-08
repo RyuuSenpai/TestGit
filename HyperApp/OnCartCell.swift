@@ -35,8 +35,34 @@ class OnCartCell: UITableViewCell {
             }else if let price = onCart?.price  {
                 productPRice.text = "\(price) L.E"
             }
+//            if let imageString = onCart?.imgString {
+//                DispatchQueue.global(qos: .userInteractive).async { () -> Void in
+//                    let imageUrl = URL(string: imageString)
+//                    guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
+//                    let image = UIImage(data: imageData )
+//                    
+//                    DispatchQueue.main.async(execute: { () -> Void in
+//                        self.productImage.image = image
+//                    })
+//                    
+//                    
+//                }
+//            }
         }
     }
+    override func prepareForReuse() {
+         self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+    }
+    
+    func configCell( img : UIImage?){
+    
+        if let image = img {
+            self.productImage.image = image
+        }
+    
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -30,9 +30,11 @@ class OnCartFunctionality {
     
     func saveCartData(data : productDetails? ,state : Bool? ) -> Bool  {
         let onCart = CDOnCart()
-        guard let name = data?.name , let price = data?.price else { print("name in CDOnCart = nil "); return false  }
+        guard let name = data?.name , let price = data?.price , let imgString = data?.image_url else { print("name in CDOnCart = nil "); return false  }
         onCart.name = name
         onCart.price = price
+        onCart.imgString = imgString
+        
         do {
             
             let realm = try Realm()
@@ -57,7 +59,5 @@ class OnCartFunctionality {
         }
         return false
     }
-    
-
     
 }

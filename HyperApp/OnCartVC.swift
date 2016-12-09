@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  {
-
+    
     @IBOutlet weak var totalPriceValue: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,18 +27,24 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         isNotSubView = true
     }
     
-        
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.revealViewController().panGestureRecognizer().isEnabled = false
+    }
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         sendNotification()
-
+        
     }
     func sendNotification() {
-    
+        
         NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
         NotificationCenter.default.post(name: REFRESH_PRODUCT_DETAILS_ICONS, object: nil)
-
+        
     }
-
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -48,44 +54,44 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             return 0
         }
         return count
-           }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! OnCartCell
-       
-            cell.onCart = items?[indexPath.row]
+        
+        cell.onCart = items?[indexPath.row]
         cell.removeFromQuantity.tag = indexPath.item
         cell.addToQuantity.tag = indexPath.item
-
+        
         cell.removeFromQuantity.addTarget(self, action: #selector(subtractFromQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         cell.addToQuantity.addTarget(self, action: #selector(addToQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         if let item = items?[indexPath.row] {
-//            getImage(data: item, completed: { (img) in
-//                
-//            cell.configCell(img: img)
-//            })
-            let imageUrl = URL(string: item.imgString)
+
             cell.tag = indexPath.row
-            var img : UIImage?
-    
-            DispatchQueue.global(qos: .userInteractive).async { () -> Void in
-                if cell.tag == indexPath.row
-                {
-                guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
-                img = UIImage(data: imageData )
-                }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    if cell.tag == indexPath.row
-                    {
-                        cell.configCell(img: img)
+            if item.imageData == nil {
+                downloadImage(index: indexPath.row, completionHandler: { (data) in
+                    if cell.tag == indexPath.row {
+
+                    cell.productImage.image = UIImage(data: data)
+                    }
+                    do {
+                        let realm = try Realm()
+                        guard let item = self.items?[indexPath.row] else { return }
+                        
+                        try realm.write{
+                            item.imageData = data
+                        }
+                    } catch let err as NSError {
+                        print(err)
                     }
                 })
-            }//Dispatch
-
+                }else {
+                cell.productImage.image = UIImage(data: item.imageData!)
+            }
+            
         }
-     
         return cell
+
     }
- 
     
     func addToQuantity(sender:UIButton)  {
         
@@ -96,32 +102,35 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             guard let itemQuantity = onCart?.quantity , itemQuantity > Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else { print("addToQuantity error in guard Statement"); return }
             let count = Int(itemQuantity) + 1
             let price = Double(count) * Double(itemPrice)
-
+            
             try realm.write{
                 onCart?.quantity = Int16(count)
                 onCart?.qXprice = price
+                
 
-                //                realm.add(onCart)
-//                print("that Saved ya Man \(onCart.name)")
             }
             self.getTheData()
         }catch let err as NSError {
             print("that is error ya man   :   \(err)")
         }
         
-        /*
-        let onCart = items?[sender.tag]
-        guard let itemQuantity = onCart?.quantity , itemQuantity >= Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else {  return }
-        let count = Int(itemQuantity) + 1
-        onCart?.quantity = Int16(count)
-//        let price = Double(itemQuantity) * Double(itemPrice)
-//        onCart?.qXprice = price
-        
-        ad.saveContext()
-        getTheData()*/
+
     }
     
-  
+    func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
+        guard let items = self.items else { return }
+        let url = URL(string: items[index].imgString)
+        DispatchQueue.global(qos: .userInitiated).async {
+            () -> Void in
+            
+            let imgData = try? Data(contentsOf: url!)
+            
+            DispatchQueue.main.async(execute: {
+                () -> Void in
+                handler(imgData!)
+            })
+        }
+    }
     
     func subtractFromQuantity(sender:UIButton)  {
         
@@ -147,22 +156,10 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         }
         
         
-        /*
-         let onCart = items?[sender.tag]
-         guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,  itemQuantity >= Int16(2) else {  return }
-         
-         let count = Int(itemQuantity) - 1
-         onCart?.quantity = Int16(count)
-         let price =   Double(quantXprice) / Double(itemQuantity)
-         onCart?.qXprice = price
-         
-         ad.saveContext()
-         getTheData()*/
-        
     }
     
     
-
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -176,7 +173,7 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                 realm.delete(item)
                 try realm.commitWrite()
                 getTheData()
-
+                
             }catch let err as NSError {
                 print("error while deleting Row OnCart rror  : \(err)")
             }
@@ -185,30 +182,30 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         }
     }
     
-  
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 240.0;//Choose your custom row height
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     @IBAction func checkOutBtnAct(_ sender: AnyObject) {
         if ad.isUserLoggedIn() {
             print("checkOutBtnAct")
-
+            
         }else {
             performSegue(withIdentifier: "login", sender: self )
         }
     }
-
+    
     func getTheData() {
         do {
             let realm = try Realm()
@@ -238,41 +235,13 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                 
             }
             self.totalPriceValue.text = "\(totalPrice) L.E"
-
-            /*
-             {
-             items = try context.fetch(CDOnCart.fetchRequest())
-             
-             if let items = items  {
-             totalPrice = 0
-             
-             for i in 0..<items.count {
-             
-             let price =  items[i].price
-             let quantity = items[i].quantity
-             //                totalPrice = totalPrice +  price
-             items[i].qXprice = price * Double(quantity)
-             var y = items[i].qXprice
-             totalPrice += y
-             
-             
-             }
-             
-             if items.count == 0 {
-             totalPrice = 0
-             }
-             
-             }
-             self.totalPriceValue.text = "\(totalPrice) L.E"
-             
-             }
- 
- */
+            
+            
             tableView.reloadData()
-
+            
         }catch let err as NSError {
             print("that is error ya man   :   \(err)")
         }
-    
+        
     }
 }

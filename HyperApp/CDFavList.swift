@@ -13,6 +13,7 @@ class CDFavList : Object {
   dynamic var image_URL = ""
    dynamic var name  = ""
    dynamic var price : Double = 0.0
+    dynamic var imageData : Data? = nil
 
     override static func primaryKey() -> String {
         return "name"

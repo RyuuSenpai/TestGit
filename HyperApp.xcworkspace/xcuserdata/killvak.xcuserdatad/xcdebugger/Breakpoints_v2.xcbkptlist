@@ -47,38 +47,6 @@
             endingLineNumber = "112"
             landmarkName = "recivedNotification()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HyperApp.ProductDetailsVC.recivedNotification () -&gt; ()"
-                  moduleName = "HyperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductDetailsVC.swift"
-                  timestampString = "502893834.212532"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "112"
-                  endingLineNumber = "112"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HyperApp.ProductDetailsVC.(recivedNotification () -&gt; ()).(closure #1)"
-                  moduleName = "HyperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductDetailsVC.swift"
-                  timestampString = "502893834.219844"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -120,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HyperApp/GetImage.swift"
-            timestampString = "502754138.261324"
+            timestampString = "502939753.602639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "getFavListImages(data:completed:)"
             landmarkType = "7">
          </BreakpointContent>

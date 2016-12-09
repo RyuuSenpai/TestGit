@@ -18,8 +18,10 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     var titlesArray =  ["My Wish List","My Cart"]
     var imagesArray = ["Heart With Pulse","Shopping Cart"]
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.revealViewController().panGestureRecognizer().isEnabled = true
     }
     
     override func viewDidLoad() {

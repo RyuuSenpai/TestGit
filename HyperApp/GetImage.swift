@@ -11,6 +11,23 @@ import UIKit
 
 class GetImage {
     
+    
+    func downloadImage(favItem : CDFavList?, completionHandler handler: @escaping (_ imageData : Data) -> Void) {
+        guard let items = favItem else { return }
+        let url = URL(string: items.image_URL)
+        DispatchQueue.global(qos: .userInitiated).async {
+            () -> Void in
+            
+            let imgData = try? Data(contentsOf: url!)
+            
+            DispatchQueue.main.async(execute: {
+                () -> Void in
+                handler(imgData!)
+            })
+        }
+    }
+    
+    
     func getFavListImages(data: CDFavList?,completed:@escaping(_ img : UIImage?) -> Void) {
         guard let data = data else {
             print("Found nill trying to get the image for getFavListImages")

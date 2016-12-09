@@ -31,6 +31,8 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
 
     override func viewWillAppear(_ animated: Bool) {
+        self.revealViewController().panGestureRecognizer().isEnabled = true
+
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
         if dataISA {
@@ -51,7 +53,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         super.viewDidLoad()
         updateData()
        
-   
+
         recivedNotification()
 //        productCategory = ProductCategories.productCategories()
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
@@ -59,6 +61,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         mainProductsRow.dataSource = self
         self.sendNotification()
     }
+    
     
     func sendNotification() {
         

@@ -105,7 +105,14 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
             cell.configCell(products: productCategory?.products?[indexPath.item])
         }
         cell.catNum = indexPath.row
-        
+        if let prImage = productCategory?.products?[indexPath.item].image_pr {
+            cell.productImage.image = prImage
+        }else {
+            downloadImage(data: (productCategory?.products![indexPath.row])!, completionHandler: { (img) in
+                
+                cell.productImage.image = img
+
+        }) }
         return cell
     }
     
@@ -116,8 +123,43 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         return CGSize(width: 150, height: 234)
         
     }
+
+    func downloadImage(data : productDetails,completionHandler handler: @escaping (_ image : UIImage) -> Void) {
+        if let imageString = data.image_url {
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            () -> Void in
+            let imageUrl = URL(string: imageString)
+            guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
+            data.image_pr = UIImage(data: imageData )
+            
+            DispatchQueue.main.async(execute: {
+                () -> Void in
+                handler(data.image_pr!)
+                self.productsCollectionView.reloadData()
+
+            })
+        }
+    }
+    }
     
-    
+//    func addImageToProduct(data:[productDetails]) {
+//        DispatchQueue.global(qos: .userInteractive).async { () -> Void in
+//            
+//            for x in data {
+////                guard let imageString = x.image_url else { return}
+//                let imageUrl = URL(string: imageString!)
+//                guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
+//                x.image_pr = UIImage(data: imageData )
+//            }
+//            
+//            
+//            
+//            DispatchQueue.main.async(execute: { () -> Void in
+//           self.productsCollectionView.reloadData()
+//            })
+//        }
+//    }
     
     func favButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]

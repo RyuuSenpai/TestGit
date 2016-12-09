@@ -51,17 +51,9 @@ let getImageClass = GetImage()
     }
 
     
-    func getImage(image:String) ->UIImage {
-        
-        let imageURL = URL(string: image)
-        if let imageData = NSData(contentsOf: imageURL!){
-            return UIImage(data: imageData as Data)!
-        }
-        return #imageLiteral(resourceName: "PlaceHolder")
-        
-    }
+  
     
- 
+   
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -84,9 +76,57 @@ let getImageClass = GetImage()
         getImageClass.getFavListImages(data: favList?[indexPath.row]) { (img) in
             cell.productImage.image = img
         }
+            if let item = self.favList?[indexPath.row] {
+                  if let imageData = item.imageData {
+                    cell.productImage.image = UIImage(data: imageData)
+                  }else {
+                    getImageClass.downloadImage(favItem: favList?[indexPath.row]) { (data) in
+                        if cell.tag == indexPath.row {
+                            
+                            cell.productImage.image = UIImage(data: data)
+                        }
+                        do {
+                            let realm = try Realm()
+                            
+                            try realm.write{
+                                item.imageData = data
+                            }
+                        } catch let err as NSError {
+                            print(err)
+                        }
+                    }
+                }
+        }//
+
         return cell
     }
-    
+    /*
+     if let item = items?[indexPath.row] {
+     
+     cell.tag = indexPath.row
+     if item.imageData == nil {
+     downloadImage(index: indexPath.row, completionHandler: { (data) in
+     if cell.tag == indexPath.row {
+     
+     cell.productImage.image = UIImage(data: data)
+     }
+     do {
+     let realm = try Realm()
+     guard let item = self.items?[indexPath.row] else { return }
+     
+     try realm.write{
+     item.imageData = data
+     }
+     } catch let err as NSError {
+     print(err)
+     }
+     })
+     }else {
+     cell.productImage.image = UIImage(data: item.imageData!)
+     }
+     
+     }
+ */
     
     
     func getTheData() {

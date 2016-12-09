@@ -60,23 +60,23 @@ class HomeProductCell: UICollectionViewCell {
             self.addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
             self.addToCart.isSelected = false
         }
-        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
-                if let imageString = products?.image_url {
-                    DispatchQueue.global(qos: .userInteractive).async { () -> Void in
-                        let imageUrl = URL(string: imageString)
-                        guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
-                        let image = UIImage(data: imageData )
-        
-        
-        
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            if self.tag == self.catNum {
-        
-                                self.productImage.image = image
-                            }})
-        
-                    }
-                }
+//        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+//                if let imageString = products?.image_url {
+//                    DispatchQueue.global(qos: .userInteractive).async { () -> Void in
+//                        let imageUrl = URL(string: imageString)
+//                        guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
+//                        let image = UIImage(data: imageData )
+//        
+//        
+//        
+//                        DispatchQueue.main.async(execute: { () -> Void in
+//                            if self.tag == self.catNum {
+//        
+//                                self.productImage.image = image
+//                            }})
+//        
+//                    }
+//                }
     }
     
     override func prepareForReuse() {

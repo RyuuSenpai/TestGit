@@ -9,26 +9,71 @@
 import Foundation
 import RealmSwift
 class OnCartFunctionality {
-    
     func cartBtnAct(sender: UIButton , data : productDetails?,buyNow : Bool) {
-        
+        let obj = transferDataToCartObj(data: data)
         sender.isSelected = !sender.isSelected
         if buyNow {
-            saveCartData(data: data, state: true )
+            saveCartData(data: obj, state: true )
         }else {
         if sender.isSelected == true {
             sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
-            saveCartData(data: data, state: true )
+            saveCartData(data: obj, state: true )
         }else {
             sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
-            saveCartData(data: data, state: false )
+            
+            saveCartData(data: obj, state: false )
             
         }
         NotificationCenter.default.post(name: UPDATE_CART_BADGE , object: nil)
     }
+        
+       
     }
     
-    func saveCartData(data : productDetails? ,state : Bool? ) -> Bool  {
+    func cartCDBtnAct(sender: UIButton , data : CDFavList?,buyNow : Bool) {
+        let obj = transCDfavDataToCartObj(data: data)
+        sender.isSelected = !sender.isSelected
+        if buyNow {
+            saveCartData(data: obj, state: true )
+        }else {
+            if sender.isSelected == true {
+                sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+                saveCartData(data: obj, state: true )
+            }else {
+                sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+                
+                saveCartData(data: obj, state: false )
+                
+            }
+            NotificationCenter.default.post(name: UPDATE_CART_BADGE , object: nil)
+        }
+        
+        
+    }
+    
+    func transferDataToCartObj(data: productDetails?) -> CartDetails?{
+        let obj = CartDetails()
+        obj.name = data?.name
+        obj.price = data?.price
+        obj.image_url = data?.image_url
+        print(obj.name)
+        print(obj.price)
+        print(obj.image_url)
+        return obj
+    }
+    
+    func transCDfavDataToCartObj(data: CDFavList?) -> CartDetails?{
+        let obj = CartDetails()
+        obj.name = data?.name
+        obj.price = data?.price
+        obj.image_url = data?.image_url
+        print(obj.name)
+        print(obj.price)
+        print(obj.image_url)
+        return obj
+    }
+    
+    func saveCartData(data : CartDetails? ,state : Bool? ) -> Bool  {
         let onCart = CDOnCart()
         guard let name = data?.name , let price = data?.price , let imgString = data?.image_url else { print("name in CDOnCart = nil "); return false  }
         onCart.name = name
@@ -59,5 +104,21 @@ class OnCartFunctionality {
         }
         return false
     }
+    
+}
+
+class CartDetails : NSObject {
+    
+    var id : Int?
+    var name :String?
+    var image_url : String?
+    var image_pr :UIImage?
+    var id_parent : NSNumber?
+    var level_depth : NSNumber?
+    var price  : Double?
+    var preDiscountPrice : NSNumber?
+    var isFav : Bool?
+    var onCart : Bool?
+    var prDescription : String?
     
 }

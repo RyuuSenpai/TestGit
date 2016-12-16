@@ -17,7 +17,7 @@ extension ProductDetailsVC : UIScrollViewDelegate {
         scrollView.delegate = self
         
         for x in imagelist {
-            scrollView.auk.show(image: x!)
+            scrollView.auk.show(image: x)
         }
         scrollView.auk.startAutoScroll(delaySeconds: 3)
     }

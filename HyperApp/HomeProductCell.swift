@@ -60,36 +60,29 @@ class HomeProductCell: UICollectionViewCell {
             self.addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
             self.addToCart.isSelected = false
         }
-//        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
-//                if let imageString = products?.image_url {
-//                    DispatchQueue.global(qos: .userInteractive).async { () -> Void in
-//                        let imageUrl = URL(string: imageString)
-//                        guard let url = imageUrl , let imageData = try? Data(contentsOf: url) else { return }
-//                        let image = UIImage(data: imageData )
-//        
-//        
-//        
-//                        DispatchQueue.main.async(execute: { () -> Void in
-//                            if self.tag == self.catNum {
-//        
-//                                self.productImage.image = image
-//                            }})
-//        
-//                    }
-//                }
+        
+
+        
+        
+            guard let urlString = products?.image_url , let url  = URL(string: urlString ) else {
+                self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+                return
+            }
+        self.productImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "PlaceHolder")) 
+            products?.image_pr = self.productImage.image
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
-        productTitle.text = nil
-        productPrice.text = nil
-        discountLabel.text = nil
-        preDiscountedPrice.text = nil
-        favButton.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
-        addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
-        
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+//        productTitle.text = nil
+//        productPrice.text = nil
+//        discountLabel.text = nil
+//        preDiscountedPrice.text = nil
+//        favButton.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+//        addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+//        
+//    }
     
     func getImage(completionHandler handler : @escaping (_ image : UIImage) -> Void) {
         

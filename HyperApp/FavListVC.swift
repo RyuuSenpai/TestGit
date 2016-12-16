@@ -18,6 +18,7 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     var productCatData : ProductCategories!
 let getImageClass = GetImage()
      var isnotSubV = true
+    let onCartFuncsClass = OnCartFunctionality()
 
     
     override func viewDidLoad() {
@@ -76,7 +77,11 @@ let getImageClass = GetImage()
         getImageClass.getFavListImages(data: favList?[indexPath.row]) { (img) in
             cell.productImage.image = img
         }
-            if let item = self.favList?[indexPath.row] {
+        
+        cell.addToCart.tag = indexPath.row
+        cell.addToCart.addTarget(self, action: #selector(FavListVC.cartButtonA(_:)), for: .touchUpInside)
+        
+        if let item = self.favList?[indexPath.row] {
                   if let imageData = item.imageData {
                     cell.productImage.image = UIImage(data: imageData)
                   }else {
@@ -100,6 +105,18 @@ let getImageClass = GetImage()
 
         return cell
     }
+    
+    
+    
+    func cartButtonA(_ sender: UIButton) {
+        let data = favList?[sender.tag]
+        
+        onCartFuncsClass.cartCDBtnAct(sender: sender, data: data,buyNow : false)
+    }
+    
+   
+    
+    
     /*
      if let item = items?[indexPath.row] {
      
@@ -136,6 +153,7 @@ let getImageClass = GetImage()
             favList = [CDFavList]()
             for y in favL {
                 favList?.append(y)
+                
             }
             collectionView.reloadData()
         }catch let err as NSError {
@@ -179,7 +197,20 @@ let getImageClass = GetImage()
             //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+        
+//        productDetailController.products = product
+        
+        navigationController?.pushViewController(productDetailController, animated: true)
+
+        
+        
+    }
     
+    /*
+     
+    */
     
     
     /*

@@ -22,6 +22,6 @@ post_install do |installer|
     end
   end
 
-
+pod 'SDWebImage', '~>3.8'
 
 end

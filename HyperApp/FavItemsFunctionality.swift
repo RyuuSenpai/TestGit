@@ -33,7 +33,7 @@ class FavItemsFunctionality  {
         guard let name = data?.name , let price = data?.price , let imgString = data?.image_url else { print("name in CDFavList = nil "); return false  }
         fav.name = name
         fav.price = price
-        fav.image_URL = imgString
+        fav.image_url = imgString
         do {
             
             let realm = try Realm()

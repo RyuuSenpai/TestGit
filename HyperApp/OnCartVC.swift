@@ -85,9 +85,10 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                     }
                 })
                 }else {
-                cell.productImage.image = UIImage(data: item.imageData!)
+                if let imageData  = item.imageData {
+                cell.productImage.image = UIImage(data: imageData )
             }
-            
+            }
         }
         return cell
 
@@ -118,16 +119,19 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     }
     
     func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
-        guard let items = self.items else { return }
-        let url = URL(string: items[index].imgString)
+        guard let items = self.items , let url = URL(string: items[index].imgString) else { return }
+        
         DispatchQueue.global(qos: .userInitiated).async {
             () -> Void in
             
-            let imgData = try? Data(contentsOf: url!)
-            
+            let imgData = try? Data(contentsOf: url)
+            print("that is the Image : \(url)")
             DispatchQueue.main.async(execute: {
                 () -> Void in
-                handler(imgData!)
+                if let img = imgData {
+                    handler(img)
+
+                }
             })
         }
     }

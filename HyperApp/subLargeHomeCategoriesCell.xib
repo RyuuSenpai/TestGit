@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,10 +21,9 @@
                             <frame key="frameInset"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruZ-DO-w6d">
-                                    <frame key="frameInset" minY="1" width="182" height="66"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ruZ-DO-w6d">
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -36,14 +34,14 @@
                                 <constraint firstItem="ruZ-DO-w6d" firstAttribute="top" secondItem="yga-Ja-1gd" secondAttribute="top" id="rdH-bc-3o5"/>
                             </constraints>
                         </view>
-                        <blurEffect style="light"/>
+                        <blurEffect style="dark"/>
                     </visualEffectView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="lFH-Hp-jcb" firstAttribute="height" secondItem="LTK-NO-dmU" secondAttribute="height" multiplier="0.3" id="0GL-kE-ls0"/>
+                <constraint firstItem="lFH-Hp-jcb" firstAttribute="height" secondItem="LTK-NO-dmU" secondAttribute="height" multiplier="0.17" id="0GL-kE-ls0"/>
                 <constraint firstItem="LTK-NO-dmU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AOE-xF-aOR"/>
-                <constraint firstAttribute="bottom" secondItem="lFH-Hp-jcb" secondAttribute="bottom" id="Bwq-tI-Lgp"/>
+                <constraint firstAttribute="bottom" secondItem="lFH-Hp-jcb" secondAttribute="bottom" id="Ca1-6D-ZgR"/>
                 <constraint firstItem="LTK-NO-dmU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fmz-u9-oIT"/>
                 <constraint firstAttribute="trailing" secondItem="lFH-Hp-jcb" secondAttribute="trailing" id="UYb-08-ZNt"/>
                 <constraint firstAttribute="trailing" secondItem="LTK-NO-dmU" secondAttribute="trailing" id="aqF-p0-oKg"/>
@@ -59,6 +57,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="3" width="640" height="960"/>
+        <image name="3" width="755" height="453"/>
     </resources>
 </document>

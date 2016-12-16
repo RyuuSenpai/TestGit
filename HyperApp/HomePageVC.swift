@@ -15,6 +15,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
+    @IBOutlet weak var switchLanguageBtnOL: UIBarButtonItem!
     
     private let reuseIdentifier = "CategoriesCell"
     var dataISA :Bool = true
@@ -31,16 +32,18 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
 
     override func viewWillAppear(_ animated: Bool) {
-        self.revealViewController().panGestureRecognizer().isEnabled = true
+//        self.revealViewController().panGestureRecognizer().isEnabled = true
 
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
         if dataISA {
             self.cartBarButton.isEnabled = false
             self.sideMenuBOL.isEnabled = false
+            self.switchLanguageBtnOL.isEnabled = false
         }else {
             self.cartBarButton.isEnabled = true
             self.sideMenuBOL.isEnabled = true
+            self.switchLanguageBtnOL.isEnabled = true
         }
         
         
@@ -73,6 +76,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         productCatData = ProductCategories()
         productCatData?.downloadHomePageData { (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 9.9) {
+                self.switchLanguageBtnOL.isEnabled = true
                 self.dataISA = false
                 self.productCategory = productCategory
                 print("Done with getting Data")
@@ -200,10 +204,9 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     
     func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : productDetails?) {
+      
         let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-        
         productDetailController.products = product
-        
         navigationController?.pushViewController(productDetailController, animated: true)
     }
     // MARK: UICOllectionViewDelegate
@@ -264,7 +267,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     func shareItems(sender : UIButton , data:productDetails?) {
         
         guard let datA = data , let name = datA.name , let price = datA.price else { return }
-        let img: UIImage = UIImage(named: "1")!
+        let img: UIImage = #imageLiteral(resourceName: "PlaceHolder")
         let shareItems:Array = [img, name , price ] as [Any]
         
        let  activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)

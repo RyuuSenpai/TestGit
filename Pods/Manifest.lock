@@ -50,6 +50,9 @@ PODS:
   - Realm/Headers (2.1.0)
   - RealmSwift (2.1.0):
     - Realm (= 2.1.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -59,6 +62,7 @@ DEPENDENCIES:
   - Google/SignIn
   - Onboard
   - RealmSwift (~> 2.1.0)
+  - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
@@ -80,7 +84,8 @@ SPEC CHECKSUMS:
   Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
   Realm: bc829ad0ef3d4eea70c34cfcc3b1704d18d50df1
   RealmSwift: a4d4abbf0088c337cab5b738054395842e4b3052
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 638d356f36c4bba3d78ee91f8758feb66e1bcf25
+PODFILE CHECKSUM: 78d3c6ccc40288a81497a907ddc818a8e3ab4f0d
 
 COCOAPODS: 1.0.1

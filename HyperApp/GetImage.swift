@@ -14,7 +14,7 @@ class GetImage {
     
     func downloadImage(favItem : CDFavList?, completionHandler handler: @escaping (_ imageData : Data) -> Void) {
         guard let items = favItem else { return }
-        let url = URL(string: items.image_URL)
+        let url = URL(string: items.image_url)
         DispatchQueue.global(qos: .userInitiated).async {
             () -> Void in
             
@@ -22,6 +22,10 @@ class GetImage {
             
             DispatchQueue.main.async(execute: {
                 () -> Void in
+                guard let img = imgData else
+                {
+                    return
+                }
                 handler(imgData!)
             })
         }
@@ -33,8 +37,7 @@ class GetImage {
             print("Found nill trying to get the image for getFavListImages")
             return
         }
-        print("that is the image String : \(data.image_URL)")
-        let imageUrl = URL(string: data.image_URL)
+        let imageUrl = URL(string: data.image_url)
         DispatchQueue.global(qos: .userInteractive).async {
             () -> Void in
            

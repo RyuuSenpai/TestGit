@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class CDFavList : Object {
-  dynamic var image_URL = ""
+  dynamic var image_url = ""
    dynamic var name  = ""
    dynamic var price : Double = 0.0
     dynamic var imageData : Data? = nil

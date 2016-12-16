@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="37" id="sNy-H5-bC6"/>
                                 </constraints>
                             </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HyperT" translatesAutoresizingMaskIntoConstraints="NO" id="eH6-5B-6s0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Simply-Homy-New-1" translatesAutoresizingMaskIntoConstraints="NO" id="eH6-5B-6s0">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="PJs-Sg-8bD"/>
                                     <constraint firstAttribute="width" constant="200" id="Xio-qH-7PB"/>
@@ -46,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="HyperT" width="364" height="287"/>
+        <image name="Logo-Simply-Homy-New-1" width="2530" height="979"/>
     </resources>
 </document>

@@ -43,7 +43,8 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
      }*/
     
     var products : productDetails?
-    
+    var imagelist = [#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder")]
+
     func updateUI() {
         
         if let title = products?.name {
@@ -60,19 +61,20 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         if let descrip = products?.prDescription {
             descriptionLabel.text = descrip
         }
+        if let img = products?.image_pr {
+            imagelist = [img]
+        }
     }
     
-    let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        updateUI()
         PromotionImageProtocoal(scrollView: productImagescrollView)
         RatingProtocoal()
         exCollectionVDelegateProtocoal()
         exCollectionVDataSourceProtocoal()
-        updateUI()
         print("\(categoryNumber)")
         print("\(productNumber)")
         //        if let productid  = productNumber {
@@ -99,7 +101,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         favItemBOL.isSelected = false
         
         }
-    if onCartFuncsClass.saveCartData(data: products, state: nil){
+    if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: products), state: nil){
         addTOCarBOL.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
         addTOCarBOL.isSelected = true
     }else {
@@ -119,6 +121,11 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.revealViewController().panGestureRecognizer().isEnabled = false
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         sendNotification()

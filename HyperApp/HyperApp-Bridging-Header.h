@@ -5,3 +5,4 @@
 #import "SWRevealViewController.h"
 
 #import "UIBarButtonItem+Badge.h"
+#import <SDWebImage/UIImageView+WebCache.h>

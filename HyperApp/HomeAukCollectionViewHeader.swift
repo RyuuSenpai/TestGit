@@ -12,13 +12,20 @@ class HomeAukCollectionViewHeader: UICollectionReusableView  {
         
     @IBOutlet weak var promotionScrollView: UIScrollView!
     
+    @IBOutlet weak var Btn1OL: UIButton!
+    
+    @IBOutlet weak var Btn2OL: UIButton!
+    
+    @IBOutlet weak var Btn3OL: UIButton!
+    
+
+    
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
 
     
 //@Auk
     static var theIndex : Int?
     override func awakeFromNib() {
-        
         PromotionImageProtocoal(scrollView : promotionScrollView)
     }
     //@Delete

@@ -16,10 +16,10 @@ class OnCartFunctionality {
             saveCartData(data: obj, state: true )
         }else {
         if sender.isSelected == true {
-            sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+            sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
             saveCartData(data: obj, state: true )
         }else {
-            sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+            sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
             
             saveCartData(data: obj, state: false )
             
@@ -37,10 +37,10 @@ class OnCartFunctionality {
             saveCartData(data: obj, state: true )
         }else {
             if sender.isSelected == true {
-                sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+                sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
                 saveCartData(data: obj, state: true )
             }else {
-                sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+                sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
                 
                 saveCartData(data: obj, state: false )
                 

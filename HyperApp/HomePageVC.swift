@@ -14,6 +14,8 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
+
+    @IBOutlet weak var asd: UIButton!
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
     @IBOutlet weak var switchLanguageBtnOL: UIBarButtonItem!
     
@@ -56,7 +58,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         super.viewDidLoad()
         updateData()
        
-
+//        setUpButtonRoundedCorners(button: dailyOfferBtn)
         recivedNotification()
 //        productCategory = ProductCategories.productCategories()
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
@@ -65,7 +67,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         self.sendNotification()
     }
     
-    
+   
     func sendNotification() {
         
         NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
@@ -73,9 +75,10 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func updateData() {
         self.view.squareLoading.start(0.0)
+      Cell_Size =  GETCELLSIZE(view: self.view)
         productCatData = ProductCategories()
         productCatData?.downloadHomePageData { (productCategory) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 9.9) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                 self.switchLanguageBtnOL.isEnabled = true
                 self.dataISA = false
                 self.productCategory = productCategory
@@ -206,7 +209,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : productDetails?) {
       
         let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-        productDetailController.products = product
+        productDetailController.product_id = product?.id
         navigationController?.pushViewController(productDetailController, animated: true)
     }
     // MARK: UICOllectionViewDelegate
@@ -220,12 +223,13 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if indexPath.item == 0 {
-            return CGSize(width: self.mainProductsRow.frame.width, height:300)
+            return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.width * 0.47) * 1.3 + 32)
 
         }
-            return CGSize(width: self.mainProductsRow.frame.width, height:264)
-            //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)
-        
+            return ad.mainRowCellSize!
+//                   return    CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.width * 0.47) * 1.6 + 32)
+//        return    CGSize(width: self.mainProductsRow.frame.width, height:300)
+
     }
     @IBAction func CartBtnA(_ sender: AnyObject) {
         let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
@@ -238,16 +242,74 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
     
-    let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
         
-        
+        if kind == UICollectionElementKindSectionHeader {
+            let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
+
             let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
             headerView.promotionScrollView.addGestureRecognizer(tap)
+            headerView.Btn1OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
+            headerView.Btn2OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
+            headerView.Btn3OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
             
+            return headerView
 
-        return headerView
-        
+        }else {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TheFooter", for: indexPath) as! HomeFooter
+            
+            return footerView
+        }
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.53))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.11))
+    }
+    
+    
+    func hotDealsButton(_ sender : UIButton) {
+        
+        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
+        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        navigationController?.pushViewController(seeMoreA, animated: true)
+        
+        switch sender.tag {
+        case 1:
+            print("that is the 1 Button")
+        case 2:
+            print("that is the 2 Button")
+        case 3:
+            print("that is the 3 Button")
+        default:
+            print("Error with the HotDeals Buttons Switch Case")
+
+        }
+    }
+    /*
+  
+     {
+     
+     //        if kind == UICollectionElementKindSectionHeader {
+     let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
+     
+     
+     let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
+     headerView.promotionScrollView.addGestureRecognizer(tap)
+     
+     
+     return headerView
+     //        }else {
+     //
+     //
+     //            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "AukHeaderID", for: indexPath as IndexPath)
+     //
+     //            return headerView
+     //        }
+     
+     }
+  */
     func handleTap() {
 
         print("that is the indexPath : \(HomeAukCollectionViewHeader.theIndex)")

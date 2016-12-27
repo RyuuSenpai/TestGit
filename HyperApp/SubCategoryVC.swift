@@ -10,6 +10,7 @@ import UIKit
 
 class SubCategoryVC: UIViewController {
 
+    @IBOutlet weak var headerImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 

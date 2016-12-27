@@ -31,6 +31,9 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     
     override func viewWillAppear(_ animated: Bool) {
         self.revealViewController().panGestureRecognizer().isEnabled = false
+        self.navigationItem.title = setTitle(arabicTitle: "المشتريات", engTitle: "On Cart")
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.setColor()
     }
     
     

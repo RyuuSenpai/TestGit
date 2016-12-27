@@ -34,30 +34,36 @@ class HomeProductCell: UICollectionViewCell {
         }else {  self.productTitle.text = nil}
         
         if let price = products?.price {
-            self.productPrice.text = "\(price)"
-        }else { self.productPrice.text = nil }
+            self.productPrice.text = "\(price) L.E"
+        }else {
+            self.productPrice.text = nil
+        }
         
         if let prePrice = products?.preDiscountPrice {
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
             self.preDiscountedPrice.attributedText = attributeString
-        }else { self.preDiscountedPrice.attributedText = nil }
+        }else {
+            self.preDiscountedPrice.attributedText = nil
+        }
         if let id =  products?.id_parent {
             self.discountLabel.text = "\(id)"
-        }else {  self.discountLabel.text = nil }
+        }else {
+            self.discountLabel.text = nil
+        }
         if self.isFav {
-            self.favButton.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+            self.favButton.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
             self.favButton.isSelected = true
         }else {
-            self.favButton.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+            self.favButton.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
             self.favButton.isSelected = false
             
         }
         if self.onCart {
-            self.addToCart.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
+            self.addToCart.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
             self.addToCart.isSelected = true
         }else {
-            self.addToCart.setImage(UIImage(named:"cart"), for: UIControlState.normal)
+            self.addToCart.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
             self.addToCart.isSelected = false
         }
         
@@ -71,7 +77,7 @@ class HomeProductCell: UICollectionViewCell {
         self.productImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "PlaceHolder")) 
             products?.image_pr = self.productImage.image
     }
-    
+
 //    override func prepareForReuse() {
 //        super.prepareForReuse()
 //        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")

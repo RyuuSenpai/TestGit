@@ -22,6 +22,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate  , FBSDK
     @IBOutlet weak var fbSigninBtnOL: UIButton!
     @IBOutlet weak var dissMissView: UIButton!
     
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()

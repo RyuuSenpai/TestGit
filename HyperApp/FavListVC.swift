@@ -189,8 +189,6 @@ let getImageClass = GetImage()
 //        if (width * 1.43) > height {
 //            height = (width * 1.43)
 //        }
-        print("that is the not fixed width \(width)")
-        print("that is the not fixed height \(height)")
 
         return CGSize(width: width , height: height) // The size of one cell
         

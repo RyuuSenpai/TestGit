@@ -23,5 +23,5 @@ post_install do |installer|
   end
 
 pod 'SDWebImage', '~>3.8'
-
+    pod 'SwiftyJSON'
 end

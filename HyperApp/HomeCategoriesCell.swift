@@ -33,6 +33,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     var categoriesHomePageVC : HomePageVC?
     var catIndexPath  : Int?
+    var cellSize : CGSize?
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Best New Apps"
@@ -117,10 +118,13 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     
     
-    
+    //Set Cell Size 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 234)
-        
+//
+        guard let cellSize = ad.cellSize else {
+              return CGSize(width: 250, height: 234)
+        }
+        return cellSize
     }
 
     

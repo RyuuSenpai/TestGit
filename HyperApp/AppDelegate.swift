@@ -14,7 +14,8 @@
     class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var window: UIWindow?
-        
+        var mainRowCellSize : CGSize?
+        var cellSize : CGSize?
         
         func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
             let googleDidHandle =  GIDSignIn.sharedInstance().handle(url,
@@ -34,7 +35,19 @@
             // Override point for customization after application launch.
             FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
             L102Localizer.DoTheMagic()
-
+            let height = UIScreen.main.bounds.height
+            let width = UIScreen.main.bounds.width
+            
+            mainRowCellSize = CGSize(width: width  , height:  ( height * 0.47)  + 32 )
+            let y = mainRowCellSize?.height
+            let x = mainRowCellSize?.width
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone {
+                cellSize = CGSize(width: x! * 0.47 , height:  y! * 0.85)
+            }else {
+                cellSize = CGSize(width: x! * 0.35 , height:  y! * 0.85)
+            }
+            
+            
             return true
         }
         
@@ -105,12 +118,12 @@
             if (UserDefaults.standard.value(forKey: "userEmail") != nil) {
                 return true
             }else {
-                return false 
+                return false
             }
             
         }
         
-        
+    
     }
     let ad = UIApplication.shared.delegate as! AppDelegate
     

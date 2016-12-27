@@ -23,6 +23,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                </variation>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cTo-4j-DZ6">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -43,6 +46,9 @@
                                 <state key="normal" title="See More">
                                     <color key="titleColor" red="0.99888950590000003" green="0.21123051640000001" blue="0.077281214299999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -50,7 +56,7 @@
                             <constraint firstItem="Clg-aj-j2Q" firstAttribute="centerY" secondItem="oW7-E6-NpB" secondAttribute="centerY" id="4F4-pd-AaA"/>
                             <constraint firstItem="cTo-4j-DZ6" firstAttribute="leading" secondItem="gtZ-Hn-6Xm" secondAttribute="leading" id="AwR-fr-KVh"/>
                             <constraint firstAttribute="trailing" secondItem="cTo-4j-DZ6" secondAttribute="trailing" id="N7W-H7-3Kw"/>
-                            <constraint firstItem="cTo-4j-DZ6" firstAttribute="top" secondItem="oW7-E6-NpB" secondAttribute="bottom" constant="10" id="YV5-bH-bYO"/>
+                            <constraint firstItem="cTo-4j-DZ6" firstAttribute="top" secondItem="oW7-E6-NpB" secondAttribute="bottom" constant="5" id="YV5-bH-bYO"/>
                             <constraint firstItem="Clg-aj-j2Q" firstAttribute="top" secondItem="gtZ-Hn-6Xm" secondAttribute="top" constant="5" id="fgf-iD-uW3"/>
                             <constraint firstAttribute="trailing" secondItem="Clg-aj-j2Q" secondAttribute="trailing" constant="5" id="mhJ-Yc-RRC"/>
                             <constraint firstItem="oW7-E6-NpB" firstAttribute="leading" secondItem="gtZ-Hn-6Xm" secondAttribute="leading" constant="8" id="qDY-Zd-rTo"/>
@@ -60,6 +66,7 @@
                     </view>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="gtZ-Hn-6Xm" secondAttribute="bottom" constant="5" id="5Yc-0z-2pz"/>
                 <constraint firstItem="gtZ-Hn-6Xm" firstAttribute="top" secondItem="z1Q-PY-pCi" secondAttribute="top" constant="5" id="HVg-Y3-p2P"/>

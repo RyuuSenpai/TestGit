@@ -15,10 +15,10 @@ class FavItemsFunctionality  {
         print("that is the button index : \(sender.tag)")
         sender.isSelected = !sender.isSelected
         if sender.isSelected == true {
-            sender.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+            sender.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
             saveFavData(data: data, state: true)
         }else {
-            sender.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+            sender.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
             saveFavData(data: data, state: false)
         }
         

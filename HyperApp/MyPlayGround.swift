@@ -121,5 +121,54 @@ var str = "Hello, playground"
  
  */
 
+/*
+////////////////You can compare error.code and if it is equal to -1001 then you know it is a Timeout.
 
+Swift 3, Alamofire 4.0.1
 
+let configuration = URLSessionConfiguration.default
+configuration.timeoutIntervalForRequest = 30
+
+let sessionManager = Alamofire.SessionManager(configuration: configuration)
+sessionManager.request("yourUrl", method: .post, parameters: ["parameterKey": "value"])
+    .responseJSON {
+        response in
+        switch (response.result) {
+        case .success:
+            //do json stuff
+            break
+        case .failure(let error):
+            if error._code == NSURLErrorTimedOut {
+                //timeout here
+            }
+            print("\n\nAuth request failed with error:\n \(error)")
+            break
+        }
+}
+*/
+
+/////////////////Header 
+/*
+ 
+ {
+ 
+ //        if kind == UICollectionElementKindSectionHeader {
+ let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
+ 
+ 
+ let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
+ headerView.promotionScrollView.addGestureRecognizer(tap)
+ 
+ 
+ return headerView
+ //        }else {
+ //
+ //
+ //            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "AukHeaderID", for: indexPath as IndexPath)
+ //
+ //            return headerView
+ //        }
+ 
+ }
+ */
+////////////////

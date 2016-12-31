@@ -17,7 +17,6 @@ class MyProfileMainCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-     
     }
     func configCell(name:String? , imageName  :String?) {
         if let title = name {

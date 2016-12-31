@@ -9,25 +9,25 @@
 import Foundation
 import RealmSwift
 class OnCartFunctionality {
-    func cartBtnAct(sender: UIButton , data : productDetails?,buyNow : Bool) {
+    func cartBtnAct(sender: UIButton , data : ProductDetails?,buyNow : Bool) {
         let obj = transferDataToCartObj(data: data)
         sender.isSelected = !sender.isSelected
         if buyNow {
             saveCartData(data: obj, state: true )
         }else {
-        if sender.isSelected == true {
-            sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
-            saveCartData(data: obj, state: true )
-        }else {
-            sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
-            
-            saveCartData(data: obj, state: false )
-            
+            if sender.isSelected == true {
+                sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
+                saveCartData(data: obj, state: true )
+            }else {
+                sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
+                
+                saveCartData(data: obj, state: false )
+                
+            }
+            NotificationCenter.default.post(name: UPDATE_CART_BADGE , object: nil)
         }
-        NotificationCenter.default.post(name: UPDATE_CART_BADGE , object: nil)
-    }
         
-       
+        
     }
     
     func cartCDBtnAct(sender: UIButton , data : CDFavList?,buyNow : Bool) {
@@ -51,7 +51,7 @@ class OnCartFunctionality {
         
     }
     
-    func transferDataToCartObj(data: productDetails?) -> CartDetails?{
+    func transferDataToCartObj(data: ProductDetails?) -> CartDetails?{
         let obj = CartDetails()
         obj.name = data?.name
         obj.price = data?.price

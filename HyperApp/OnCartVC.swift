@@ -27,12 +27,12 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         isNotSubView = true
     }
     
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.revealViewController().panGestureRecognizer().isEnabled = false
         self.navigationItem.title = setTitle(arabicTitle: "المشتريات", engTitle: "On Cart")
-//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.setColor()
     }
     
@@ -68,13 +68,13 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         cell.removeFromQuantity.addTarget(self, action: #selector(subtractFromQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         cell.addToQuantity.addTarget(self, action: #selector(addToQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         if let item = items?[indexPath.row] {
-
+            
             cell.tag = indexPath.row
             if item.imageData == nil {
                 downloadImage(index: indexPath.row, completionHandler: { (data) in
                     if cell.tag == indexPath.row {
-
-                    cell.productImage.image = UIImage(data: data)
+                        
+                        cell.productImage.image = UIImage(data: data)
                     }
                     do {
                         let realm = try Realm()
@@ -87,14 +87,14 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                         print(err)
                     }
                 })
-                }else {
+            }else {
                 if let imageData  = item.imageData {
-                cell.productImage.image = UIImage(data: imageData )
-            }
+                    cell.productImage.image = UIImage(data: imageData )
+                }
             }
         }
         return cell
-
+        
     }
     
     func addToQuantity(sender:UIButton)  {
@@ -111,14 +111,14 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                 onCart?.quantity = Int16(count)
                 onCart?.qXprice = price
                 
-
+                
             }
             self.getTheData()
         }catch let err as NSError {
             print("that is error ya man   :   \(err)")
         }
         
-
+        
     }
     
     func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
@@ -133,7 +133,7 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
                 () -> Void in
                 if let img = imgData {
                     handler(img)
-
+                    
                 }
             })
         }

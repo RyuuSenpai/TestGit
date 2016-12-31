@@ -9,9 +9,6 @@
 import Foundation
 import UIKit
 
-
-
-
 extension ProductDetailsVC : UICollectionViewDataSource {
     
     func exCollectionVDataSourceProtocoal() {
@@ -74,17 +71,6 @@ extension ProductDetailsVC : UICollectionViewDataSource {
         print("Related Item in : \(sender.tag)")
     }
     
-//    func selectedButton( sender : UIButton , selectedBtn : String , disSelectImage : String) {
-//        sender.isSelected = !sender.isSelected
-//        if(sender.isSelected == true)
-//        {
-//            sender.setImage(UIImage(named:selectedBtn), for: UIControlState.normal)
-//        }
-//        else
-//        {
-//            sender.setImage(UIImage(named:disSelectImage), for: UIControlState.normal)
-//        }
-//    }
-    
+
     
 }

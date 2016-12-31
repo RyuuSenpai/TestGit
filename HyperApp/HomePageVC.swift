@@ -1,21 +1,20 @@
  //
-//  HomePageVC.swift
-//  HyperApp
-//
-//  Created by Killvak on 18/10/2016.
-//  Copyright © 2016 Killvak. All rights reserved.
-//
-
-import UIKit
-import RealmSwift
-class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout  {
+ //  HomePageVC.swift
+ //  HyperApp
+ //
+ //  Created by Killvak on 18/10/2016.
+ //  Copyright © 2016 Killvak. All rights reserved.
+ //
+ 
+ import UIKit
+ import RealmSwift
+ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout  {
     
     
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
-
-    @IBOutlet weak var asd: UIButton!
+    
     @IBOutlet weak var cartBarButton: UIBarButtonItem!
     @IBOutlet weak var switchLanguageBtnOL: UIBarButtonItem!
     
@@ -24,18 +23,18 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     //@AukHeaderID
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
-
+    
     //@end Auk
     
     var itemsInCart : Int = 0
- 
+    
     var productCategory : [ProductCategories]?
     var productCatData : ProductCategories?
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
-//        self.revealViewController().panGestureRecognizer().isEnabled = true
-
+        //        self.revealViewController().panGestureRecognizer().isEnabled = true
+        
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
         if dataISA {
@@ -57,17 +56,17 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         updateData()
-       
-//        setUpButtonRoundedCorners(button: dailyOfferBtn)
+        
+        //        setUpButtonRoundedCorners(button: dailyOfferBtn)
         recivedNotification()
-//        productCategory = ProductCategories.productCategories()
+        //        productCategory = ProductCategories.productCategories()
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
         self.sendNotification()
     }
     
-   
+    
     func sendNotification() {
         
         NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
@@ -75,7 +74,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func updateData() {
         self.view.squareLoading.start(0.0)
-      Cell_Size =  GETCELLSIZE(view: self.view)
+        Cell_Size =  GETCELLSIZE(view: self.view)
         productCatData = ProductCategories()
         productCatData?.downloadHomePageData { (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
@@ -87,7 +86,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
                 self.mainProductsRow.reloadData()
                 self.revealMenu()
             }
-           
+            
         }
     }
     
@@ -101,11 +100,11 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }
     }
     
-  
+    
     func cartNumberOfItemsBadge(){
-     
-            self.cartBarButton.badgeValue = "\(itemsInCart)"
-
+        
+        self.cartBarButton.badgeValue = "\(itemsInCart)"
+        
         self.cartBarButton.badgeBGColor = UIColor.red
         self.cartBarButton.badgeTextColor = UIColor.white
         self.cartBarButton.shouldAnimateBadge = true
@@ -119,7 +118,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     
-
+    
     
     @IBAction func searchGesture(_ sender: AnyObject) {
         print("Search clicked")
@@ -146,11 +145,11 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-       
-                if let count = productCategory?.count {
-                return count + 1
-            }
-            return 0
+        
+        if let count = productCategory?.count {
+            return count + 1
+        }
+        return 0
         
     }
     
@@ -164,24 +163,24 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             cell.seeMore.addTarget(self, action: #selector(self.seeMoreCat(_:)), for: UIControlEvents.touchUpInside)
             return cell
         }
-            let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RowCell", for: indexPath) as! HomeCategoriesCell
-            
-            cell.categoriesHomePageVC = self
-            cell.catIndexPath = indexPath.row
+        let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RowCell", for: indexPath) as! HomeCategoriesCell
+        
+        cell.categoriesHomePageVC = self
+        cell.catIndexPath = indexPath.row
         cell.seeMore.tag = (indexPath.row - 1 )
         cell.seeMore.addTarget(self, action: #selector(self.seeMore(_:)), for: UIControlEvents.touchUpInside)
         cell.tag = indexPath.row - 1
         cell.productCategory = nil
         if cell.tag == indexPath.row - 1{
             cell.productCategory = productCategory?[indexPath.row - 1 ]
-
-        }
-            return cell
             
+        }
+        return cell
+        
         
     }
     func seeMore(_ sender:UIButton) {
-      print(sender.tag)
+        print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
         seeMoreA.productCatSelected = productCategory?[sender.tag]
         navigationController?.pushViewController(seeMoreA, animated: true)
@@ -190,7 +189,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     func seeMoreCat(_ sender:UIButton) {
         print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreCategories") as! SeeMoreCategories
-//        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        //        seeMoreA.productCatSelected = productCategory?[sender.tag]
         seeMoreA.productCategories = productCategory
         navigationController?.pushViewController(seeMoreA, animated: true)
         
@@ -206,16 +205,17 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     
     
     
-    func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : productDetails?) {
-      
+    func showProductDetailsVC(productDetails : Int , CatIndex : Int , product : ProductDetails?) {
+        
         let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
         productDetailController.product_id = product?.id
+        productDetailController.products = product
         navigationController?.pushViewController(productDetailController, animated: true)
     }
     // MARK: UICOllectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-    
+        
         
     }
     
@@ -224,28 +224,24 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         
         if indexPath.item == 0 {
             return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.width * 0.47) * 1.3 + 32)
-
+            
         }
-            return ad.mainRowCellSize!
-//                   return    CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.width * 0.47) * 1.6 + 32)
-//        return    CGSize(width: self.mainProductsRow.frame.width, height:300)
-
+        return ad.mainRowCellSize!
     }
+    
     @IBAction func CartBtnA(_ sender: AnyObject) {
         let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
-
+        
         onCartVC.isNotSubView = false
         navigationController?.pushViewController(onCartVC, animated: true)
-        
     }
     
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
         
         if kind == UICollectionElementKindSectionHeader {
             let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
-
+            
             let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
             headerView.promotionScrollView.addGestureRecognizer(tap)
             headerView.Btn1OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
@@ -253,16 +249,20 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             headerView.Btn3OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
             
             return headerView
-
+            
         }else {
+            
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TheFooter", for: indexPath) as! HomeFooter
             
             return footerView
         }
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.53))
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.11))
@@ -284,34 +284,12 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
             print("that is the 3 Button")
         default:
             print("Error with the HotDeals Buttons Switch Case")
-
+            
         }
     }
-    /*
-  
-     {
-     
-     //        if kind == UICollectionElementKindSectionHeader {
-     let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
-     
-     
-     let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
-     headerView.promotionScrollView.addGestureRecognizer(tap)
-     
-     
-     return headerView
-     //        }else {
-     //
-     //
-     //            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "AukHeaderID", for: indexPath as IndexPath)
-     //
-     //            return headerView
-     //        }
-     
-     }
-  */
+    
     func handleTap() {
-
+        
         print("that is the indexPath : \(HomeAukCollectionViewHeader.theIndex)")
         let mySettings: PromotionVC = PromotionVC(nibName: "PromotionVC", bundle: nil)
         let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.flipHorizontal    /*.partialCurl */
@@ -324,28 +302,28 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
     }
     
     
-
-
-    func shareItems(sender : UIButton , data:productDetails?) {
+    
+    
+    func shareItems(sender : UIButton , data:ProductDetails?) {
         
         guard let datA = data , let name = datA.name , let price = datA.price else { return }
         let img: UIImage = #imageLiteral(resourceName: "PlaceHolder")
         let shareItems:Array = [img, name , price ] as [Any]
         
-       let  activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-//        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
+        let  activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        //        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone {
             self.present(activityViewController, animated: true, completion: nil)
         } else {
-//
-//            if activityViewController.respondsToSelector(Selector("popoverPresentationController")) {
-//                activityViewController.popoverPresentationController?.sourceView = self.view
-//        }
-
+            //
+            //            if activityViewController.respondsToSelector(Selector("popoverPresentationController")) {
+            //                activityViewController.popoverPresentationController?.sourceView = self.view
+            //        }
             
             
-        
-        
+            
+            
+            
         }
     }
     
@@ -369,7 +347,7 @@ class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollection
         }
     }
     
-
     
-}
-
+    
+ }
+ 

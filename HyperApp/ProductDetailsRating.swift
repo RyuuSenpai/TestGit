@@ -27,7 +27,7 @@ extension ProductDetailsVC : FloatRatingViewDelegate {
         self.floatRatingView.editable = true
         self.floatRatingView.halfRatings = true
         self.floatRatingView.floatRatings = false
-
+        
         
         // Segmented control init
         
@@ -35,7 +35,7 @@ extension ProductDetailsVC : FloatRatingViewDelegate {
         CurrentRating = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
     
-
+    
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Float) {
         CurrentRating = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }

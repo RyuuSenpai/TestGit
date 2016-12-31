@@ -11,11 +11,11 @@ import UIKit
 class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout , UICollectionViewDelegate{
     
     @IBOutlet weak var CategoryCollectionView: UICollectionView!
-
+    
     @IBOutlet weak var seeMore: UIButton!
     
     var productCategories : [ProductCategories]?
-
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,18 +35,18 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     }
     
     
-  
+    
     
     
     
     
     var categoriesHomePageVC : HomePageVC?
     var catIndexPath  : Int?
-
     
-
     
-
+    
+    
+    
     let imageList = [ #imageLiteral(resourceName: "Fire"),#imageLiteral(resourceName: "Air"),#imageLiteral(resourceName: "ice"),#imageLiteral(resourceName: "water")]
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -58,16 +58,16 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: subLargeHomeCategoriesCell.identifier, for: indexPath as IndexPath) as! subLargeHomeCategoriesCell
-            cell.productCategory = productCategories?[indexPath.row]
+        cell.productCategory = productCategories?[indexPath.row]
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.backgroundColor = UIColor.cyan
         if indexPath.row <= 3 {
-    cell.categoryImage.image = imageList[indexPath.row]
-}
+            cell.categoryImage.image = imageList[indexPath.row]
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         if indexPath.row == 0 {
             let x =  collectionView.frame.height * 0.8
             return CGSize(width: x, height: x ) // The size of one cell
@@ -77,7 +77,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
         }
         
     }
-
+    
     
     @IBAction func seeMore(_ sender: AnyObject) {
         

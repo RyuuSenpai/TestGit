@@ -67,6 +67,8 @@
 		71804ACE1DDA2BB000E491BC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71804ACD1DDA2BB000E491BC /* Constants.swift */; };
 		71875ADB1E11B28F00188F03 /* HomePageM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71875ADA1E11B28F00188F03 /* HomePageM.swift */; };
 		71875ADD1E11B6CD00188F03 /* MyPlayGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71875ADC1E11B6CD00188F03 /* MyPlayGround.swift */; };
+		71875AE21E12D90A00188F03 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71875AE01E12D90900188F03 /* ProductCell.swift */; };
+		71875AE31E12D90A00188F03 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71875AE11E12D90900188F03 /* ProductCell.xib */; };
 		7193A4E01DAC3A7C005FFCCD /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7193A4DF1DAC3A7C005FFCCD /* SignupVC.swift */; };
 		71AA106C1DE48F21005AB553 /* ProfileHeaderM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AA106B1DE48F21005AB553 /* ProfileHeaderM.swift */; };
 		71AA106E1DE4A7A1005AB553 /* MyProfileMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */; };
@@ -154,6 +156,8 @@
 		71804ACD1DDA2BB000E491BC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		71875ADA1E11B28F00188F03 /* HomePageM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageM.swift; sourceTree = "<group>"; };
 		71875ADC1E11B6CD00188F03 /* MyPlayGround.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlayGround.swift; sourceTree = "<group>"; };
+		71875AE01E12D90900188F03 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		71875AE11E12D90900188F03 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
 		7193A4DF1DAC3A7C005FFCCD /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		71AA106B1DE48F21005AB553 /* ProfileHeaderM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderM.swift; sourceTree = "<group>"; };
 		71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileMainCell.swift; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 		7107878C1DCFB1660032CA6F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				71D1C0E81DD49FDF001C7A5F /* HomeAukCollectionViewHeader.swift */,
+				711529B41DD3D0A4007E59F4 /* subLargeHomeCategoriesCell.swift */,
 				71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */,
 				713AFA1E1DE469FA0006668C /* MyProfileCellHeader.swift */,
 				71635B7D1DDD0FEB00E395A5 /* SeeMoreCell.swift */,
@@ -283,6 +289,8 @@
 				713AF9E01DE1E4930006668C /* SeeMoreCategories.swift */,
 				713AF9E21DE1E4D50006668C /* MyProfileVC.swift */,
 				713AF9E41DE325EF0006668C /* CoreDataProductFunctions.swift */,
+				71875AE01E12D90900188F03 /* ProductCell.swift */,
+				71875AE11E12D90900188F03 /* ProductCell.xib */,
 				71C3438C1DF8F69000F3E16C /* SideMenuExtension.swift */,
 			);
 			name = C;
@@ -358,14 +366,12 @@
 			isa = PBXGroup;
 			children = (
 				71C7E2B71DB6CD4600045660 /* HomePageVC.swift */,
-				714F848D1DEF173800253584 /* HPCartNumberPadge.swift */,
 				711342301DBAB68100BDC5D2 /* HomeCategoriesCell.swift */,
 				71C2A2161DF652A2004D479D /* HomeProductCell.swift */,
 				71CCDB821DD3B18300CA8FD8 /* LargeHomeCategoriesCell.swift */,
-				711529B41DD3D0A4007E59F4 /* subLargeHomeCategoriesCell.swift */,
-				71D1C0E81DD49FDF001C7A5F /* HomeAukCollectionViewHeader.swift */,
 				712969601DD5444A00106EF1 /* SubCategoryVC.swift */,
 				715B54F91E0746F000A27B20 /* HomeFooter.swift */,
+				714F848D1DEF173800253584 /* HPCartNumberPadge.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				7116FA741DD63EED00D11524 /* SpecificationsVC.xib in Resources */,
 				71C384751DAA993C005D156B /* GoogleService-Info.plist in Resources */,
 				712E5A701DAA960100990B26 /* Podfile in Resources */,
+				71875AE31E12D90A00188F03 /* ProductCell.xib in Resources */,
 				712E5A631DAA95B800990B26 /* Main.storyboard in Resources */,
 				71073D471DBEB40D00154B62 /* PromotionVC.xib in Resources */,
 			);
@@ -588,6 +595,7 @@
 				71F5ADAE1DBBDA7C00D68D41 /* ProductCategories.swift in Sources */,
 				71635B7E1DDD0FEB00E395A5 /* SeeMoreCell.swift in Sources */,
 				712AE0DE1DD8B6C80004EBC0 /* WriteReviewsVC.swift in Sources */,
+				71875AE21E12D90A00188F03 /* ProductCell.swift in Sources */,
 				711EF3FC1DBFB95A00187718 /* FloatRatingView.swift in Sources */,
 				715B54FA1E0746F000A27B20 /* HomeFooter.swift in Sources */,
 				713DD2081DD367FD0004F5D6 /* AnimationFadeInOutExtension.swift in Sources */,

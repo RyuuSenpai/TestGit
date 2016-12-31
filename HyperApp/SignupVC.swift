@@ -9,7 +9,7 @@
 import UIKit
 
 class SignupVC: UIViewController , UITextFieldDelegate{
-
+    
     
     @IBOutlet weak var fullNameText: UITextField!
     
@@ -22,14 +22,14 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     let RegisterTFDelegate = RegisterTextFieldDeledate()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.fullNameText.delegate =  RegisterTFDelegate
         self.emailText.delegate =  RegisterTFDelegate
         self.mobileNumberText.delegate =  RegisterTFDelegate
         self.passwordText.delegate =  RegisterTFDelegate
-
+        
         // Do any additional setup after loading the view.
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -62,24 +62,24 @@ class SignupVC: UIViewController , UITextFieldDelegate{
         }
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func dismissViewButton(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)    
+    
+          @IBAction func dismissViewButton(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

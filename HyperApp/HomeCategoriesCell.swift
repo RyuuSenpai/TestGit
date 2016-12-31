@@ -85,48 +85,48 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         return 0
     }
     
-//    let  cartDetails = CartDetails()
+    //    let  cartDetails = CartDetails()
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print(indexPath.row)
         let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "HProductCell", for: indexPath) as! HomeProductCell
         cell.tag = indexPath.row
-                cell.favButton.tag = indexPath.row
-                cell.favButton.addTarget(self, action: #selector(HomeCategoriesCell.favButtonA(_:)), for: .touchUpInside)
-                cell.addToCart.tag = indexPath.row
-                cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
-                cell.share.tag = indexPath.row
-                cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-                if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
-                    cell.isFav = true
-                    print("that is the index :  \(indexPath.row) in row  : \(catIndexPath)")
-                }else { cell.isFav = false }
+        cell.favButton.tag = indexPath.row
+        cell.favButton.addTarget(self, action: #selector(HomeCategoriesCell.favButtonA(_:)), for: .touchUpInside)
+        cell.addToCart.tag = indexPath.row
+        cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
+        cell.share.tag = indexPath.row
+        cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
+        if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
+            cell.isFav = true
+            print("that is the index :  \(indexPath.row) in row  : \(catIndexPath)")
+        }else { cell.isFav = false }
         let data = productCategory?.products?[indexPath.row]
-                if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: data) , state: nil){
-                    cell.onCart = true
-                }else { cell.onCart = false }
-//        cell.configCell(products: nil)
+        if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: data) , state: nil){
+            cell.onCart = true
+        }else { cell.onCart = false }
+        //        cell.configCell(products: nil)
         if cell.tag == indexPath.row {
             cell.configCell(products: productCategory?.products?[indexPath.item])
         }
         cell.catNum = indexPath.row
-
+        
         
         return cell
-
+        
     }
     
     
     
-    //Set Cell Size 
+    //Set Cell Size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
+        //
         guard let cellSize = ad.cellSize else {
-              return CGSize(width: 250, height: 234)
+            return CGSize(width: 250, height: 234)
         }
         return cellSize
     }
-
+    
     
     func favButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]
@@ -154,20 +154,20 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     // MARK: UICOllectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
-//            print("selected Product and teh state is √ \(catIndexPath)")
-//            
-//        }else {
-//            print("selected Product and teh state is X \(catIndexPath)")
-//            
-//        }
-                let data = productCategory?.products?[indexPath.row]
+        //        if onCartFuncsClass.saveCartData(data: productCategory?.products?[indexPath.row], state: nil){
+        //            print("selected Product and teh state is √ \(catIndexPath)")
+        //
+        //        }else {
+        //            print("selected Product and teh state is X \(catIndexPath)")
+        //
+        //        }
+        let data = productCategory?.products?[indexPath.row]
         
-                categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!, product : data)
+        categoriesHomePageVC?.showProductDetailsVC(productDetails: indexPath.row, CatIndex: catIndexPath!, product : data)
     }
     
     
-
+    
 }
 
 

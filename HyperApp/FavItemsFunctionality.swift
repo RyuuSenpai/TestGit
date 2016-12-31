@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 class FavItemsFunctionality  {
     
-    func FavBtnAct(sender:UIButton,data:productDetails?) {
+    func FavBtnAct(sender:UIButton,data:ProductDetails?) {
         
         print("that is the button index : \(sender.tag)")
         sender.isSelected = !sender.isSelected
@@ -27,7 +27,7 @@ class FavItemsFunctionality  {
     
     
     
-    func saveFavData(data : productDetails? ,state : Bool?  ) -> Bool {
+    func saveFavData(data : ProductDetails? ,state : Bool?  ) -> Bool {
         let fav = CDFavList()
         
         guard let name = data?.name , let price = data?.price , let imgString = data?.image_url else { print("name in CDFavList = nil "); return false  }

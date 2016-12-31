@@ -17,7 +17,7 @@ class GetImage {
         let url = URL(string: items.image_url)
         DispatchQueue.global(qos: .userInitiated).async {
             () -> Void in
-            
+            print("that is the url  : %@ ",url)
             let imgData = try? Data(contentsOf: url!)
             
             DispatchQueue.main.async(execute: {
@@ -26,7 +26,7 @@ class GetImage {
                 {
                     return
                 }
-                handler(imgData!)
+                handler(img)
             })
         }
     }

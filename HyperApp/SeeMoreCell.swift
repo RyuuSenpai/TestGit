@@ -20,7 +20,7 @@ class SeeMoreCell: UICollectionViewCell {
     @IBOutlet weak var addToCartBtn: UIButton!
     
 
-    func configCell(product : productDetails?){
+    func configCell(product : ProductDetails?){
         
         if let name = product?.name {
             title.text = name

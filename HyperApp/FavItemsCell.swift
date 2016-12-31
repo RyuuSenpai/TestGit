@@ -46,7 +46,7 @@ class FavItemsCell: UICollectionViewCell{
     }
     }
     
-    var productDetails :  productDetails? {
+    var productDetails :  ProductDetails? {
         
         didSet {
             

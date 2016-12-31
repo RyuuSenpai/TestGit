@@ -27,7 +27,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBOutlet weak var preDicountPrice: UILabel!
     
     var  toCartVC : UIBarButtonItem!
-
+    
     var CurrentRating : String?
     var categoryNumber : Int? /*{
      didSet {
@@ -44,65 +44,24 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
      }
      }*/
     var product_id : Int?
-    var products : productDetails?
+    var products : ProductDetails?
     var imagelist = [#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder")]
-
+    
     var getDataClass : ProductCategories!
-    
-    
-    //GonMade
-//    func updateUI() {
-//        self.navigationItem.setHidesBackButton(true, animated: false)
-//        self.toCartVC.isEnabled = false
-//        self.view.squareLoading.start(0.0)
-//
-//        getDataClass = ProductCategories()
-//        getDataClass.getproductDetailsData(itemID: product_id) { (data) in
-//            self.products = data
-//            if let title = self.products?.name {
-//                self.productTitle!.text = title
-//            }
-//            if let price = self.products?.price{
-//                self.priceOL.text = "\(price) L.E"
-//            }
-//            if let prePrice = self.products?.preDiscountPrice {
-//                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
-//                attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1.5, range: NSMakeRange(0, attributeString.length))
-//                self.preDicountPrice.attributedText = attributeString
-//            }
-//            if let descrip = self.products?.prDescription {
-//                self.descriptionLabel.text = descrip
-//            }
-//            if let img = self.products?.image_pr {
-//                self.imagelist = [img]
-//            }
-//            if self.products?.on_sale == nil {
-//                self.preDicountPrice.isHidden = true 
-//            }
-//            self.drawViewSetUps()
-//            self.view.squareLoading.stop(0.0)
-//            self.toCartVC.isEnabled = true
-//            self.navigationItem.setHidesBackButton(false, animated: true)
-//        }
-//           }
-    
-    func drawViewSetUps() {
-        PromotionImageProtocoal(scrollView: productImagescrollView)
-            }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         toCartVC = UIBarButtonItem(image: UIImage(named: "GoToCartIcon"), style: .plain, target: self, action : #selector(self.pushToOnCart(_:)))
+        toCartVC = UIBarButtonItem(image: UIImage(named: "GoToCartIcon"), style: .plain, target: self, action : #selector(self.pushToOnCart(_:)))
         self.navigationItem.rightBarButtonItem  = toCartVC
         //GonMade
-//        updateUI()
+        updateUI()
         RatingProtocoal()
         exCollectionVDelegateProtocoal()
         exCollectionVDataSourceProtocoal()
-                print("\(categoryNumber)")
+        print("\(categoryNumber)")
         print("\(productNumber)")
         favAndCartIconState()
-
+        
         //        if let productid  = productNumber {
         //            productID.text = " product ID : \(productid)"
         //        }
@@ -110,27 +69,71 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         //            categoryID.text = " category ID : \(catID)"
         //        }
         
-        
         recivedNotification()
     }
+    
+    
+    func updateUI() {
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.toCartVC.isEnabled = false
+        
+        self.view.squareLoading.start(0.0)
+        
+        getDataClass = ProductCategories()
+        getDataClass.getproductDetailsData(itemID: product_id) { (data) in
+            if data != nil {
+                self.products = data
+            }
+            if let title = self.products?.name {
+                self.productTitle!.text = title
+            }
+            if let price = self.products?.price{
+                self.priceOL.text = "\(price) L.E"
+            }
+            if let prePrice = self.products?.preDiscountPrice {
+                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
+                attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1.5, range: NSMakeRange(0, attributeString.length))
+                self.preDicountPrice.attributedText = attributeString
+            }
+            if let descrip = self.products?.prDescription {
+                self.descriptionLabel.text = descrip
+            }
+            if let img = self.products?.image_pr {
+                self.imagelist = [img]
+            }
+            if self.products?.on_sale == nil {
+                self.preDicountPrice.isHidden = true
+            }
+            self.drawViewSetUps()
+            self.view.squareLoading.stop(0.0)
+            self.toCartVC.isEnabled = true
+            self.navigationItem.setHidesBackButton(false, animated: true)
+        }
+    }
+    
+    func drawViewSetUps() {
+        PromotionImageProtocoal(scrollView: productImagescrollView)
+    }
+    
+    
     
     func favAndCartIconState() {
         let favFuncsClass = FavItemsFunctionality()
         let onCartFuncsClass = OnCartFunctionality()
-    if favFuncsClass.saveFavData(data: products, state: nil){
-        favItemBOL.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
-        favItemBOL.isSelected = true
-    }else {
-        favItemBOL.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
-        favItemBOL.isSelected = false
-        
+        if favFuncsClass.saveFavData(data: products, state: nil){
+            favItemBOL.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+            favItemBOL.isSelected = true
+        }else {
+            favItemBOL.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+            favItemBOL.isSelected = false
+            
         }
-    if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: products), state: nil){
-        addTOCarBOL.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
-        addTOCarBOL.isSelected = true
-    }else {
-        addTOCarBOL.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
-        addTOCarBOL.isSelected = false
+        if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: products), state: nil){
+            addTOCarBOL.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
+            addTOCarBOL.isSelected = true
+        }else {
+            addTOCarBOL.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
+            addTOCarBOL.isSelected = false
         }
     }
     
@@ -268,7 +271,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
     
     
-  
+    
     
     
     

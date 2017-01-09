@@ -46,16 +46,16 @@
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pw-VU-Yan">
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0123456789" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pw-VU-Yan">
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=regular">
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="699.00 L.E" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOu-qG-Dtk">
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=regular">
@@ -96,12 +96,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fOu-qG-Dtk" secondAttribute="trailing" constant="8" id="1zj-a4-aid"/>
-                            <constraint firstItem="0pw-VU-Yan" firstAttribute="height" secondItem="uLc-9g-1rE" secondAttribute="height" multiplier="0.25" id="67z-Td-p8a"/>
+                            <constraint firstItem="0pw-VU-Yan" firstAttribute="height" secondItem="uLc-9g-1rE" secondAttribute="height" multiplier="0.29" id="67z-Td-p8a"/>
                             <constraint firstItem="9hL-0B-gs7" firstAttribute="top" secondItem="EC7-Oy-SMc" secondAttribute="bottom" id="6a1-gH-zdG"/>
                             <constraint firstItem="gZj-a4-Tlu" firstAttribute="width" secondItem="YJG-19-ciq" secondAttribute="width" id="CiM-Dj-DxB"/>
                             <constraint firstItem="uLc-9g-1rE" firstAttribute="height" secondItem="YJG-19-ciq" secondAttribute="height" multiplier="0.12" id="FeQ-d6-tH4"/>
                             <constraint firstItem="gZj-a4-Tlu" firstAttribute="top" secondItem="YJG-19-ciq" secondAttribute="top" id="FkK-1G-zpd"/>
-                            <constraint firstItem="0pw-VU-Yan" firstAttribute="top" secondItem="uLc-9g-1rE" secondAttribute="bottom" constant="1" id="IiD-wU-mnf"/>
+                            <constraint firstItem="0pw-VU-Yan" firstAttribute="top" secondItem="uLc-9g-1rE" secondAttribute="bottom" id="IiD-wU-mnf"/>
                             <constraint firstItem="fOu-qG-Dtk" firstAttribute="leading" secondItem="YJG-19-ciq" secondAttribute="leading" constant="8" id="Jd8-Zo-c58"/>
                             <constraint firstItem="uLc-9g-1rE" firstAttribute="leading" secondItem="YJG-19-ciq" secondAttribute="leading" constant="8" id="KHk-Xi-py0"/>
                             <constraint firstItem="9hL-0B-gs7" firstAttribute="height" secondItem="gZj-a4-Tlu" secondAttribute="height" multiplier="0.009" id="KNH-lH-PrS"/>
@@ -109,7 +109,7 @@
                             <constraint firstAttribute="trailing" secondItem="gZj-a4-Tlu" secondAttribute="trailing" id="PJM-aZ-BV3"/>
                             <constraint firstItem="uLc-9g-1rE" firstAttribute="top" secondItem="9hL-0B-gs7" secondAttribute="bottom" constant="5" id="QBw-vj-7PL"/>
                             <constraint firstAttribute="trailing" secondItem="0pw-VU-Yan" secondAttribute="trailing" constant="8" id="QOB-Rr-Qaf"/>
-                            <constraint firstItem="fOu-qG-Dtk" firstAttribute="height" secondItem="0pw-VU-Yan" secondAttribute="height" multiplier="2" id="R1U-Gx-DdQ"/>
+                            <constraint firstItem="fOu-qG-Dtk" firstAttribute="height" secondItem="0pw-VU-Yan" secondAttribute="height" multiplier="1.8" id="R1U-Gx-DdQ"/>
                             <constraint firstItem="Hl4-xo-Ixf" firstAttribute="height" secondItem="YJG-19-ciq" secondAttribute="height" multiplier="0.11" id="XIg-P4-BvB"/>
                             <constraint firstAttribute="trailing" secondItem="uLc-9g-1rE" secondAttribute="trailing" constant="8" id="ept-7l-cit"/>
                             <constraint firstItem="0pw-VU-Yan" firstAttribute="leading" secondItem="YJG-19-ciq" secondAttribute="leading" constant="8" id="f3R-Ku-4dr"/>
@@ -117,12 +117,12 @@
                             <constraint firstAttribute="trailing" secondItem="Hl4-xo-Ixf" secondAttribute="trailing" id="h3T-Xn-5Vb"/>
                             <constraint firstAttribute="trailing" secondItem="9hL-0B-gs7" secondAttribute="trailing" id="h9T-F8-ZSd"/>
                             <constraint firstItem="EC7-Oy-SMc" firstAttribute="leading" secondItem="gZj-a4-Tlu" secondAttribute="leading" id="hFR-xk-kr6"/>
-                            <constraint firstItem="gZj-a4-Tlu" firstAttribute="height" secondItem="YJG-19-ciq" secondAttribute="height" multiplier="0.64" id="iLv-to-fcw"/>
+                            <constraint firstItem="gZj-a4-Tlu" firstAttribute="height" secondItem="YJG-19-ciq" secondAttribute="height" multiplier="0.62" id="iLv-to-fcw"/>
                             <constraint firstItem="EC7-Oy-SMc" firstAttribute="height" secondItem="gZj-a4-Tlu" secondAttribute="height" multiplier="0.17" id="j6D-EO-kE8"/>
                             <constraint firstItem="EC7-Oy-SMc" firstAttribute="width" secondItem="gZj-a4-Tlu" secondAttribute="width" multiplier="0.5" id="kGn-a9-5zz"/>
                             <constraint firstItem="EC7-Oy-SMc" firstAttribute="bottom" secondItem="gZj-a4-Tlu" secondAttribute="bottom" id="rO2-Yf-1lW"/>
                             <constraint firstItem="Hl4-xo-Ixf" firstAttribute="leading" secondItem="YJG-19-ciq" secondAttribute="leading" id="v76-dz-2WO"/>
-                            <constraint firstItem="fOu-qG-Dtk" firstAttribute="top" secondItem="0pw-VU-Yan" secondAttribute="bottom" constant="3" id="w5w-XG-NdD"/>
+                            <constraint firstItem="fOu-qG-Dtk" firstAttribute="top" secondItem="0pw-VU-Yan" secondAttribute="bottom" constant="1" id="w5w-XG-NdD"/>
                             <constraint firstItem="9hL-0B-gs7" firstAttribute="leading" secondItem="YJG-19-ciq" secondAttribute="leading" id="yFo-wA-4SJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -154,7 +154,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="PlaceHolder" width="480" height="705"/>
+        <image name="PlaceHolder" width="480" height="600"/>
         <image name="cart" width="37" height="37"/>
         <image name="favoriteditem" width="37" height="37"/>
     </resources>

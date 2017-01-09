@@ -16,7 +16,8 @@
         var window: UIWindow?
         var mainRowCellSize : CGSize?
         var cellSize : CGSize?
-        
+        var verticalCellSize : CGSize?
+
         func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
             let googleDidHandle =  GIDSignIn.sharedInstance().handle(url,
                                                                      sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
@@ -43,8 +44,10 @@
             let x = mainRowCellSize?.width
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone {
                 cellSize = CGSize(width: x! * 0.47 , height:  y! * 0.85)
+                verticalCellSize = CGSize(width: x! * 0.43 , height:  (x! * 0.47) * 1.5 )
             }else {
                 cellSize = CGSize(width: x! * 0.35 , height:  y! * 0.85)
+                verticalCellSize = CGSize(width: x! * 0.35 , height:  y! * 0.85)
             }
             
             

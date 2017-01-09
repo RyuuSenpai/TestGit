@@ -20,14 +20,20 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBOutlet weak var numperOfReviews: UIButton!
     @IBOutlet weak var favItemBOL: UIButton!
     @IBOutlet weak var addTOCarBOL: UIButton!
+    @IBOutlet weak var seeAllReviews: UIButton!
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var productTitle: UILabel?
     @IBOutlet weak var priceOL: UILabel!
     @IBOutlet weak var preDicountPrice: UILabel!
+    @IBOutlet weak var noReviewsLbl: UILabel!
     
     var  toCartVC : UIBarButtonItem!
     
+    var getDataClass : ProductCategories!
+    var products : ProductDetails?
+    let postClass = PostRequests()
+    var getReviewArray : [GetItemReviewModel]!
     var CurrentRating : String?
     var categoryNumber : Int? /*{
      didSet {
@@ -44,10 +50,8 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
      }
      }*/
     var product_id : Int?
-    var products : ProductDetails?
     var imagelist = [#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder"),#imageLiteral(resourceName: "PlaceHolder")]
     
-    var getDataClass : ProductCategories!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +72,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         //        if let catID = categoryNumber {
         //            categoryID.text = " category ID : \(catID)"
         //        }
-        
+       
         recivedNotification()
     }
     
@@ -153,6 +157,22 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         self.revealViewController().panGestureRecognizer().isEnabled = false
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
+        if let id = self.product_id {
+            
+            postClass.postGetitemreView(itemID: id, completed: { (reviewArrayData) in
+                guard let data = reviewArrayData  , data.count > 0 else {
+                self.seeAllReviews.isHidden = true
+                    self.noReviewsLbl.isHidden = false
+                    return
+                }
+                self.getReviewArray = data
+                self.seeAllReviews.isHidden = false 
+                self.noReviewsLbl.isHidden = true
+                self.reviewsCollectionView.reloadData()
+                print("Done postGetitemreView")
+                
+            })
+        }
     }
     
     
@@ -183,6 +203,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         if ad.isUserLoggedIn() {
             
             let writereviewVC = WriteReviewsVC(nibName: "WriteReviewsVC", bundle: nil)
+            writereviewVC.productId = products?.id
             self.navigationController?.pushViewController(writereviewVC, animated: true)
             //            let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
             //            onCartVC.isNotSubView = false

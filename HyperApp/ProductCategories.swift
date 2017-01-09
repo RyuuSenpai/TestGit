@@ -11,31 +11,27 @@ import Alamofire
 import SwiftyJSON
 class ProductCategories {
     
+    var catDetails : CategoryDetailsModel?
     var name : String?
     var products : [ProductDetails]?
-    
+    let configuration = URLSessionConfiguration.default
+
     func getproductDetailsData(itemID : Int?,completed : @escaping (ProductDetails?) -> ()) {
-        guard let itemID = itemID else { print("error Item Id == Nil ***") ; return }
-        let parameters : Parameters = ["item_id" : "\(itemID)"]
-        print("that is itemID \(itemID)")
-        print("that is the parameters in Get_ItemById : \(parameters)")
-        let header   = [HEADER_ID : HEADER_PASSWORD]
+        guard let itemID = itemID else { print("Error in getproductDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
+        let parameters : Parameters = ["item_id" : itemID]
         
  
-         let configuration = URLSessionConfiguration.default
-         configuration.timeoutIntervalForResource = 60 // seconds
+         configuration.timeoutIntervalForResource = 10 // seconds
          
          let alamofireManager = Alamofire.SessionManager(configuration: configuration)
  
-        Alamofire.request(BASE_URL + GET_ITEM , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response:DataResponse<Any>) in
+        Alamofire.request(BASE_URL + GET_ITEM , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
             
             switch(response.result) {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
                     let productDetails = ProductDetails(jsonData: json[0])
-                print(productDetails.name,productDetails.price)
                 if let imageUrl =  productDetails.image_url {
                 productDetails.image_pr = self.getImagee(image: imageUrl)
                 }
@@ -73,8 +69,8 @@ class ProductCategories {
     }
     
     
-    func downloadHomePageData( compeleted: @escaping ([ProductCategories]) -> ()){
-        let query_url = BASE_URL + HOME_PAGE
+    func downloadHomePageData( pageNum : Int ,compeleted: @escaping ([ProductCategories]) -> ()){
+        let query_url = BASE_URL + HOME_PAGE + "\(pageNum)"
 
         let request = alamoRequest(query_url: query_url)
             Alamofire.request(request)
@@ -87,15 +83,12 @@ class ProductCategories {
                         URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
                         
                         guard response.result.error == nil else {
-                            
                             // got an error in getting the data, need to handle it
                             print("error fetching data from url")
                             print(response.result.error!)
                             return
-                            
                         }
                         let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
-
                        let productCatArray =  self.getJsonDataHomePM(json: json)
                        
                         compeleted(productCatArray)
@@ -119,25 +112,10 @@ class ProductCategories {
                     default :
                         print("Problem getting the data Switch eeror ")
                     }
-    //                let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
-    //                //
-    //                print(json) // Test if it works
-    //                guard response.result.error == nil else {
-    //
-    //                    // got an error in getting the data, need to handle it
-    //                    print("error fetching data from url")
-    //                    print(response.result.error!)
-    //                    return
-    //
-    //                }
-    
-    //                 URLCache.shared.removeAllCachedResponses()
-    //                // do whatever you want with your data here
-    //                let json2 = JSON(data: cachedURLResponse.data) // SwiftyJSON
-    //                //
-    //                print(json2) // Test if it works
+
             }
         }
+    
     
     
 
@@ -146,15 +124,24 @@ class ProductCategories {
         for i in 0..<json.count {
             let data = json[i]
             let productCat = ProductCategories()
-            productCat.name = data["Catname"].stringValue
+            // stage API
+//            productCat.name = data["Catname"].stringValue
+            //testing API
+            let catDetail = CategoryDetailsModel(jsonData: data["category"])
+            
             let products = data["Products"]
             var yo = [ProductDetails]()
             for x in 0..<products.count {
                 let y = ProductDetails(jsonData: products[x])
                 yo.append(y)
             }
+            
             productCat.products = yo
+            // testing API
+            productCat.catDetails = catDetail
+
             productCatArray.append(productCat)
+            
         }
         return productCatArray
     }
@@ -225,8 +212,8 @@ class ProductCategories {
     func getImagee(image:String) ->UIImage {
         
         let imageURL = URL(string: image)
-        if let imageData = NSData(contentsOf: imageURL!){
-            return UIImage(data: imageData as Data)!
+        if let imageData = NSData(contentsOf: imageURL!) , let img = UIImage(data: imageData as Data){
+            return img 
         }
         return #imageLiteral(resourceName: "PlaceHolder")
         
@@ -234,32 +221,7 @@ class ProductCategories {
     
 }//class
 
-class ProductDetails  {
-    
-    var id : Int?
-    var name :String?
-    var image_url : String?
-    var image_pr :UIImage?
-    var id_parent : Int?
-    var level_depth : NSNumber?
-    var price  : Double?
-    var preDiscountPrice : NSNumber?
-    var isFav : Bool?
-    var onCart : Bool?
-    var prDescription : String?
-    var on_sale : Bool?
-    
-    init(jsonData : JSON) {
-        self.id = jsonData["id"].intValue
-        self.name = jsonData["name"].stringValue
-        self.image_url = IMAGE_HOME_PATH + "/" + jsonData["main_image"].stringValue
-        self.id_parent =  jsonData["id_category"].intValue
-        self.price = jsonData["price"].doubleValue
-        print(self.price)
-        self.on_sale = jsonData["on_sale"].boolValue
-        self.prDescription = jsonData["description"].stringValue
-    }
-}
+
 
 class CategoryMD :NSObject {
     

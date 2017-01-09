@@ -6,3 +6,4 @@
 
 #import "UIBarButtonItem+Badge.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <UIScrollView_InfiniteScroll/UIScrollView+InfiniteScroll.h>

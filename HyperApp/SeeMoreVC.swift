@@ -19,7 +19,7 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        collectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
@@ -36,11 +36,11 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
         return 0
     }
     
-            func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCell", for: indexPath) as! SeeMoreCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath as IndexPath) as! ProductCell
         let product = productCatSelected?.products?[indexPath.row]
-        cell.configCell(product: product)
+        cell.productDetails = product
         return cell
         
     }

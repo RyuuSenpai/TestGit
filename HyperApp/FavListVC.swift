@@ -9,8 +9,9 @@ import Foundation
 import UIKit
 import RealmSwift
 import Alamofire
-class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout  {
+class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout   {
     
+    @IBOutlet weak var emptyListPH: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     let home = HomeCategoriesCell()
     var favList : [CDFavList]?
@@ -20,10 +21,12 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     var isnotSubV = true
     let onCartFuncsClass = OnCartFunctionality()
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = setOutLetsTitle(arabicTitle: "قائمة المفضلات", engTitle: "Fav List")
         //        self.view.squareLoading.start(0.0)
         
         collectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
@@ -156,6 +159,12 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
                 favList?.append(y)
                 
             }
+            if let item =  self.favList , item.count < 1 {
+                self.emptyListPH.isHidden = false
+            }else {
+                self.emptyListPH.isHidden = true
+            }
+            
             collectionView.reloadData()
         }catch let err as NSError {
             print("that is error ya man   :   \(err)")
@@ -181,27 +190,28 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height  :CGFloat = (self.view.frame.size.width * 0.43) * 1.5
-        let width : CGFloat = self.view.frame.size.width * 0.43
-        print("that is the not fixed width \(self.view.frame.size.width * 0.45)")
-        //        if (self.view.frame.size.width * 0.45) > width {
-        //            width = (self.view.frame.size.width * 0.40)
-        //        }
-        //        if (width * 1.43) > height {
-        //            height = (width * 1.43)
-        //        }
         
-        return CGSize(width: width , height: height) // The size of one cell
+        return ad.verticalCellSize!
         
         //            return CGSize(width: self.mainProductsRow.frame.width, height: view.frame.height * 0.25)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
         
-        //        productDetailController.products = product
+        if let productData = self.favList?[indexPath.row] {
+            
+            let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+           
+            let y  = Convertor()
+            let productDetails = y.FavListToProductList(data: productData)
+            productDetailController.products = productDetails
+            productDetailController.product_id = productDetails?.id
+
+            
+            navigationController?.pushViewController(productDetailController, animated: true)
+
+        }
         
-        navigationController?.pushViewController(productDetailController, animated: true)
         
         
         

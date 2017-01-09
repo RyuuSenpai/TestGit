@@ -27,7 +27,7 @@
     //@end Auk
     
     var itemsInCart : Int = 0
-    
+    var catPageNum = 2
     var productCategory : [ProductCategories]?
     var productCatData : ProductCategories?
     
@@ -63,9 +63,29 @@
         mainProductsRow.register(LargeHomeCategoriesCell.nib, forCellWithReuseIdentifier: LargeHomeCategoriesCell.identifier)
         mainProductsRow.delegate = self
         mainProductsRow.dataSource = self
+        
+        infiniteScroll()
+        
         self.sendNotification()
     }
     
+    func infiniteScroll() {
+        //Stop Animation
+//        mainProductsRow.setShouldShowInfiniteScrollHandler { (_) -> Bool in
+//            
+//            return true
+//        }
+        mainProductsRow.addInfiniteScroll { (collectionView) -> Void in
+            self.mainProductsRow.performBatchUpdates({ () -> Void in
+                self.catPageNum += 1
+                self.updateData()
+                // update collection view
+            }, completion: { (finished) -> Void in
+                // finish infinite scroll animations
+                self.mainProductsRow.finishInfiniteScroll()
+            });
+        }
+    }
     
     func sendNotification() {
         
@@ -73,22 +93,28 @@
     }
     
     func updateData() {
+        if  self.productCategory == nil {
         self.view.squareLoading.start(0.0)
-        Cell_Size =  GETCELLSIZE(view: self.view)
+        }
         productCatData = ProductCategories()
-        productCatData?.downloadHomePageData { (productCategory) in
+        productCatData?.downloadHomePageData(pageNum: catPageNum, compeleted: { (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                 self.switchLanguageBtnOL.isEnabled = true
                 self.dataISA = false
+                if let productData = self.productCategory{
+                    let productData = productData + productCategory
+                    self.productCategory = productData
+                }else {
                 self.productCategory = productCategory
+                }
                 print("Done with getting Data")
                 self.view.squareLoading.stop(0.0)
                 self.mainProductsRow.reloadData()
                 self.revealMenu()
             }
             
-        }
-    }
+        })
+       }
     
     func recivedNotification() {
         NotificationCenter.default.addObserver(forName: UPDATE_CART_BADGE, object: nil , queue: nil) { notification  in
@@ -198,6 +224,7 @@
     func showSubCategory(productDetails : Int , CatIndex : Int) {
         let subCategoryVC = self.storyboard?.instantiateViewController(withIdentifier: "SubCategoryVC") as! SubCategoryVC
         
+//        subCategoryVC.catID =
         
         navigationController?.pushViewController(subCategoryVC, animated: true)
     }
@@ -260,12 +287,12 @@
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.53))
+        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.40))
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.11))
+        return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.09))
     }
     
     
@@ -291,14 +318,15 @@
     func handleTap() {
         
         print("that is the indexPath : \(HomeAukCollectionViewHeader.theIndex)")
-        let mySettings: PromotionVC = PromotionVC(nibName: "PromotionVC", bundle: nil)
-        let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.flipHorizontal    /*.partialCurl */
-        mySettings.modalTransitionStyle = modalStyle
+        let mySettings: PromotionVC = self.storyboard?.instantiateViewController(withIdentifier:"PromotionVC") as! PromotionVC
+//        let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.flipHorizontal    /*.partialCurl */
+//        mySettings.modalTransitionStyle = modalStyle
         if let currentImageIndex = HomeAukCollectionViewHeader.theIndex {
             mySettings.promotionImageFlag = imagelist[currentImageIndex]
             
         }
-        self.present(mySettings, animated: true, completion: nil)
+        navigationController?.pushViewController(mySettings, animated : true )
+//        self.present(mySettings, animated: true, completion: nil)
     }
     
     

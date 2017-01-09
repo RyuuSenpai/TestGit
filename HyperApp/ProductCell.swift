@@ -21,6 +21,10 @@ class ProductCell: UICollectionViewCell {
     @IBOutlet weak var shareBtnOL: UIButton!
     
     
+    override func prepareForReuse() {
+        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+    }
+    
     var favItem : CDFavList? {
         didSet {
             
@@ -39,7 +43,6 @@ class ProductCell: UICollectionViewCell {
             //        }
         }
     }
-    
     var productDetails :  ProductDetails? {
         
         didSet {

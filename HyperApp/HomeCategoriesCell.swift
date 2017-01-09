@@ -20,9 +20,12 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     let favFuncsClass = FavItemsFunctionality()
     let onCartFuncsClass = OnCartFunctionality()
     var productCategory : ProductCategories? {
-        didSet {
-            if let categoryTitle = productCategory?.name {
-                categorytitle.text = categoryTitle
+        didSet { // Stage API
+//            if let categoryTitle = productCategory?.name {
+//                categorytitle.text = categoryTitle
+//            }
+            if let catData = productCategory?.catDetails {
+                categorytitle.text = catData.name
             }
         }
     }

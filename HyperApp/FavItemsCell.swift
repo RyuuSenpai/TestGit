@@ -43,7 +43,11 @@ class FavItemsCell: UICollectionViewCell{
 //            }
             
 //        }
+                }
     }
+    
+    override func prepareForReuse() {
+        self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
     }
     
     var productDetails :  ProductDetails? {

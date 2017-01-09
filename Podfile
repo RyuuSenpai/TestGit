@@ -24,4 +24,6 @@ post_install do |installer|
 
 pod 'SDWebImage', '~>3.8'
     pod 'SwiftyJSON'
+    pod 'UIScrollView-InfiniteScroll'
+
 end

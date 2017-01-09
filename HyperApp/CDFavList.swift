@@ -15,6 +15,11 @@ class CDFavList : Object {
    dynamic var price : Double = 0.0
     dynamic var imageData : Data? = nil
 
+  dynamic  var id : Int = 0
+   dynamic var id_parent : Int = 0
+  dynamic  var level_depth : Int = 0
+  dynamic  var preDiscountPrice : Double = 0.0
+   dynamic var on_sale : Bool = false
     override static func primaryKey() -> String {
         return "name"
     }

@@ -10,10 +10,16 @@ import UIKit
 import RealmSwift
 class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  {
     
+    @IBOutlet weak var emptyCartPH: UIImageView!
     @IBOutlet weak var totalPriceValue: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editNavBtn: UIBarButtonItem!
+    @IBOutlet weak var deleteNavBtn: UIBarButtonItem!
+    
+    var filledHeartSet = Set<NSIndexPath>()
     
     var items : [CDOnCart]?
+    var deletedItemsindex = [Int]()
     var isNotSubView = true
     var totalPrice : Double = 0
     override func viewDidLoad() {
@@ -27,19 +33,20 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         isNotSubView = true
     }
     
-    
+    var editSelected = false
     
     override func viewWillAppear(_ animated: Bool) {
         self.revealViewController().panGestureRecognizer().isEnabled = false
-        self.navigationItem.title = setTitle(arabicTitle: "المشتريات", engTitle: "On Cart")
+        self.navigationItem.title = setOutLetsTitle(arabicTitle: "المشتريات", engTitle: "On Cart")
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.deleteNavBtn.image = nil
+        
         navigationController?.setColor()
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         sendNotification()
-        
     }
     func sendNotification() {
         
@@ -60,16 +67,38 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! OnCartCell
+        cell.tag = indexPath.row
+        cell.deleteRowDataBtn.tag = indexPath.row
+        cell.addToQuantity.tag = indexPath.item
+        cell.removeFromQuantity.tag = indexPath.item
         
         cell.onCart = items?[indexPath.row]
-        cell.removeFromQuantity.tag = indexPath.item
-        cell.addToQuantity.tag = indexPath.item
         
         cell.removeFromQuantity.addTarget(self, action: #selector(subtractFromQuantity(sender:)) , for: UIControlEvents.touchUpInside)
         cell.addToQuantity.addTarget(self, action: #selector(addToQuantity(sender:)) , for: UIControlEvents.touchUpInside)
+        
+        
+        
+        cell.deleteRowDataBtn.setImage( #imageLiteral(resourceName: "heart_icon_selected"), for: UIControlState.selected)
+        cell.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "Heart_icon"), for: UIControlState.normal)
+        
+        //        if cell.tag == indexPath.row {
+        cell.deleteRowDataBtn.addTarget(self, action: #selector(buttonClicked(_:)), for: UIControlEvents.touchUpInside)
+        do {
+            cell.deleteRowDataBtn.isSelected = try filledHeartSet.contains( indexPath as NSIndexPath)
+        } catch (let err as NSError) {
+            
+        }
+        //        }
+        if self.editNavBtn.title == "Done" {
+            cell.deleteRowDataBtn.isHidden = false
+        }else {
+            cell.deleteRowDataBtn.isHidden = true
+        }
+        
+        
         if let item = items?[indexPath.row] {
             
-            cell.tag = indexPath.row
             if item.imageData == nil {
                 downloadImage(index: indexPath.row, completionHandler: { (data) in
                     if cell.tag == indexPath.row {
@@ -96,6 +125,68 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         return cell
         
     }
+    
+    func buttonClicked(_ sender:UIButton)
+    {
+        let ip = NSIndexPath(row: sender.tag, section: 0)
+        
+        // only store filled heart indexPath
+        if filledHeartSet.contains(ip) {
+            filledHeartSet.remove(ip)
+            self.deletedItemsindex.append(sender.tag)
+
+        } else {
+            filledHeartSet.insert(ip)
+            self.deletedItemsindex.append(sender.tag)
+        }
+        
+        let cell = tableView.cellForRow(at: ip as IndexPath) as! OnCartCell
+        cell.deleteRowDataBtn.isSelected = !cell.deleteRowDataBtn.isSelected
+    }
+    
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //        if (self.editNavBtn.title == "Edit") {
+    //
+    //        }else {
+    //
+    //        }
+    //    }
+    @IBAction func deleteAllSelectedDataBtnAct(_ sender: UIBarButtonItem) {
+        
+        if (self.editNavBtn.title == "Done") && deletedItemsindex.count > 0  {
+            
+            //            guard  let deleteItemsArray = self.deletedItems  else {
+            //                self.editNavBtn.title = "Edit"
+            //                self.deleteNavBtn.image = nil
+            //                return
+            //            }
+            
+            for i in deletedItemsindex{
+                let item = self.items?[i]
+                do {
+                    let realm = try Realm()
+                    realm.beginWrite()
+                    realm.delete(item!)
+                    try realm.commitWrite()
+                }catch let err as NSError {
+                    print("error while deleting Row OnCart rror  : \(err)")
+                }
+                
+                
+            }
+            self.deletedItemsindex = []
+            getTheData()
+        }else {
+            self.editNavBtn.title = "Edit"
+            self.deleteNavBtn.image = nil
+            print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
+        }
+        filledHeartSet = Set<NSIndexPath>()
+        self.tableView.reloadData()
+    }
+    
+    
     
     func addToQuantity(sender:UIButton)  {
         
@@ -128,7 +219,6 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             () -> Void in
             
             let imgData = try? Data(contentsOf: url)
-            print("that is the Image : \(url)")
             DispatchQueue.main.async(execute: {
                 () -> Void in
                 if let img = imgData {
@@ -243,6 +333,12 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             }
             self.totalPriceValue.text = "\(totalPrice) L.E"
             
+            if let item =  self.items , item.count < 1 {
+                self.emptyCartPH.isHidden = false
+            }else {
+                self.emptyCartPH.isHidden = true
+            }
+            
             
             tableView.reloadData()
             
@@ -251,4 +347,21 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         }
         
     }
+    
+    
+    
+    @IBAction func editTableViewData(_ sender: UIBarButtonItem) {
+        if (self.editNavBtn.title == "Edit") {
+            self.editNavBtn.title = "Done"
+            self.deleteNavBtn.image = #imageLiteral(resourceName: "1-remove")
+        } else {
+            self.editNavBtn.title = "Edit"
+            self.deleteNavBtn.image = nil
+        }
+        self.tableView.reloadData()
+    }
+    
+    
+    
+    
 }

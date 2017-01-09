@@ -21,6 +21,7 @@ class OnCartCell: UITableViewCell {
     @IBOutlet weak var discountPercent: UILabel!
     @IBOutlet weak var addToQuantity: UIButton!
     @IBOutlet weak var removeFromQuantity: UIButton!
+    @IBOutlet weak var deleteRowDataBtn: UIButton!
     
     var onCart : CDOnCart? {
         didSet {
@@ -52,6 +53,9 @@ class OnCartCell: UITableViewCell {
     }
     override func prepareForReuse() {
          self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
+        self.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "Heart_icon"), for: UIControlState.normal)
+        self.deleteRowDataBtn.titleLabel?.text = ""
+
     }
     
     func configCell( img : UIImage?){

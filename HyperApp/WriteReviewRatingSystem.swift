@@ -37,7 +37,8 @@ extension WriteReviewsVC : FloatRatingViewDelegate {
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Float) {
 
-    print("that is value " , rating)    
+        self.ratingValue = rating
+        print(rating)
     }
     
 }

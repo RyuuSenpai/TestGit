@@ -18,4 +18,15 @@ class ProductReviewCell: UICollectionViewCell {
     
     @IBOutlet weak var reviewTextPlaceHolder: UILabel!
     
+    
+    
+    func configCell(data : GetItemReviewModel) {
+        
+        self.emailPlaceHolder.text = data.userData?.fullname
+        self.ratePlaceHolder.text =  "\(data.rate)"
+        self.dateOfReview.text = data.dateAdd
+        self.reviewTextPlaceHolder.text = data.review
+    }
+    
+    
 }

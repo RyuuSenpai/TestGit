@@ -23,6 +23,9 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     @IBOutlet weak var longReview: UITextView!
     
     var keyBoardheightSize : CGFloat!
+    var postReviewClass = PostReviewRequest()
+    var ratingValue : Float = 2.5
+    var productId : Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,9 +63,8 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-        
     }
+    
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
@@ -98,6 +100,38 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     {
         print("2")
     }
+    
+    
+    @IBAction func submitReview(_ sender: UIButton) {
+        if isTextValid() == "Posted",let id = self.productId {
+        postReviewClass.getReviewRequesData(userID: 1 , itemID: id, rate: self.ratingValue, reviewString: self.reviewTitle.text!, completed: { (ProductDetails) in
+            
+            print("Done with Posting the data")
+        })
+        }else {
+            
+        }
+    }
+    
+    
+    func isTextValid() -> String{
+        
+        guard  let whatGoodT = self.whatNotGood.text  , whatGoodT.characters.count > 1 else {
+            return "What's good about Product Text is Empty" }
+        guard  let whatNotGoodT = self.whatNotGood.text  , whatNotGoodT.characters.count > 1 else {
+            return "What's not good about Product Text is Empty" }
+        guard  let reviewT = self.reviewTitle.text  , reviewT.characters.count > 1 else {
+            return "Review Text is Empty" }
+       return "Posted"
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      keyboardViewDIdLoad()
      

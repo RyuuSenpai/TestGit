@@ -11,65 +11,74 @@ import UIKit
 class SignupVC: UIViewController , UITextFieldDelegate{
     
     
-    @IBOutlet weak var fullNameText: UITextField!
-    
+    @IBOutlet weak var firstTextOL: UITextField!
+    @IBOutlet weak var lastNameTextOL: UITextField!
     @IBOutlet weak var emailText: UITextField!
-    
-    @IBOutlet weak var mobileNumberText: UITextField!
-    
+    @IBOutlet weak var BirthDateText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var maleOrFemale: UISwitchCustom!
+    @IBOutlet weak var maleBtnOL: UIButton!
+    @IBOutlet weak var femaleBtnOL: UIButton!
+    @IBOutlet weak var signupBtnOL: UIButton!
+    
     
     let RegisterTFDelegate = RegisterTextFieldDeledate()
+    let signUpPostRClass = SignUpPostReq()
+    var genderType = "m"
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.fullNameText.delegate =  RegisterTFDelegate
-        self.emailText.delegate =  RegisterTFDelegate
-        self.mobileNumberText.delegate =  RegisterTFDelegate
-        self.passwordText.delegate =  RegisterTFDelegate
-        
+        self.femaleBtnOL.alpha = 0.5
+
+        self.setTextDelegation()
         // Do any additional setup after loading the view.
+        //Pick Date
+        self.addToolBarToPicker()
         
         NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignupVC.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
+       
     
-    //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
     }
     
     
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
+    
+    @IBAction func setGender(_ sender: Any) {
+        
+        if maleOrFemale.isOn {
+            self.maleBtnOL.alpha = 1.0
+            self.femaleBtnOL.alpha = 0.5
+        }else {
+            self.maleBtnOL.alpha = 0.5
+            self.femaleBtnOL.alpha = 1.0
         }
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    
+    @IBAction func isMaleBtnAct(_ sender: UIButton) {
+
+        self.maleBtnOL.alpha = 1.0
+        self.femaleBtnOL.alpha = 0.5
+
+        self.maleOrFemale.isOn = true
+    }
+    
+    @IBAction func isFmaleBtnAct(_ sender: UIButton) {
+
+        self.maleBtnOL.alpha = 0.5
+        self.femaleBtnOL.alpha = 1.0
+        self.maleOrFemale.isOn = false
     }
     
     
-          @IBAction func dismissViewButton(_ sender: AnyObject) {
+    @IBAction func dismissViewButton(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
     }
     /*
@@ -81,5 +90,34 @@ class SignupVC: UIViewController , UITextFieldDelegate{
      // Pass the selected object to the new view controller.
      }
      */
+    @IBAction func signupBtnAct(_ sender: UIButton) {
+        guard  let result = isTextValid() , result == "Posted" else {
+            print(isTextValid())
+            return
+            }
+               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: BirthDateText.text!, gender: genderType) { (ProductDetailsData) in
+        
+        }
+    }
+    
+    func isTextValid() -> String?{
+        
+        guard  let fname = self.firstTextOL.text  , fname.characters.count > 1 else {
+            return "firstTextOL Text is Empty" }
+        guard  let lastName = self.lastNameTextOL.text  , lastName.characters.count > 1 else {
+            return "lastNameTextOL Text is Empty" }
+        guard  let pass = self.passwordText.text  , pass.characters.count > 1 else {
+            return "passwordText Text is Empty" }
+        guard  let email = self.emailText.text  , email.characters.count > 1 else {
+            return "emailText Text is Empty" }
+        guard  let bDate = self.BirthDateText.text  , bDate.characters.count > 1 else {
+            return "BirthDateText Text is Empty" }
+        return "Posted"
+    }
+    
+    
+    
+    
+    
     
 }

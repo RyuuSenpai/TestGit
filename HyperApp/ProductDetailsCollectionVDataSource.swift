@@ -24,7 +24,8 @@ extension ProductDetailsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.reviewsCollectionView {
-            return 5
+            guard let count = getReviewArray else { return 0 }
+            return  getReviewArray.count
         }else {
             return 11
         }
@@ -37,6 +38,9 @@ extension ProductDetailsVC : UICollectionViewDataSource {
         
         if collectionView == self.reviewsCollectionView {
             let cell : ProductReviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ProductReviewCell
+            guard  getReviewArray != nil else { return cell }
+            let data = self.getReviewArray[indexPath.row]
+            cell.configCell(data: data)
             return cell
         }else {
             let cell : RelatedItemsProductDetailsVCCell = collectionView.dequeueReusableCell(withReuseIdentifier: "RelatedItemsCell", for: indexPath) as! RelatedItemsProductDetailsVCCell

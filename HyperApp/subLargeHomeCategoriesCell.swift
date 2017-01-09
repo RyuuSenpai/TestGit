@@ -15,8 +15,13 @@ class subLargeHomeCategoriesCell: UICollectionViewCell {
     
     var productCategory : ProductCategories? {
         didSet {
-            if let categoryTitle = productCategory?.name {
-                categorytitle.text = categoryTitle
+            //Stage API
+//            if let categoryTitle = productCategory?.name {
+//                categorytitle.text = categoryTitle
+//            }
+            if let catData = productCategory?.catDetails {
+                
+                    categorytitle.text = catData.name
             }
         }
     }

@@ -40,7 +40,7 @@ extension UIView {
 
 
 @IBDesignable
-
+ // give the switch the name of the class
 class UISwitchCustom: UISwitch {
     @IBInspectable var OffTint: UIColor? {
         didSet {

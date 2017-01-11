@@ -31,6 +31,11 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             self.revealMenu()
         }
         isNotSubView = true
+        
+        if let item =  items , item.count  < 1 {
+            self.editNavBtn.title = ""
+            self.editNavBtn.isEnabled = false
+        }
     }
     
     var editSelected = false
@@ -79,8 +84,8 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         
         
         
-        cell.deleteRowDataBtn.setImage( #imageLiteral(resourceName: "heart_icon_selected"), for: UIControlState.selected)
-        cell.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "Heart_icon"), for: UIControlState.normal)
+        cell.deleteRowDataBtn.setImage( #imageLiteral(resourceName: "checkBox√"), for: UIControlState.selected)
+        cell.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "uncheckBox"), for: UIControlState.normal)
         
         //        if cell.tag == indexPath.row {
         cell.deleteRowDataBtn.addTarget(self, action: #selector(buttonClicked(_:)), for: UIControlEvents.touchUpInside)
@@ -183,6 +188,13 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
             print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
         }
         filledHeartSet = Set<NSIndexPath>()
+        if let item =  items , item.count  < 1 {
+            self.editNavBtn.title = ""
+            self.editNavBtn.isEnabled = false
+            self.deleteNavBtn.image = nil
+            self.deleteNavBtn.isEnabled = false
+
+        }
         self.tableView.reloadData()
     }
     

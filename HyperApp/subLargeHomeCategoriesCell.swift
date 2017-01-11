@@ -13,16 +13,10 @@ class subLargeHomeCategoriesCell: UICollectionViewCell {
     @IBOutlet weak var categorytitle: UILabel!
     @IBOutlet weak var categoryImage: UIImageView!
     
-    var productCategory : ProductCategories? {
+    var productCategory : GetAllCategoriesModel? {
         didSet {
-            //Stage API
-//            if let categoryTitle = productCategory?.name {
-//                categorytitle.text = categoryTitle
-//            }
-            if let catData = productCategory?.catDetails {
-                
-                    categorytitle.text = catData.name
-            }
+
+            categorytitle.text = productCategory?.name
         }
     }
     

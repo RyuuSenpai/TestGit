@@ -21,7 +21,7 @@ let GET_ITEM_BY_CAT = "GetItemByCategory"
 let SIGNUP_API  = "signup"
 let GET_ITEM_REVIEW = "GetItemReview"
 let ADD_REVIEW = "AddReview"
-
+let GET_ALL_CATEGORIES = "GetAllCategories"
 
 
 let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"

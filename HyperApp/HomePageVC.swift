@@ -27,11 +27,15 @@
     //@end Auk
     
     var itemsInCart : Int = 0
-    var catPageNum = 2
+    var productPageNumber = 2
+    var catPageNumber = 2
+
     var productCategory : [ProductCategories]?
     var productCatData : ProductCategories?
     
-    
+    var categoriesArray : [GetAllCategoriesModel]?
+    var categoryData : GetAllCategoriesModel?
+
     override func viewWillAppear(_ animated: Bool) {
         //        self.revealViewController().panGestureRecognizer().isEnabled = true
         
@@ -77,7 +81,7 @@
 //        }
         mainProductsRow.addInfiniteScroll { (collectionView) -> Void in
             self.mainProductsRow.performBatchUpdates({ () -> Void in
-                self.catPageNum += 1
+                self.productPageNumber += 1
                 self.updateData()
                 // update collection view
             }, completion: { (finished) -> Void in
@@ -93,24 +97,37 @@
     }
     
     func updateData() {
-        if  self.productCategory == nil {
+        if  self.productCategory == nil || categoriesArray == nil {
         self.view.squareLoading.start(0.0)
         }
         productCatData = ProductCategories()
-        productCatData?.downloadHomePageData(pageNum: catPageNum, compeleted: { (productCategory) in
+        productCatData?.downloadHomePageData(pageNum: productPageNumber, compeleted: { (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-                self.switchLanguageBtnOL.isEnabled = true
-                self.dataISA = false
+
                 if let productData = self.productCategory{
                     let productData = productData + productCategory
                     self.productCategory = productData
                 }else {
                 self.productCategory = productCategory
                 }
-                print("Done with getting Data")
-                self.view.squareLoading.stop(0.0)
-                self.mainProductsRow.reloadData()
-                self.revealMenu()
+                
+                self.productCatData?.getAllCategories(pageNum: self.catPageNumber, compeleted: { (catDataArray) in
+                    self.switchLanguageBtnOL.isEnabled = true
+                    self.dataISA = false
+                    
+                    if let categories = self.categoriesArray {
+                      let categories = categories + catDataArray
+                        self.categoriesArray = categories
+                    }else {
+                        self.categoriesArray = catDataArray
+                    }
+                    
+                    print("Done with getting Data")
+                    self.view.squareLoading.stop(0.0)
+                    self.mainProductsRow.reloadData()
+                    self.revealMenu()
+                    
+                })
             }
             
         })
@@ -185,7 +202,7 @@
             let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: LargeHomeCategoriesCell.identifier, for: indexPath) as! LargeHomeCategoriesCell
             cell.categoriesHomePageVC = self
             cell.catIndexPath = indexPath.row
-            cell.productCategories = productCategory
+            cell.productCategories = categoriesArray
             cell.seeMore.addTarget(self, action: #selector(self.seeMoreCat(_:)), for: UIControlEvents.touchUpInside)
             return cell
         }
@@ -317,7 +334,6 @@
     
     func handleTap() {
         
-        print("that is the indexPath : \(HomeAukCollectionViewHeader.theIndex)")
         let mySettings: PromotionVC = self.storyboard?.instantiateViewController(withIdentifier:"PromotionVC") as! PromotionVC
 //        let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.flipHorizontal    /*.partialCurl */
 //        mySettings.modalTransitionStyle = modalStyle

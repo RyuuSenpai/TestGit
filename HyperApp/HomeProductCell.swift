@@ -95,7 +95,6 @@ class HomeProductCell: UICollectionViewCell {
         
     }
     override func awakeFromNib() {
-        print("that is the cell tag \(self.tag) and that is the row number : \(catNum)")
         print("--------------------------------")
         
     }

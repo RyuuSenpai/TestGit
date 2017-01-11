@@ -14,7 +14,11 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     @IBOutlet weak var seeMore: UIButton!
     
-    var productCategories : [ProductCategories]?
+    var productCategories : [GetAllCategoriesModel]?
+    
+    var catPageNumber = 2
+    var productCatData : ProductCategories?
+
     
     
     override func awakeFromNib() {
@@ -51,7 +55,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = productCategories?.count {
-            return count
+            return count 
         }
         return 0
     }
@@ -84,6 +88,24 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     }
     
     
+    func infiniteScroll() {
+        //Stop Animation
+        //        mainProductsRow.setShouldShowInfiniteScrollHandler { (_) -> Bool in
+        //
+        //            return true
+        //        }
+        CategoryCollectionView.addInfiniteScroll { (collectionView) -> Void in
+            self.CategoryCollectionView.performBatchUpdates({ () -> Void in
+                self.catPageNumber += 1
+                self.updateData()
+                // update collection view
+            }, completion: { (finished) -> Void in
+                // finish infinite scroll animations
+                self.CategoryCollectionView.finishInfiniteScroll()
+            });
+        }
+    }
+    
     
     // MARK: UICOllectionViewDelegate
     
@@ -95,7 +117,22 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     }
     
     
-    //Test
-    
+    func updateData() {
+      
+        productCatData = ProductCategories()
+  
+        productCatData?.getAllCategories(pageNum: self.catPageNumber, compeleted: { (arrayofCategories) in
+            
+            if let cats = self.productCategories {
+                let newCats = cats + arrayofCategories
+                self.productCategories = newCats
+            }else {
+                self.productCategories = arrayofCategories
+            }
+            print("Done with getting Data")
+            self.CategoryCollectionView.reloadData()
+        })
+
+    }
     
 }

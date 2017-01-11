@@ -53,7 +53,7 @@ class OnCartCell: UITableViewCell {
     }
     override func prepareForReuse() {
          self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
-        self.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "Heart_icon"), for: UIControlState.normal)
+        self.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "uncheckBox"), for: UIControlState.normal)
         self.deleteRowDataBtn.titleLabel?.text = ""
 
     }

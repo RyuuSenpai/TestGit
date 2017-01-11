@@ -11,13 +11,12 @@ import SwiftyJSON
 
 
 class GetAllCategoriesModel {
-    
-    private  var _dateAdd : String?
-    private  var _name : String?
     private  var _dateUpd : String?
     private  var _code : String?
-    private  var _active : Bool?
     private  var _id : Int?
+    private  var _dateAdd : String?
+      var _name : String?
+    private  var _active : Bool?
     
     var child : [GetAllCategoriesChildModel]?
     
@@ -56,5 +55,8 @@ class GetAllCategoriesModel {
         self._id = jsonData["id"].intValue
     }
     
+    init() {
+        
+    }
 }
 

@@ -118,6 +118,82 @@ class ProductCategories {
     
     
     
+    
+    
+    func getAllCategories( pageNum : Int ,compeleted: @escaping ([GetAllCategoriesModel]) -> ()){
+//        let query_url = BASE_URL + GET_ALL_CATEGORIES + "/page/"+"\(1)"
+        let query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(pageNum)"
+//        print(query_url)
+        let request = alamoRequest(query_url: query_url)
+        
+
+        Alamofire.request(query_url, headers: HEADER).responseJSON { (response) in
+            switch(response.result) {
+            case .success(_):
+                print("Success")
+                //                        URLCache.shared.removeAllCachedResponses()
+                print(response.result.value)
+                let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
+                URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
+                
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error fetching data from url")
+                    print(response.result.error!)
+                    return
+                }
+                let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
+                let productCatArray =  self.getJsonCategoriesData(json: json)
+                
+                compeleted(productCatArray)
+                break
+            case .failure(let err as NSError) :
+                print("that is fail i n getting the data Mate : %@",err.debugDescription)
+                if let urlRequest = request.urlRequest {
+                    let x = URLCache.shared.cachedResponse(for: urlRequest)
+                    guard let cache = x else {
+                        compeleted([])
+                        return
+                    }
+                    let json = JSON(data: cache.data) // SwiftyJSON
+                    //
+                    let productCatArray =  self.getJsonCategoriesData(json: json)
+                    
+                    compeleted(productCatArray)
+                }
+                
+                break
+            default :
+                print("Problem getting the data Switch eeror ")
+            }
+            
+        }
+    
+    }
+    
+    
+    
+    func z() {
+        
+//        let query_url = BASE_URL + HOME_PAGE
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+            "Accept": "application/json"
+        ]
+//        let query_url = BASE_URL + HOME_PAGE + "\(2)"
+        let query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/"
+        Alamofire.request(query_url, headers: HEADER).responseJSON { response in
+            print(response.result.value)
+            debugPrint(response)
+        }
+        
+    }
+
+    
+    
+    
+    
 
     func getJsonDataHomePM(json : JSON) -> [ProductCategories] {
         var productCatArray = [ProductCategories]()
@@ -143,6 +219,28 @@ class ProductCategories {
             productCatArray.append(productCat)
             
         }
+        return productCatArray
+    }
+    
+    
+    func getJsonCategoriesData(json : JSON) -> [GetAllCategoriesModel] {
+        var productCatArray = [GetAllCategoriesModel]()
+        for i in 0..<json.count {
+            let data = json[i]
+            let productCat = GetAllCategoriesModel(jsonData: data)
+            print(data)
+            let childs = data["child"]
+            var childsArray = [GetAllCategoriesChildModel]()
+            for x in 0..<childs.count {
+                let childData = childs[x]
+                let childClass = GetAllCategoriesChildModel(jsonData: childData)
+                childsArray.append(childClass)
+                print(childData )
+            }
+            productCat.child = childsArray
+            productCatArray.append(productCat)
+        }
+        print(productCatArray   )
         return productCatArray
     }
     

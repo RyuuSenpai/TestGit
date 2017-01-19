@@ -139,7 +139,6 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     func cartButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]
-        
         onCartFuncsClass.cartBtnAct(sender: sender, data: data,buyNow : false)
     }
     
@@ -151,6 +150,8 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         categoriesHomePageVC?.shareItems(sender : sender , data: data)
         
     }
+    
+    
     
     
     

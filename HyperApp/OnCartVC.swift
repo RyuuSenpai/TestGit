@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  {
+class OnCartVC: UIViewController   {
     
     @IBOutlet weak var emptyCartPH: UIImageView!
     @IBOutlet weak var totalPriceValue: UILabel!
@@ -18,10 +18,14 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     
     var filledHeartSet = Set<NSIndexPath>()
     
+    var postRequest : PostReviewRequest!
     var items : [CDOnCart]?
     var deletedItemsindex = [Int]()
     var isNotSubView = true
     var totalPrice : Double = 0
+    var editSelected = false
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -32,13 +36,12 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         }
         isNotSubView = true
         
-        if let item =  items , item.count  < 1 {
+        if let item =  items , item.count  < 2 {
             self.editNavBtn.title = ""
             self.editNavBtn.isEnabled = false
         }
     }
     
-    var editSelected = false
     
     override func viewWillAppear(_ animated: Bool) {
         self.revealViewController().panGestureRecognizer().isEnabled = false
@@ -53,6 +56,8 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     override func viewWillDisappear(_ animated: Bool) {
         sendNotification()
     }
+    
+    
     func sendNotification() {
         
         NotificationCenter.default.post(name: REFRESH_HOMEPAGE_CELLS, object: nil)
@@ -60,168 +65,19 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         
     }
     
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = items?.count else {
-            return 0
+    func postOnCartItemData() -> [Dictionary<String , Int>] {
+        
+        guard  let items = items else {
+            return [[:]]
         }
-        return count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! OnCartCell
-        cell.tag = indexPath.row
-        cell.deleteRowDataBtn.tag = indexPath.row
-        cell.addToQuantity.tag = indexPath.item
-        cell.removeFromQuantity.tag = indexPath.item
-        
-        cell.onCart = items?[indexPath.row]
-        
-        cell.removeFromQuantity.addTarget(self, action: #selector(subtractFromQuantity(sender:)) , for: UIControlEvents.touchUpInside)
-        cell.addToQuantity.addTarget(self, action: #selector(addToQuantity(sender:)) , for: UIControlEvents.touchUpInside)
-        
-        
-        
-        cell.deleteRowDataBtn.setImage( #imageLiteral(resourceName: "checkBox√"), for: UIControlState.selected)
-        cell.deleteRowDataBtn.setImage(#imageLiteral(resourceName: "uncheckBox"), for: UIControlState.normal)
-        
-        //        if cell.tag == indexPath.row {
-        cell.deleteRowDataBtn.addTarget(self, action: #selector(buttonClicked(_:)), for: UIControlEvents.touchUpInside)
-        do {
-            cell.deleteRowDataBtn.isSelected = try filledHeartSet.contains( indexPath as NSIndexPath)
-        } catch (let err as NSError) {
+        var pars = [Dictionary<String , Int>]()
+        for i in items {
+            var par  = [String:Int]()
             
+            par = ["item_id" : i.id , "item_quantity":i.quantity]
+            pars.append(par)
         }
-        //        }
-        if self.editNavBtn.title == "Done" {
-            cell.deleteRowDataBtn.isHidden = false
-        }else {
-            cell.deleteRowDataBtn.isHidden = true
-        }
-        
-        
-        if let item = items?[indexPath.row] {
-            
-            if item.imageData == nil {
-                downloadImage(index: indexPath.row, completionHandler: { (data) in
-                    if cell.tag == indexPath.row {
-                        
-                        cell.productImage.image = UIImage(data: data)
-                    }
-                    do {
-                        let realm = try Realm()
-                        guard let item = self.items?[indexPath.row] else { return }
-                        
-                        try realm.write{
-                            item.imageData = data
-                        }
-                    } catch let err as NSError {
-                        print(err)
-                    }
-                })
-            }else {
-                if let imageData  = item.imageData {
-                    cell.productImage.image = UIImage(data: imageData )
-                }
-            }
-        }
-        return cell
-        
-    }
-    
-    func buttonClicked(_ sender:UIButton)
-    {
-        let ip = NSIndexPath(row: sender.tag, section: 0)
-        
-        // only store filled heart indexPath
-        if filledHeartSet.contains(ip) {
-            filledHeartSet.remove(ip)
-            self.deletedItemsindex.append(sender.tag)
-
-        } else {
-            filledHeartSet.insert(ip)
-            self.deletedItemsindex.append(sender.tag)
-        }
-        
-        let cell = tableView.cellForRow(at: ip as IndexPath) as! OnCartCell
-        cell.deleteRowDataBtn.isSelected = !cell.deleteRowDataBtn.isSelected
-    }
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        if (self.editNavBtn.title == "Edit") {
-    //
-    //        }else {
-    //
-    //        }
-    //    }
-    @IBAction func deleteAllSelectedDataBtnAct(_ sender: UIBarButtonItem) {
-        
-        if (self.editNavBtn.title == "Done") && deletedItemsindex.count > 0  {
-            
-            //            guard  let deleteItemsArray = self.deletedItems  else {
-            //                self.editNavBtn.title = "Edit"
-            //                self.deleteNavBtn.image = nil
-            //                return
-            //            }
-            
-            for i in deletedItemsindex{
-                let item = self.items?[i]
-                do {
-                    let realm = try Realm()
-                    realm.beginWrite()
-                    realm.delete(item!)
-                    try realm.commitWrite()
-                }catch let err as NSError {
-                    print("error while deleting Row OnCart rror  : \(err)")
-                }
-                
-                
-            }
-            self.deletedItemsindex = []
-            getTheData()
-        }else {
-            self.editNavBtn.title = "Edit"
-            self.deleteNavBtn.image = nil
-            print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
-        }
-        filledHeartSet = Set<NSIndexPath>()
-        if let item =  items , item.count  < 1 {
-            self.editNavBtn.title = ""
-            self.editNavBtn.isEnabled = false
-            self.deleteNavBtn.image = nil
-            self.deleteNavBtn.isEnabled = false
-
-        }
-        self.tableView.reloadData()
-    }
-    
-    
-    
-    func addToQuantity(sender:UIButton)  {
-        
-        do {
-            let realm = try Realm()
-            let onCart = items?[sender.tag]
-            print("that is the quantity :  \(onCart?.quantity)")
-            guard let itemQuantity = onCart?.quantity , itemQuantity > Int16(0)  ,let itemPrice = onCart?.price, itemQuantity <= Int16(12) else { print("addToQuantity error in guard Statement"); return }
-            let count = Int(itemQuantity) + 1
-            let price = Double(count) * Double(itemPrice)
-            
-            try realm.write{
-                onCart?.quantity = Int16(count)
-                onCart?.qXprice = price
-                
-                
-            }
-            self.getTheData()
-        }catch let err as NSError {
-            print("that is error ya man   :   \(err)")
-        }
-        
-        
+       return pars
     }
     
     func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
@@ -241,62 +97,6 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
         }
     }
     
-    func subtractFromQuantity(sender:UIButton)  {
-        
-        do {
-            let realm = try Realm()
-            let onCart = items?[sender.tag]
-            guard let itemQuantity = onCart?.quantity ,  let quantXprice = onCart?.qXprice ,let itemPrice = onCart?.price ,  itemQuantity >= Int16(2) else { print("subtractFromQuantity error in guard Statement"); return }
-            let count = Int(itemQuantity) - 1
-            print("that is the quantitiy \( Double(itemQuantity)) and that is the qprice : \( Double(quantXprice))")
-            let price =   Double(quantXprice) - Double(itemPrice)
-            print("the actual Price : \(price)")
-            
-            try realm.write{
-                onCart?.quantity = Int16(count)
-                onCart?.qXprice = price
-                
-                //                realm.add(onCart)
-                //                print("that Saved ya Man \(onCart.name)")
-            }
-            self.getTheData()
-        }catch let err as NSError {
-            print("that is error ya man   :   \(err)")
-        }
-        
-        
-    }
-    
-    
-    
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let items = items else {
-                return
-            }
-            let item = items[indexPath.row]
-            do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.delete(item)
-                try realm.commitWrite()
-                getTheData()
-                
-            }catch let err as NSError {
-                print("error while deleting Row OnCart rror  : \(err)")
-            }
-            
-            
-        }
-    }
-    
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 240.0;//Choose your custom row height
-    }
     /*
      // MARK: - Navigation
      
@@ -309,10 +109,19 @@ class OnCartVC: UIViewController , UITableViewDelegate , UITableViewDataSource  
     @IBAction func checkOutBtnAct(_ sender: AnyObject) {
         if ad.isUserLoggedIn() {
             print("checkOutBtnAct")
-            
+            self.postRequest = PostReviewRequest()
+            let parameter2 =  postOnCartItemData()
+            self.postRequest.postReqMakeOrder(userID: 1, items: parameter2, completed: {
+               print("DONE : checkOutBtnAct ")
+                
+            })
+           
+
         }else {
             performSegue(withIdentifier: "login", sender: self )
         }
+        
+
     }
     
     func getTheData() {

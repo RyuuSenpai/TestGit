@@ -27,5 +27,5 @@ class L102Language {
         userdef.set([lang,currentAppleLanguage()], forKey: APPLE_LANGUAGE_KEY)
         userdef.synchronize()
     }
-
+    
 }

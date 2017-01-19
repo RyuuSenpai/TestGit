@@ -18,9 +18,11 @@ class L102Localizer: NSObject {
     class func DoTheMagic() {
         MethodSwizzleGivenClassName(cls: Bundle.self, originalSelector: #selector(Bundle.localizedString(forKey:value:table:)), overrideSelector: #selector(Bundle.specialLocalizedStringForKey(key:value:table:)))
         MethodSwizzleGivenClassName(cls: UIApplication.self, originalSelector: #selector(getter: UIApplication.userInterfaceLayoutDirection), overrideSelector: #selector(getter: UIApplication.cstm_userInterfaceLayoutDirection))
-        MethodSwizzleGivenClassName(cls: UILabel.self, originalSelector: #selector(UILabel.layoutSubviews), overrideSelector: #selector(UILabel.cstmlayoutSubviews))
+ /*     MethodSwizzleGivenClassName(cls: UILabel.self, originalSelector: #selector(UILabel.layoutSubviews), overrideSelector: #selector(UILabel.cstmlayoutSubviews))
+        MethodSwizzleGivenClassName(cls: UITextField.self, originalSelector: #selector(UITextField.layoutSubviews), overrideSelector: #selector(UITextField.cstmlayoutSubviews))*/
+
     }
-}
+}/*
 extension UILabel {
     public func cstmlayoutSubviews() {
         self.cstmlayoutSubviews()
@@ -44,6 +46,32 @@ extension UILabel {
         }
     }
 }
+
+extension UITextField {
+    public func cstmlayoutSubviews() {
+        self.cstmlayoutSubviews()
+        if self.tag <= 0  {
+            if UIApplication.isRTL()  {
+                if self.textAlignment == .right {
+                    return
+                }
+            } else {
+                if self.textAlignment == .left {
+                    return
+                }
+            }
+        }
+        if self.tag <= 0 {
+            if UIApplication.isRTL()  {
+                self.textAlignment = .right
+            } else {
+                self.textAlignment = .left
+            }
+        }
+        
+    }
+}
+*/
 extension UIApplication {
     var cstm_userInterfaceLayoutDirection : UIUserInterfaceLayoutDirection {
         get {
@@ -57,6 +85,7 @@ extension UIApplication {
 }
 extension Bundle {
      func specialLocalizedStringForKey(key: String, value: String?, table tableName: String?) -> String {
+          if self == Bundle.main {
         let currentLanguage = L102Language.currentAppleLanguage()
         var bundle = Bundle();
         if let _path = Bundle.main.path(forResource: currentLanguage, ofType: "lproj") {
@@ -66,7 +95,11 @@ extension Bundle {
             bundle = Bundle(path: _path)!
         }
         return (bundle.specialLocalizedStringForKey(key: key, value: value, table: tableName))
+    }else {
+    return (self.specialLocalizedStringForKey(key: key, value: value, table: tableName))
+
     }
+}
 }
 func disableMethodSwizzling() {
     

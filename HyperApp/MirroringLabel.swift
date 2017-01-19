@@ -5,7 +5,7 @@
 //  Created by Moath_Othman on 3/6/16.
 //  Copyright © 2016 Moath_Othman. All rights reserved.
 //
-/*
+
 import UIKit
 
 class MirroringLabel: UILabel {
@@ -31,4 +31,3 @@ class MirroringLabel: UILabel {
     }
     
 }
-*/

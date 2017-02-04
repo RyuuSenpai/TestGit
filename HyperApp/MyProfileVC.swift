@@ -71,6 +71,9 @@ class MyProfileVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             navigationController?.pushViewController(x, animated: true )
         case 2:
             print("My Orders")
+            //OrderDetailsVC
+            let x = self.storyboard?.instantiateViewController(withIdentifier: "OrdersTrackVC") as! OrdersTrackVC
+            navigationController?.pushViewController(x, animated: true )
         case 3:
             print("My Address")
         default:

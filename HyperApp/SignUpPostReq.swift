@@ -15,7 +15,7 @@ class SignUpPostReq {
     
     func postSignupData(firstName : String , lastName: String , password : String , email : String , birthDay : String , gender : String  ,completed : @escaping (ProductDetails?) -> ()) {
     let parameters : Parameters = ["first_name" : firstName, "last_name" : lastName , "password" : password, "email" : email , "gender" : gender , "birthday":birthDay]
-    print("that is the parameters in Get_ItemById : \(parameters)")
+    print("that is the parameters in postSignupData : \(parameters)")
     
     
     CONFIGURATION.timeoutIntervalForResource = 10 // seconds
@@ -28,6 +28,7 @@ class SignUpPostReq {
         case .success(_):
             guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
             let json = JSON(data)
+            print("Killva: that is the response value from Signup  : " , response.result.value)
             break
             
         case .failure(let err as NSError):

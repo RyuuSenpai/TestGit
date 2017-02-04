@@ -40,6 +40,24 @@ class OnCartVC: UIViewController   {
             self.editNavBtn.title = ""
             self.editNavBtn.isEnabled = false
         }
+        
+
+     
+//        SweetAlert().showAlert("Are you sure?", subTitle: "You file will permanently delete!", style: AlertStyle.warning, buttonTitle:"Cancel", buttonColor: green , otherButtonTitle:  "Yes, delete it!", otherButtonColor: red ) { (isOtherButton) -> Void in
+//            if isOtherButton == true {
+//                
+//                print("Cancel Button  Pressed")
+//            }
+//            else {
+//         
+//                SweetAlert().showAlert("Deleted!", subTitle: "Your imaginary file has been deleted!", style: AlertStyle.success)
+//                
+//                
+//            }
+//        }
+// 
+
+        
     }
     
     

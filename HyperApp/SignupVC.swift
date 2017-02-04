@@ -22,6 +22,8 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var signupBtnOL: UIButton!
     
     
+    var dateToSend : Date?
+    
     let RegisterTFDelegate = RegisterTextFieldDeledate()
     let signUpPostRClass = SignUpPostReq()
     var genderType = "m"
@@ -52,9 +54,11 @@ class SignupVC: UIViewController , UITextFieldDelegate{
         if maleOrFemale.isOn {
             self.maleBtnOL.alpha = 1.0
             self.femaleBtnOL.alpha = 0.5
+            genderType = "m"
         }else {
             self.maleBtnOL.alpha = 0.5
             self.femaleBtnOL.alpha = 1.0
+            genderType = "f"
         }
     }
     
@@ -92,10 +96,11 @@ class SignupVC: UIViewController , UITextFieldDelegate{
      */
     @IBAction func signupBtnAct(_ sender: UIButton) {
         guard  let result = isTextValid() , result == "Posted" else {
-            print(isTextValid())
+
+            shotAlert(AlertSMS: isTextValid()!)
             return
             }
-               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: BirthDateText.text!, gender: genderType) { (ProductDetailsData) in
+               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (ProductDetailsData) in
         
         }
     }
@@ -103,20 +108,25 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     func isTextValid() -> String?{
         
         guard  let fname = self.firstTextOL.text  , fname.characters.count > 1 else {
-            return "firstTextOL Text is Empty" }
+            return "first Text is Empty" }
         guard  let lastName = self.lastNameTextOL.text  , lastName.characters.count > 1 else {
-            return "lastNameTextOL Text is Empty" }
+            return "last Name Text is Empty" }
         guard  let pass = self.passwordText.text  , pass.characters.count > 1 else {
-            return "passwordText Text is Empty" }
+            return "password Text is Empty" }
         guard  let email = self.emailText.text  , email.characters.count > 1 else {
-            return "emailText Text is Empty" }
+            return "Email Text is Empty" }
         guard  let bDate = self.BirthDateText.text  , bDate.characters.count > 1 else {
-            return "BirthDateText Text is Empty" }
+            return "BirthDate Text is Empty" }
         return "Posted"
     }
     
     
-    
+   
+    func shotAlert(AlertSMS : String) {
+
+        SweetAlert().showAlert("Error!!", subTitle: AlertSMS  , style: AlertStyle.warning)
+        
+    }
     
     
     

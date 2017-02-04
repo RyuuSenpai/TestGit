@@ -24,7 +24,7 @@ extension SignupVC {
     func datePickerChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
-        
+        self.dateToSend = sender.date
         BirthDateText.text = formatter.string(from: sender.date)
         
     }

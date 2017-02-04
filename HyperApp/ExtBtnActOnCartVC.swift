@@ -36,48 +36,62 @@ extension OnCartVC {
     @IBAction func deleteAllSelectedDataBtnAct(_ sender: UIBarButtonItem) {
         print("that will be deleted list : \(self.deletedItemsindex)")
 
-        if (self.editNavBtn.title == "Done") && deletedItemsindex.count > 0  {
-            
+        
             //            guard  let deleteItemsArray = self.deletedItems  else {
             //                self.editNavBtn.title = "Edit"
             //                self.deleteNavBtn.image = nil
             //                return
             //            }
-
-            for i in deletedItemsindex{
-                let item = self.items?[i]
-                print("that is the item in for loop in delete all seleted :  \(item)")
-                do {
-                    let realm = try Realm()
-                    realm.beginWrite()
-                    realm.delete(item!)
-                    try realm.commitWrite()
-                    print("that item Deleted : \(item)")
-                }catch let err as NSError {
-                    print("error while deleting Row OnCart rror  : \(err)")
+            SweetAlert().showAlert("Are you sure?", subTitle: "You file will permanently delete!", style: AlertStyle.warning, buttonTitle:"Cancel", buttonColor: green , otherButtonTitle:  "Yes, delete it!", otherButtonColor: red ) { (isOtherButton) -> Void in
+                if isOtherButton == true {
+                    
+                    print("Cancel Button  Pressed")
                 }
-                
-                
+                else {
+                    if (self.editNavBtn.title == "Done") && self.deletedItemsindex.count > 0  {
+
+                        
+                        
+                        for i in self.deletedItemsindex{
+                            let item = self.items?[i]
+                            print("that is the item in for loop in delete all seleted :  \(item)")
+                            do {
+                                let realm = try Realm()
+                                realm.beginWrite()
+                                realm.delete(item!)
+                                try realm.commitWrite()
+                                print("that item Deleted : \(item)")
+                            }catch let err as NSError {
+                                print("error while deleting Row OnCart rror  : \(err)")
+                            }
+                            
+                            
+                        }
+                        self.deletedItemsindex = []
+                        self.getTheData()
+                    }else {
+                        self.editNavBtn.title = "Edit"
+                        self.deleteNavBtn.image = nil
+                        print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
+                        self.getTheData()
+                    }
+                    self.filledHeartSet = Set<NSIndexPath>()
+                    if let item =  self.items , item.count  < 2 {
+                        self.editNavBtn.title = ""
+                        self.editNavBtn.isEnabled = false
+                        self.deleteNavBtn.image = nil
+                        self.deleteNavBtn.isEnabled = false
+                        
+                    }
+                    self.deletedItemsindex = []
+                    SweetAlert().showAlert("Deleted!", subTitle: "Your imaginary file has been deleted!", style: AlertStyle.success)
+
+                    self.tableView.reloadData()
+
+                }
             }
-            self.deletedItemsindex = []
-            getTheData()
-        }else {
-            self.editNavBtn.title = "Edit"
-            self.deleteNavBtn.image = nil
-            print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
-            getTheData()
-        }
-        filledHeartSet = Set<NSIndexPath>()
-        if let item =  items , item.count  < 2 {
-            self.editNavBtn.title = ""
-            self.editNavBtn.isEnabled = false
-            self.deleteNavBtn.image = nil
-            self.deleteNavBtn.isEnabled = false
             
-        }
-        deletedItemsindex = []
-        self.tableView.reloadData()
-    }
+              }
 
     
     

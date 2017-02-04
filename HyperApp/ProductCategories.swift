@@ -81,7 +81,7 @@ class ProductCategories {
 //                        URLCache.shared.removeAllCachedResponses()
                         let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
                         URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
-                        
+//                        print("Eslam HomepageData : ",response.result.value)
                         guard response.result.error == nil else {
                             // got an error in getting the data, need to handle it
                             print("error fetching data from url")
@@ -121,9 +121,9 @@ class ProductCategories {
     
     
     func getAllCategories( pageNum : Int ,compeleted: @escaping ([GetAllCategoriesModel]) -> ()){
-//        let query_url = BASE_URL + GET_ALL_CATEGORIES + "/page/"+"\(1)"
+//        let query_url = BASE_URL + GET_ALL_CATEGORIES 
         let query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(pageNum)"
-//        print(query_url)
+        print("GetAllCategories Url link : " ,query_url)
         let request = alamoRequest(query_url: query_url)
         
 
@@ -132,7 +132,6 @@ class ProductCategories {
             case .success(_):
                 print("Success")
                 //                        URLCache.shared.removeAllCachedResponses()
-                print(response.result.value)
                 let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
                 URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
                 
@@ -184,7 +183,7 @@ class ProductCategories {
 //        let query_url = BASE_URL + HOME_PAGE + "\(2)"
         let query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/"
         Alamofire.request(query_url, headers: HEADER).responseJSON { response in
-            print(response.result.value)
+//            print(response.result.value)
             debugPrint(response)
         }
         
@@ -228,19 +227,19 @@ class ProductCategories {
         for i in 0..<json.count {
             let data = json[i]
             let productCat = GetAllCategoriesModel(jsonData: data)
-            print(data)
+//            print(data)
             let childs = data["child"]
             var childsArray = [GetAllCategoriesChildModel]()
             for x in 0..<childs.count {
                 let childData = childs[x]
                 let childClass = GetAllCategoriesChildModel(jsonData: childData)
                 childsArray.append(childClass)
-                print(childData )
+//                print(childData )
             }
             productCat.child = childsArray
             productCatArray.append(productCat)
         }
-        print(productCatArray   )
+//        print(productCatArray   )
         return productCatArray
     }
     

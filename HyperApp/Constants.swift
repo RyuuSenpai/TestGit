@@ -24,7 +24,8 @@ let ADD_REVIEW = "AddReview"
 let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 
-let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
+  let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/i"
+//let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
 let REFRESH_HOMEPAGE_CELLS = NSNotification.Name("RefreshHPNotification")
 let UPDATE_CART_BADGE = NSNotification.Name("UPDATE_CART_BADGE")
 let REFRESH_PRODUCT_DETAILS_ICONS = NSNotification.Name("REFRESH_PRODUCT_DETAILS_ICONS")
@@ -32,7 +33,8 @@ let HEADER   = [HEADER_ID : HEADER_PASSWORD]
 
 let CONFIGURATION = URLSessionConfiguration.default
 
-
+let green = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+let red = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
 
 func setOutLetsTitle(arabicTitle : String , engTitle:String ) -> String{
     if L102Language.currentAppleLanguage() == "ar" {

@@ -71,7 +71,7 @@ class  PostRequests {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
+                print("Killva: that is the response value from SignIn  : " , response.result.value)
                 completed()
                 break
                 

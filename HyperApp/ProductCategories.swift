@@ -70,8 +70,16 @@ class ProductCategories {
     
     
     func downloadHomePageData( pageNum : Int ,compeleted: @escaping ([ProductCategories]) -> ()){
-        let query_url = BASE_URL + HOME_PAGE + "\(pageNum)"
+        
+        var query_url : String!
+        if pageNum == 1 {
+             query_url = BASE_URL + HOME_PAGE
 
+        }else {
+             query_url = BASE_URL + HOME_PAGE + "/page/\(pageNum)"
+ 
+        }
+        print("that is the url for homepage Data  :  " , query_url)
         let request = alamoRequest(query_url: query_url)
             Alamofire.request(request)
                 .responseJSON { (response) in
@@ -81,7 +89,7 @@ class ProductCategories {
 //                        URLCache.shared.removeAllCachedResponses()
                         let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
                         URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
-//                        print("Eslam HomepageData : ",response.result.value)
+                        print("Killva: HomepageData : ",response.result.value)
                         guard response.result.error == nil else {
                             // got an error in getting the data, need to handle it
                             print("error fetching data from url")
@@ -122,7 +130,14 @@ class ProductCategories {
     
     func getAllCategories( pageNum : Int ,compeleted: @escaping ([GetAllCategoriesModel]) -> ()){
 //        let query_url = BASE_URL + GET_ALL_CATEGORIES 
-        let query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(pageNum)"
+        var query_url : String!
+        if pageNum == 1 {
+              query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/"
+
+        }else {
+         query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(2)"
+        }
+
         print("GetAllCategories Url link : " ,query_url)
         let request = alamoRequest(query_url: query_url)
         
@@ -141,13 +156,14 @@ class ProductCategories {
                     print(response.result.error!)
                     return
                 }
+//                print("Killva: That is getAllCategories response :  " , response.result.value )
                 let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
                 let productCatArray =  self.getJsonCategoriesData(json: json)
                 
                 compeleted(productCatArray)
                 break
             case .failure(let err as NSError) :
-                print("that is fail i n getting the data Mate : %@",err.debugDescription)
+                print("Killva: that is response :  \(response.result.debugDescription) and that is the error withgetting the data Mate : %@",err.localizedDescription)
                 if let urlRequest = request.urlRequest {
                     let x = URLCache.shared.cachedResponse(for: urlRequest)
                     guard let cache = x else {

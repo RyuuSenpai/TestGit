@@ -71,7 +71,7 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                     
                     self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
                         
-                        ad.saveUserLogginData(email: email, photoUrl: imageString)
+                        ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
                         ad.reloadApp()
                     })
                 }
@@ -101,7 +101,7 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
             return
         }
         guard let id = user.userID , let email = user.profile.email ,  let userImage = user.profile.imageURL(withDimension: 400) ,  let firstName = user.profile.givenName else {
-            ad.saveUserLogginData(email: nil, photoUrl: nil)
+            ad.saveUserLogginData(email: nil, photoUrl: nil , uid : nil)
             self.setUIEnabled(enabled: true)
             return
         }
@@ -114,7 +114,7 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                        options: UIViewAnimationOptions.curveEaseOut, animations: {
                         self.afterLogginView.alpha = 1.0
         },  completion: {  finished in
-            ad.saveUserLogginData(email: email, photoUrl: imageString)
+            ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
             ad.reloadApp()
             
         })

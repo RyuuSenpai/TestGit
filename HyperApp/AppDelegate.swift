@@ -101,7 +101,7 @@
             self.window?.rootViewController = storyboard.instantiateInitialViewController()
         }
         
-        func saveUserLogginData(email:String?,photoUrl : String?) {
+        func saveUserLogginData(email:String?,photoUrl : String? , uid : String?) {
             
             if   let email = email   {
                 UserDefaults.standard.setValue(email, forKey: "userEmail")
@@ -115,6 +115,13 @@
             }else {
                 UserDefaults.standard.setValue(nil, forKey: "profileImage")
             }
+            
+            if  let uid = uid {
+                UserDefaults.standard.setValue(uid, forKey: "uid")
+            }else {
+                UserDefaults.standard.setValue(nil, forKey: "uid")
+            }
+            
         }
         
         func isUserLoggedIn() -> Bool {

@@ -56,7 +56,7 @@ class  PostRequests {
     
     
     
-    func postLogInRequest(email : String , password : String ,completed : @escaping () -> ()) {
+    func postLogInRequest(email : String , password : String ,completed : @escaping (String?) -> ()) {
         let parameters : Parameters = ["email" : email , "password" : password ]
         print("that is the parameters in Get_ItemById : \(parameters)")
         
@@ -72,7 +72,7 @@ class  PostRequests {
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
                 print("Killva: that is the response value from SignIn  : " , response.result.value)
-                completed()
+                completed(json["response"].stringValue)
                 break
                 
             case .failure(let err as NSError):
@@ -81,11 +81,11 @@ class  PostRequests {
                 print(response.request)
 
                 print("that is the error Descriptio0n : \(err.description)")
-                completed()
+                completed(nil)
                 break
             default :
                 print("Erro in Switch State Ment in getItem by ID Default was Selected")
-                completed()
+                completed(nil)
             }
         }
     }

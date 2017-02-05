@@ -13,7 +13,7 @@ typealias DownloadCompelete = () -> ()
 
 //let BASE_URL = "http://hyper-techno-stage.herokuapp.com/"
 let BASE_URL  = "http://hyper-testing.herokuapp.com/"
-let HOME_PAGE = "HomePage/page/"
+let HOME_PAGE = "HomePage"
 let HEADER_ID = "Authorization"
 let HEADER_PASSWORD = "627562626c6520617069206b6579"
 let GET_ITEM = "GetItem"

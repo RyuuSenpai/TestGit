@@ -20,7 +20,9 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var maleBtnOL: UIButton!
     @IBOutlet weak var femaleBtnOL: UIButton!
     @IBOutlet weak var signupBtnOL: UIButton!
-    
+    @IBOutlet weak var afterLogginView: UIView!
+    @IBOutlet weak var userNameLbl: UILabel!
+
     
     var dateToSend : Date?
     
@@ -100,8 +102,26 @@ class SignupVC: UIViewController , UITextFieldDelegate{
             shotAlert(AlertSMS: isTextValid()!)
             return
             }
-               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (ProductDetailsData) in
-        
+               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (response) in
+                guard let r = response else { print("error in Signup Response") ; return }
+                switch r {
+                case "-1" :
+                    self.shotAlert(AlertSMS: "unknown Error" )
+                    print("unknown Error")
+                case "-2" :
+                    self.shotAlert(AlertSMS: "email already Exist")
+                    print("email already Exist")
+                default :
+                    print("that is the respnse : ",r)
+                    self.afterLogginView.isHidden = false
+                    self.userNameLbl.text = self.firstTextOL.text! + " " + self.lastNameTextOL.text!
+                    self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
+                        
+                        ad.saveUserLogginData(email: self.emailText.text , photoUrl: nil , uid : r)
+                        ad.reloadApp()
+                    })
+            
+                }
         }
     }
     
@@ -129,5 +149,5 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     }
     
     
-    
+ 
 }

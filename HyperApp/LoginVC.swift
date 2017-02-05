@@ -69,9 +69,29 @@ class LoginVC: UIViewController,UITextFieldDelegate {
             print(isTextValid())
             return
         }
-        postClass.postLogInRequest(email: emailTextOL.text!, password: passwordTextOL.text!) {
+        
+    
+    
+        postClass.postLogInRequest(email: emailTextOL.text!, password: passwordTextOL.text!) { (response) in
             
-            print("Done")
+            guard let r = response else { print("error in Signup Response") ; return }
+            switch r {
+            case "-1" :
+
+                print("unknown Error")
+            case "-2" :
+
+                print("email already Exist")
+            default :
+                print("that is the respnse : ",r)
+
+                self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
+                    
+                    ad.saveUserLogginData(email: self.emailTextOL.text, photoUrl: nil , uid : r)
+                    ad.reloadApp()
+                })
+                
+            }
         }
     }
     

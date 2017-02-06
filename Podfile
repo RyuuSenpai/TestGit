@@ -4,6 +4,7 @@
 target 'HyperApp' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+#https://github.com/goktugyil/EZLoadingActivity
 
 pod 'Google/SignIn'
 pod 'Onboard'

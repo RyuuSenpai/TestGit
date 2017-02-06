@@ -56,40 +56,7 @@ class  PostRequests {
     
     
     
-    func postLogInRequest(email : String , password : String ,completed : @escaping (String?) -> ()) {
-        let parameters : Parameters = ["email" : email , "password" : password ]
-        print("that is the parameters in Get_ItemById : \(parameters)")
         
-        
-        CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        
-        let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
-        
-        Alamofire.request(BASE_URL + GET_ITEM_BY_CAT , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
-            
-            switch(response.result) {
-            case .success(_):
-                guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
-                let json = JSON(data)
-                print("Killva: that is the response value from SignIn  : " , response.result.value)
-                completed(json["response"].stringValue)
-                break
-                
-            case .failure(let err as NSError):
-                print(response.result.error)
-                print(response)
-                print(response.request)
-
-                print("that is the error Descriptio0n : \(err.description)")
-                completed(nil)
-                break
-            default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
-                completed(nil)
-            }
-        }
-    }
-    
     
     
     func postGetitemreView(itemID : Int ,completed : @escaping ([GetItemReviewModel]?) -> ()) {

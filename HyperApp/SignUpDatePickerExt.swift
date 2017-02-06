@@ -31,11 +31,26 @@ extension SignupVC {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == BirthDateText {
+       datePickerFunc(textField: BirthDateText)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == BirthDateText , (textField.text?.characters.count)! <= 1{
+            let date = Calendar.current.date(byAdding: .year, value: -16, to: Date())
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy"
+            BirthDateText.text = formatter.string(from: date!)
+            
+        }
+    }
+    
+    func datePickerFunc(textField:UITextField) {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = UIDatePickerMode.date
+        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: -16, to: Date())
         textField.inputView = datePicker
         datePicker.addTarget(self, action: #selector(datePickerChanged(sender:)), for: .valueChanged)
-        }
     }
     
 //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {

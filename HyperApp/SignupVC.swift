@@ -97,21 +97,27 @@ class SignupVC: UIViewController , UITextFieldDelegate{
      }
      */
     @IBAction func signupBtnAct(_ sender: UIButton) {
+        
+        EZLoadingActivity.show("Loading...", disableUI: true)
         guard  let result = isTextValid() , result == "Posted" else {
-
+hidActivityMonitor()
             shotAlert(AlertSMS: isTextValid()!)
             return
             }
                signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (response) in
-                guard let r = response else { print("error in Signup Response") ; return }
+                guard let r = response else { self.hidActivityMonitor() ; print("error in Signup Response") ; return }
                 switch r {
                 case "-1" :
+                    self.hidActivityMonitor()
                     self.shotAlert(AlertSMS: "unknown Error" )
                     print("unknown Error")
                 case "-2" :
+                    self.hidActivityMonitor()
                     self.shotAlert(AlertSMS: "email already Exist")
                     print("email already Exist")
                 default :
+                    EZLoadingActivity.hide(true, animated: true)
+
                     print("that is the respnse : ",r)
                     self.afterLogginView.isHidden = false
                     self.userNameLbl.text = self.firstTextOL.text! + " " + self.lastNameTextOL.text!
@@ -124,6 +130,13 @@ class SignupVC: UIViewController , UITextFieldDelegate{
                 }
         }
     }
+    
+    
+    func hidActivityMonitor() {
+        EZLoadingActivity.hide()
+
+    }
+    
     
     func isTextValid() -> String?{
         

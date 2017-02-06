@@ -23,7 +23,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var dissMissView: UIButton!
     
     
-    let postClass = PostRequests()
+    let postClass = LoginPostRequests()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,14 +74,14 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     
         postClass.postLogInRequest(email: emailTextOL.text!, password: passwordTextOL.text!) { (response) in
             
-            guard let r = response else { print("error in Signup Response") ; return }
+            guard let r = response else { print("error in Signin Response") ; return }
             switch r {
             case "-1" :
 
-                print("unknown Error")
+                print("Wrong Password")
             case "-2" :
 
-                print("email already Exist")
+                print("No Matching Email")
             default :
                 print("that is the respnse : ",r)
 

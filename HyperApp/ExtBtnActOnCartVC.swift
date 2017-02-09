@@ -42,37 +42,33 @@ extension OnCartVC {
             //                self.deleteNavBtn.image = nil
             //                return
             //            }
+        if (self.editNavBtn.title == "Done") && self.deletedItemsindex.count > 0  {
+            
+            
+            
+            for i in self.deletedItemsindex{
+                let item = self.items?[i]
+                print("that is the item in for loop in delete all seleted :  \(item)")
+                do {
+                    let realm = try Realm()
+                    realm.beginWrite()
+                    realm.delete(item!)
+                    try realm.commitWrite()
+                    print("that item Deleted : \(item)")
+                }catch let err as NSError {
+                    print("error while deleting Row OnCart rror  : \(err)")
+                }
+                
+
             SweetAlert().showAlert("Are you sure?", subTitle: "You file will permanently delete!", style: AlertStyle.warning, buttonTitle:"Cancel", buttonColor: green , otherButtonTitle:  "Yes, delete it!", otherButtonColor: red ) { (isOtherButton) -> Void in
                 if isOtherButton == true {
                     
                     print("Cancel Button  Pressed")
                 }
                 else {
-                    if (self.editNavBtn.title == "Done") && self.deletedItemsindex.count > 0  {
-
-                        
-                        
-                        for i in self.deletedItemsindex{
-                            let item = self.items?[i]
-                            print("that is the item in for loop in delete all seleted :  \(item)")
-                            do {
-                                let realm = try Realm()
-                                realm.beginWrite()
-                                realm.delete(item!)
-                                try realm.commitWrite()
-                                print("that item Deleted : \(item)")
-                            }catch let err as NSError {
-                                print("error while deleting Row OnCart rror  : \(err)")
-                            }
-                            
-                            
-                        }
+                    
+                    
                         self.deletedItemsindex = []
-                        self.getTheData()
-                    }else {
-                        self.editNavBtn.title = "Edit"
-                        self.deleteNavBtn.image = nil
-                        print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
                         self.getTheData()
                     }
                     self.filledHeartSet = Set<NSIndexPath>()
@@ -90,7 +86,12 @@ extension OnCartVC {
 
                 }
             }
-            
+        } else {
+            self.editNavBtn.title = "Edit"
+            self.deleteNavBtn.image = nil
+            print("DO nothing and delete nothing : '\(self.deletedItemsindex)'")
+            self.getTheData()
+        }
               }
 
     

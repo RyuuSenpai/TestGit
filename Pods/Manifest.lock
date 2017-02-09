@@ -44,6 +44,7 @@ PODS:
   - GoogleSymbolUtilities (1.1.2)
   - GoogleUtilities (1.3.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - IQKeyboardManagerSwift (4.0.6)
   - Onboard (2.3.1)
   - Realm (2.1.0):
     - Realm/Headers (= 2.1.0)
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - Google/SignIn
+  - IQKeyboardManagerSwift (= 4.0.6)
   - Onboard
   - RealmSwift (~> 2.1.0)
   - SDWebImage (~> 3.8)
@@ -85,6 +87,7 @@ SPEC CHECKSUMS:
   GoogleSignIn: 09036ed61f8e75f1424100d63f7719480b2428c3
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  IQKeyboardManagerSwift: b3015e819559ca76381f87a0833f44d178564603
   Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
   Realm: bc829ad0ef3d4eea70c34cfcc3b1704d18d50df1
   RealmSwift: a4d4abbf0088c337cab5b738054395842e4b3052
@@ -92,6 +95,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   UIScrollView-InfiniteScroll: 14e204c50ca4040467e1cbfa141dad7a18919b56
 
-PODFILE CHECKSUM: b0c1cb4e6b34fbeb8a626e7a9a7068890bed063c
+PODFILE CHECKSUM: 5774370ea53b41d728caacac1f9d9320a6db1d1e
 
 COCOAPODS: 1.0.1

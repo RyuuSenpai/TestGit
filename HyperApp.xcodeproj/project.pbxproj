@@ -85,6 +85,8 @@
 		719403671E1E34410049CAAA /* CategoryDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719403661E1E34410049CAAA /* CategoryDetailsModel.swift */; };
 		71AA106C1DE48F21005AB553 /* ProfileHeaderM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AA106B1DE48F21005AB553 /* ProfileHeaderM.swift */; };
 		71AA106E1DE4A7A1005AB553 /* MyProfileMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */; };
+		71ACBFBC1E4CFF6400537728 /* MD5Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ACBFBB1E4CFF6400537728 /* MD5Signup.swift */; };
+		71ACBFBE1E4D008D00537728 /* SHA256Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ACBFBD1E4D008D00537728 /* SHA256Signup.swift */; };
 		71BC61481E2D586A00DF9C8F /* ExtTableVOnCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC61471E2D586A00DF9C8F /* ExtTableVOnCartVC.swift */; };
 		71BC614C1E2D5A2B00DF9C8F /* ExtBtnActOnCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC614B1E2D5A2B00DF9C8F /* ExtBtnActOnCartVC.swift */; };
 		71C2A2171DF652A2004D479D /* HomeProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C2A2161DF652A2004D479D /* HomeProductCell.swift */; };
@@ -196,6 +198,8 @@
 		719403661E1E34410049CAAA /* CategoryDetailsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailsModel.swift; sourceTree = "<group>"; };
 		71AA106B1DE48F21005AB553 /* ProfileHeaderM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderM.swift; sourceTree = "<group>"; };
 		71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileMainCell.swift; sourceTree = "<group>"; };
+		71ACBFBB1E4CFF6400537728 /* MD5Signup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5Signup.swift; sourceTree = "<group>"; };
+		71ACBFBD1E4D008D00537728 /* SHA256Signup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA256Signup.swift; sourceTree = "<group>"; };
 		71BC61471E2D586A00DF9C8F /* ExtTableVOnCartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtTableVOnCartVC.swift; sourceTree = "<group>"; };
 		71BC614B1E2D5A2B00DF9C8F /* ExtBtnActOnCartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtBtnActOnCartVC.swift; sourceTree = "<group>"; };
 		71C2A2161DF652A2004D479D /* HomeProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProductCell.swift; sourceTree = "<group>"; };
@@ -520,6 +524,8 @@
 				7193A4DF1DAC3A7C005FFCCD /* SignupVC.swift */,
 				71C699BF1E1EBF6600436D43 /* SignUpKeyBoardExt.swift */,
 				71C699C41E1EC83700436D43 /* SignUpDatePickerExt.swift */,
+				71ACBFBB1E4CFF6400537728 /* MD5Signup.swift */,
+				71ACBFBD1E4D008D00537728 /* SHA256Signup.swift */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -746,6 +752,7 @@
 				7147C3231DBFDE1D00CB97BC /* ProductDetailPagerExtension.swift in Sources */,
 				71BC61481E2D586A00DF9C8F /* ExtTableVOnCartVC.swift in Sources */,
 				71159CC81DC914CA00DA1468 /* FavItemsCell.swift in Sources */,
+				71ACBFBC1E4CFF6400537728 /* MD5Signup.swift in Sources */,
 				71BC614C1E2D5A2B00DF9C8F /* ExtBtnActOnCartVC.swift in Sources */,
 				71804ACE1DDA2BB000E491BC /* Constants.swift in Sources */,
 				7107878B1DCFB14B0032CA6F /* OnCartCell.swift in Sources */,
@@ -758,6 +765,7 @@
 				714BF66F1DF08ECD00FA4D61 /* OnCartFunctionality.swift in Sources */,
 				7116FA731DD63EED00D11524 /* SpecificationsVC.swift in Sources */,
 				7108A6B21DB195910014E808 /* MaterialView.swift in Sources */,
+				71ACBFBE1E4D008D00537728 /* SHA256Signup.swift in Sources */,
 				71C7E2BE1DB7A77F00045660 /* ScrollViewEx.swift in Sources */,
 				71C699CA1E20169D00436D43 /* ExtKeyBoardLogin.swift in Sources */,
 				71CCDB841DD3B18300CA8FD8 /* LargeHomeCategoriesCell.swift in Sources */,

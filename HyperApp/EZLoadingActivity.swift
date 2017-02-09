@@ -140,7 +140,7 @@ public struct EZLoadingActivity {
         
         convenience init(text: String, disableUI: Bool) {
             self.init(frame: CGRect(x: 0, y: 0, width: Settings.ActivityWidth, height: Settings.ActivityHeight))
-            center = CGPoint(x: topMostController!.view.bounds.midX, y: topMostController!.view.bounds.midY)
+            center = CGPoint(x: topMostController()!.view.bounds.midX, y: (topMostController()?.view.bounds.midY)!)
             autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
             backgroundColor = Settings.BackgroundColor
             alpha = 1
@@ -180,7 +180,7 @@ public struct EZLoadingActivity {
             if Settings.LoadOverApplicationWindow {
                 UIApplication.shared.windows.first?.addSubview(self)
             } else {
-                topMostController!.view.addSubview(self)
+                topMostController()?.view.addSubview(self)
             }
             
             //make it smoothly

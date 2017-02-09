@@ -11,13 +11,14 @@ import UIKit
 class OrderDetailsVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
         
-        
+        roundedCournersTableView()
         // Do any additional setup after loading the view.
     }
     
@@ -34,6 +35,30 @@ class OrderDetailsVC: UIViewController , UITableViewDelegate , UITableViewDataSo
         return cell
     }
     
+    
+    func roundedCournersTableView() {
+        
+        //for table view border
+        tableView.layer.borderColor = UIColor .clear.cgColor
+        tableView.layer.borderWidth = 1.0
+        
+        //for shadow
+//        let containerView:UIView = UIView(frame:self.tableView.frame)
+//        containerView.backgroundColor = UIColor.white
+//        containerView.layer.shadowColor = UIColor.lightGray.cgColor
+//        containerView.layer.shadowOffset =   CGSize(width : -10,height: 10); //Left-Bottom shadow
+        //containerView.layer.shadowOffset = CGSizeMake(10, 10); //Right-Bottom shadow
+//        containerView.layer.cornerRadius = 10
+//        containerView.layer.shadowOpacity = 1.0
+//        containerView.layer.shadowRadius = 2
+//
+//        containerView.layer.masksToBounds = true
+//        //for rounded corners
+        tableView.layer.cornerRadius = 10
+        tableView.layer.masksToBounds = true
+//        self.view.addSubview(containerView)
+//        containerView.addSubview(tableView)
+    }
 
     /*
     // MARK: - Navigation

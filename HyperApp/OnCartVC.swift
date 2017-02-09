@@ -36,10 +36,10 @@ class OnCartVC: UIViewController   {
         }
         isNotSubView = true
         
-        if let item =  items , item.count  < 2 {
+//        if let item =  items , item.count  < 2 {
             self.editNavBtn.title = ""
             self.editNavBtn.isEnabled = false
-        }
+//        }
         
 
      

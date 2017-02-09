@@ -50,56 +50,8 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     }
     
     
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-                keyBoardheightSize = keyboardSize.height
-            }
-        }
-        
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        NotificationCenter.default.addObserver(self, selector: #selector(WriteReviewsVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(WriteReviewsVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        print("4")
-        return true
-    }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
-        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        if self.view.frame.origin.y != 0{
-            self.view.frame.origin.y += keyBoardheightSize
-        }
-        print("5")
-        
-    }
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        print("3")
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField)
-    {
-        print("1")
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField)
-    {
-        print("2")
-    }
+
+
     
     
     @IBAction func submitReview(_ sender: UIButton) {
@@ -132,44 +84,7 @@ class WriteReviewsVC: UIViewController , UITextViewDelegate , UITextFieldDelegat
     
     
     
-    /*
-     keyboardViewDIdLoad()
-     
-     }
-     
-     //MARK: - KeyBoardOutOfTheWay
-     func keyboardViewDIdLoad(){
-     NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-     NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignupVC.dismissKeyboard))
-     view.addGestureRecognizer(tap)
-     }
-     func keyboardWillShow(notification: NSNotification) {
-     
-     if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-     if self.view.frame.origin.y == 0{
-     self.view.frame.origin.y -= keyboardSize.height
-     }
-     }
-     
-     }
-     
-     func keyboardWillHide(notification: NSNotification) {
-     if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-     if self.view.frame.origin.y != 0{
-     self.view.frame.origin.y += keyboardSize.height
-     }
-     }
-     }
-     
-     func dismissKeyboard() {
-     //Causes the view (or one of its embedded text fields) to resign the first responder status.
-     view.endEditing(true)
-     }
-     
-     //@End of KeyBoard
-     */
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

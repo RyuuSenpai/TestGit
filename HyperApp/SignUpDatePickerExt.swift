@@ -41,7 +41,7 @@ extension SignupVC {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
             BirthDateText.text = formatter.string(from: date!)
-            
+            self.dateToSend =  date
         }
     }
     

@@ -10,6 +10,8 @@
     import GoogleSignIn
     import Onboard
     import FBSDKCoreKit
+    import IQKeyboardManagerSwift
+
     @UIApplicationMain
     class AppDelegate: UIResponder, UIApplicationDelegate {
         
@@ -50,7 +52,8 @@
                 verticalCellSize = CGSize(width: x! * 0.35 , height:  y! * 0.85)
             }
             
-            
+            IQKeyboardManager.sharedManager().enable = true
+
             return true
         }
         

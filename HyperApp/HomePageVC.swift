@@ -27,8 +27,8 @@
     //@end Auk
     
     var itemsInCart : Int = 0
-    var productPageNumber = 2
-    var catPageNumber = 2
+    var productPageNumber = 1
+    var catPageNumber = 1
 
     var productCategory : [ProductCategories]?
     var productCatData : ProductCategories?
@@ -316,7 +316,8 @@
     func hotDealsButton(_ sender : UIButton) {
         
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
-        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        print("that is the products 0 : ",productCategory?[0])
+        seeMoreA.productCatSelected = productCategory?[0]
         navigationController?.pushViewController(seeMoreA, animated: true)
         
         switch sender.tag {

@@ -102,7 +102,7 @@ class ProductCategories {
                         compeleted(productCatArray)
                         break
                     case .failure(let err as NSError) :
-                        print("that is fail i n getting the data Mate : %@",err.debugDescription)
+                        print("Killva: HomePage fail in getting the data Mate : %@",err.localizedDescription)
                         if let urlRequest = request.urlRequest {
                             let x = URLCache.shared.cachedResponse(for: urlRequest)
                             guard let cache = x else {
@@ -156,7 +156,7 @@ class ProductCategories {
                     print(response.result.error!)
                     return
                 }
-//                print("Killva: That is getAllCategories response :  " , response.result.value )
+                print("Killva: That is getAllCategories response :  " , response.result.value )
                 let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
                 let productCatArray =  self.getJsonCategoriesData(json: json)
                 

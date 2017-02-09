@@ -328,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HyperApp/WriteReviewsVC.swift"
-            timestampString = "505346588.560183"
+            timestampString = "508367820.316589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "isTextValid()"
             landmarkType = "7">
          </BreakpointContent>
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HyperApp/WriteReviewsVC.swift"
-            timestampString = "505346588.560183"
+            timestampString = "508367820.316589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "isTextValid()"
             landmarkType = "7">
          </BreakpointContent>
@@ -360,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HyperApp/WriteReviewsVC.swift"
-            timestampString = "505346588.560183"
+            timestampString = "508367820.316589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "isTextValid()"
             landmarkType = "7">
          </BreakpointContent>

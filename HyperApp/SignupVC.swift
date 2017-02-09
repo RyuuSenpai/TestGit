@@ -38,17 +38,11 @@ class SignupVC: UIViewController , UITextFieldDelegate{
         //Pick Date
         self.addToolBarToPicker()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SignupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-       
     
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self,name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
+    
     
     
     @IBAction func setGender(_ sender: Any) {
@@ -104,7 +98,15 @@ hidActivityMonitor()
             shotAlert(AlertSMS: isTextValid()!)
             return
             }
-               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: passwordText.text!, email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (response) in
+        
+            let testString = self.passwordText.text!
+            print("testString: \(testString)")
+            let shaData = sha256(string: testString)
+            let shaHex = shaData!.map { String(format: "%02hhx", $0) }.joined()
+            print("shaHex: \(shaHex)")
+        
+        print(firstTextOL.text , lastNameTextOL.text,  passwordText.text,emailText.text ,"\(dateToSend)" ,genderType )
+               signUpPostRClass.postSignupData(firstName: self.firstTextOL.text!, lastName: lastNameTextOL.text!, password: " \(shaHex)" , email: emailText.text!, birthDay: "\(dateToSend!)" , gender: genderType) { (response) in
                 guard let r = response else { self.hidActivityMonitor() ; print("error in Signup Response") ; return }
                 switch r {
                 case "-1" :

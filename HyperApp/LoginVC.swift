@@ -29,7 +29,6 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         
         googleProtocol()
-        keyboardViewDIdLoad()
         emailTextOL.delegate = self
         passwordTextOL.delegate =  self
     }

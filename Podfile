@@ -26,5 +26,6 @@ post_install do |installer|
 pod 'SDWebImage', '~>3.8'
     pod 'SwiftyJSON'
     pod 'UIScrollView-InfiniteScroll'
+pod 'IQKeyboardManagerSwift', '4.0.6'
 
 end

@@ -25,7 +25,7 @@ let ADD_REVIEW = "AddReview"
 let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 
-  let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/i"
+  let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/"
 //let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
 let REFRESH_HOMEPAGE_CELLS = NSNotification.Name("RefreshHPNotification")
 let UPDATE_CART_BADGE = NSNotification.Name("UPDATE_CART_BADGE")

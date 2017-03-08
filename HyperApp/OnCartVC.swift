@@ -129,7 +129,7 @@ class OnCartVC: UIViewController   {
             print("checkOutBtnAct")
             self.postRequest = PostReviewRequest()
             let parameter2 =  postOnCartItemData()
-            self.postRequest.postReqMakeOrder(userID: 1, items: parameter2, completed: {
+            self.postRequest.postReqMakeOrder(userID: 33, items: parameter2, completed: {
                print("DONE : checkOutBtnAct ")
                 
             })

@@ -399,6 +399,38 @@
             endingLineNumber = "328"
             landmarkName = "getImagee(image:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductCategories.getImagee (image : Swift.String) -&gt; __ObjC.UIImage"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductCategories.swift"
+                  timestampString = "510525576.090472"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "328"
+                  endingLineNumber = "328"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductCategories.getImagee (image : Swift.String) -&gt; __ObjC.UIImage"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductCategories.swift"
+                  timestampString = "510525576.096073"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "328"
+                  endingLineNumber = "328"
+                  offsetFromSymbolStart = "223">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -511,6 +543,38 @@
             endingLineNumber = "204"
             landmarkName = "z()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductCategories.z () -&gt; ()"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductCategories.swift"
+                  timestampString = "510525576.170156"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "624">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HyperApp.ProductCategories.(z () -&gt; ()).(closure #1)"
+                  moduleName = "HyperApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/killvak/Documents/HyperApp%20/HyperApp/ProductCategories.swift"
+                  timestampString = "510525576.175562"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "715">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -555,22 +619,6 @@
             timestampString = "508020007.94953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "downloadHomePageData(pageNum:compeleted:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HyperApp/ProductCategories.swift"
-            timestampString = "508020007.94953"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
             landmarkName = "downloadHomePageData(pageNum:compeleted:)"
@@ -583,29 +631,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HyperApp/ProductCategories.swift"
-            timestampString = "508020007.94953"
+            filePath = "HyperApp/ExtLoginGoogleFaceB.swift"
+            timestampString = "510525497.284268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "downloadHomePageData(pageNum:compeleted:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HyperApp/ProductCategories.swift"
-            timestampString = "508020007.94953"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "getAllCategories(pageNum:compeleted:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "showFbEmailAddress()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

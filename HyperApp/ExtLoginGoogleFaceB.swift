@@ -17,7 +17,6 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
     
     
     //MARK: - Facebook deledate Protocoal
-    
     @IBAction func fbLoginBtnAct(_ sender: AnyObject) {
         
         FBSDKLoginManager().logIn(withReadPermissions: ["email","public_profile"], from: self) { (result, err ) in
@@ -26,7 +25,7 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                 self.setUIEnabled(enabled: true)
                 return
             }
-            //            print(result?.token.tokenString)
+             self.fbToken = result?.token.tokenString
             self.setUIEnabled(enabled: false)
             self.showFbEmailAddress()
         }
@@ -62,17 +61,21 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                 
                 let resultD = result as? NSDictionary
                 if let result = resultD {
-                    
-                    guard let id = result["id"] as? String , let fName = result["first_name"] as? String ,let email  = result["email"] as? String  else {return }
+                    print("that is the result : for facebook : \(resultD)")
+                    guard let id = result["id"] as? String ,let lastName = result["last_name"] as? String  , let fName = result["first_name"] as? String ,let email  = result["email"] as? String  else {return }
                     print(id)
                     self.afterLogginUserName.text = fName.capitalized
                     let imageURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")
                     let imageString : String =  "\(imageURL!)"
                     
                     self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
+                        self.postClass.fbLoginPostRequest(firstName: fName, lastName: lastName, ImageUrl: imageString, email: email, birthday: nil, gender: nil, Token: self.fbToken ?? "", id: id, completion: { (responseId) in
+                            
+                            print("that is the response id for facebook : \(responseId)")
+                            ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
+                            ad.reloadApp()
+                        })
                         
-                        ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
-                        ad.reloadApp()
                     })
                 }
             }

@@ -24,7 +24,7 @@ class Convertor  {
     }
     
     
-    func CartListToProductList(data:CDFavList)->  ProductDetails? {
+    func CartListToProductList(data:CDOnCart)->  ProductDetails? {
         
         let x = ProductDetails()
         x.name = data.name

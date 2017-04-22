@@ -40,14 +40,23 @@ extension OnCartVC : UITableViewDelegate {
         return 240.0;//Choose your custom row height
     }
     
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        if (self.editNavBtn.title == "Edit") {
-    //
-    //        }else {
-    //
-    //        }
-    //    }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+            
+            if let productData = self.items?[indexPath.row] {
+                
+                let productDetailController = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+                
+                let y  = Convertor()
+                let productDetails = y.CartListToProductList(data: productData)
+                productDetailController.products = productDetails
+                productDetailController.product_id = productDetails?.id
+                
+                
+                navigationController?.pushViewController(productDetailController, animated: true)
+                
+            }
+        }
 }
 
 

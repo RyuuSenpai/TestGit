@@ -23,7 +23,8 @@ class ProductDetails  {
     var onCart : Bool?
     var prDescription : String?
     var on_sale : Bool?
-    
+    var highlights : String?
+    var id_main_category : Int?
     init(jsonData : JSON) {
         self.id = jsonData["id"].intValue
         self.name = jsonData["name"].stringValue
@@ -32,6 +33,8 @@ class ProductDetails  {
         self.price = jsonData["price"].doubleValue
         self.on_sale = jsonData["on_sale"].boolValue
         self.prDescription = jsonData["description"].stringValue
+        self.highlights = jsonData["highlights"].stringValue
+        self.id_main_category = jsonData["id_main_category"].intValue
     }
     init() {
         

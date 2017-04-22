@@ -14,24 +14,32 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     
     @IBOutlet weak var reviewsCollectionView: UICollectionView!
     
+    @IBOutlet weak var specefeicationsDtaLbl: UILabel!
+    @IBOutlet weak var readMooreSpeceficationsLbl: UILabel!
     @IBOutlet weak var RelatedItemsCollectionView: UICollectionView!
     //    @IBOutlet weak var categoryID: UILabel!
     //    @IBOutlet weak var productID: UILabel!
+    @IBOutlet weak var speceficationsHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var numperOfReviews: UIButton!
     @IBOutlet weak var favItemBOL: UIButton!
     @IBOutlet weak var addTOCarBOL: UIButton!
     @IBOutlet weak var seeAllReviews: UIButton!
     
+    @IBOutlet weak var descriptionViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var descripationView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var productTitle: UILabel?
     @IBOutlet weak var priceOL: UILabel!
     @IBOutlet weak var preDicountPrice: UILabel!
     @IBOutlet weak var noReviewsLbl: UILabel!
-    
+    @IBOutlet weak var descReadMore: UILabel!
+     @IBOutlet weak var speceficationsView: UIView!
+
     var  toCartVC : UIBarButtonItem!
     
     var getDataClass : ProductCategories!
     var products : ProductDetails?
+    var relatedProducts = [ProductDetails]()
     let postClass = PostRequests()
     var getReviewArray : [GetItemReviewModel]!
     var CurrentRating : String?
@@ -72,10 +80,15 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         //        if let catID = categoryNumber {
         //            categoryID.text = " category ID : \(catID)"
         //        }
-       
+    RelatedItemsCollectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
         recivedNotification()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        self.descripationView.height
+    }
     
     func updateUI() {
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -102,17 +115,34 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             if let descrip = self.products?.prDescription {
                 self.descriptionLabel.text = descrip
             }
+            if let spec = self.products?.highlights {
+                self.specefeicationsDtaLbl.text = spec
+            }
             if let img = self.products?.image_pr {
                 self.imagelist = [img]
             }
             if self.products?.on_sale == nil {
                 self.preDicountPrice.isHidden = true
             }
+            if let catId = self.products?.id_main_category {
+                self.postClass.getCatProductsDetailsData(catID: catId, completed: { (dataArray) in
+                    print("that is the  returneddata from getcatProducts : \(dataArray) /n and that's the catID : \(catId)")
+                    guard let data = dataArray else { print("Empty Array in product Details"); return }
+                   self.relatedProducts = data
+                    self.RelatedItemsCollectionView.reloadData()
+                })
+            }else {
+                print("ERROR: found nil in id_main_cat ")
+            }
+         
             self.drawViewSetUps()
+            
             self.view.squareLoading.stop(0.0)
             self.toCartVC.isEnabled = true
             self.navigationItem.setHidesBackButton(false, animated: true)
+            
         }
+        
     }
     
     func drawViewSetUps() {
@@ -215,16 +245,61 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
     }
     
-    @IBAction func descriptionTapGesture(_ sender: AnyObject) {
-        print("Open description Page")
-        
-        //DescriptionVC
-        let descriptionVC = DescriptionVC(nibName: "DescriptionVC", bundle: nil)
-        descriptionVC.product = products
-        self.navigationController?.pushViewController(descriptionVC, animated: true)
-        
+   
+
+        @IBAction func descriptionBtnAct(_ sender: UIButton) {
+       
+//        //DescriptionVC
+//        let descriptionVC = DescriptionVC(nibName: "DescriptionVC", bundle: nil)
+//        descriptionVC.product = products
+//        self.navigationController?.pushViewController(descriptionVC, animated: true)
+        sender.isSelected = !sender.isSelected
+            if sender.isSelected == true {
+                self.descripationView.removeConstraint(self.descriptionViewHeight)
+//                self.descriptionViewHeight.isActive = false
+        self.descripationView.setNeedsUpdateConstraints()
+        self.descripationView.updateConstraintsIfNeeded()
+        self.descripationView.setNeedsLayout()
+        self.descripationView.layoutIfNeeded()
+                
+                print("\(self.descripationView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)")
+            self.descReadMore.text = "Read Less"
+        }else {
+                self.descReadMore.text = "Read More"
+                 let layout21 = NSLayoutRelation.equal
+                  let layout51 = NSLayoutAttribute.height
+                let layout61 = NSLayoutAttribute.notAnAttribute
+            self.descriptionViewHeight =  NSLayoutConstraint(item: descripationView, attribute: layout51, relatedBy: layout21, toItem: nil, attribute: layout61, multiplier: 1, constant: 120)
+                NSLayoutConstraint.activate([descriptionViewHeight])
+        }
     }
     
+    @IBAction func speceficationsReadMoreBtn(_ sender: UIButton) {
+        
+        //        //DescriptionVC
+        //        let descriptionVC = DescriptionVC(nibName: "DescriptionVC", bundle: nil)
+        //        descriptionVC.product = products
+        //        self.navigationController?.pushViewController(descriptionVC, animated: true)
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected == true {
+            self.speceficationsView.removeConstraint(self.speceficationsHeightConstant)
+            //                self.descriptionViewHeight.isActive = false
+            self.speceficationsView.setNeedsUpdateConstraints()
+            self.speceficationsView.updateConstraintsIfNeeded()
+            self.speceficationsView.setNeedsLayout()
+            self.speceficationsView.layoutIfNeeded()
+            
+            print("\(self.speceficationsView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)")
+            self.readMooreSpeceficationsLbl.text = "Read Less"
+        }else {
+            self.readMooreSpeceficationsLbl.text = "Read More"
+            let layout21 = NSLayoutRelation.equal
+            let layout51 = NSLayoutAttribute.height
+            let layout61 = NSLayoutAttribute.notAnAttribute
+            self.speceficationsHeightConstant =  NSLayoutConstraint(item: speceficationsView, attribute: layout51, relatedBy: layout21, toItem: nil, attribute: layout61, multiplier: 1, constant: 120)
+            NSLayoutConstraint.activate([speceficationsHeightConstant])
+        }
+    }
     @IBAction func numberOfreviewBA(_ sender: AnyObject) {
         print("that is the current rating : \(self.CurrentRating)")
     }

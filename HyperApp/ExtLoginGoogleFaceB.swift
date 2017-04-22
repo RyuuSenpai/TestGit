@@ -25,9 +25,16 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                 self.setUIEnabled(enabled: true)
                 return
             }
-             self.fbToken = result?.token.tokenString
-            self.setUIEnabled(enabled: false)
-            self.showFbEmailAddress()
+            print("Custom FB Login result \(result)")
+
+//            if let x  = result  {
+//                print("that is  token : \(x)")
+//                self.fbToken = x.token.tokenString
+                self.showFbEmailAddress()
+
+//            }else {
+//                            self.setUIEnabled(enabled: false)
+//            }
         }
     }
     
@@ -69,9 +76,11 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                     let imageString : String =  "\(imageURL!)"
                     
                     self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
-                        self.postClass.fbLoginPostRequest(firstName: fName, lastName: lastName, ImageUrl: imageString, email: email, birthday: nil, gender: nil, Token: self.fbToken ?? "", id: id, completion: { (responseId) in
+                        self.postClass.fbLoginPostRequest(firstName: fName, lastName: lastName, ImageUrl: imageString, email: email, birthday: nil, gender: nil, Token: /*self.fbToken ??*/ "", id: id, completion: { (responseId) in
                             
                             print("that is the response id for facebook : \(responseId)")
+                            guard let id = responseId else {return  }
+                            UserDefaults.standard.set(id, forKey: "User_ID")
                             ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
                             ad.reloadApp()
                         })

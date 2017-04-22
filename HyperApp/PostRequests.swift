@@ -14,7 +14,7 @@ import SwiftyJSON
 class  PostRequests {
 
     
-    func getCatProductsDetailsData(catID : Int?  ,completed : @escaping (ProductDetails?) -> ()) {
+    func getCatProductsDetailsData(catID : Int?  ,completed : @escaping ([ProductDetails]?) -> ()) {
         guard let catID = catID else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
         let parameters : Parameters = ["cat_id" : catID]
         print("that is itemID \(catID)")
@@ -22,7 +22,7 @@ class  PostRequests {
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        
+        print("that is url getCat By ID : \(BASE_URL + GET_ITEM_BY_CAT)")
         let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
         Alamofire.request(BASE_URL + GET_ITEM_BY_CAT , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
@@ -31,14 +31,18 @@ class  PostRequests {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
-                let productDetails = ProductDetails(jsonData: json[0])
-                print(productDetails.name,productDetails.price)
-                if let imageUrl =  productDetails.image_url {
-                    let productCat = ProductCategories()
-                    productDetails.image_pr = productCat.getImagee(image: imageUrl)
+//                print(json)
+                var productsDetails = [ProductDetails]()
+                for i in 0..<json.count {
+                let productDetails = ProductDetails(jsonData: json[i])
+//                if let imageUrl =  productDetails.image_url
+//                {
+//                    let productCat = ProductCategories()
+//                    productDetails.image_pr = productCat.getImagee(image: imageUrl)
+//                }
+                    productsDetails.append(productDetails)
                 }
-                completed(productDetails)
+                completed(productsDetails)
                 break
                 
             case .failure(let err as NSError):

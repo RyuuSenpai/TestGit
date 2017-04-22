@@ -25,7 +25,11 @@ let ADD_REVIEW = "AddReview"
 let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 let FACEBOOK_LOGIN =  "FBlogin"
-  let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/"
+let GET_ALL_BRANDS = "GetAllBrands/page/"
+let GET_PRODUCT_IMAGES = "GetProductImages"
+
+
+let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/"
 //let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
 let REFRESH_HOMEPAGE_CELLS = NSNotification.Name("RefreshHPNotification")
 let UPDATE_CART_BADGE = NSNotification.Name("UPDATE_CART_BADGE")
@@ -43,6 +47,23 @@ func setOutLetsTitle(arabicTitle : String , engTitle:String ) -> String{
     }else {
       return engTitle
     }
+}
+
+class GLOBAL {
+    
+    
+    static func alamoRequest (query_url : String ) -> URLRequest {
+        
+        
+        let urlAddressEscaped = query_url.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)
+        
+        
+        //MARK: timeout after ... Sec
+        let request = URLRequest(url: URL(string: urlAddressEscaped!)!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 8)
+        return  request
+    }
+    
+    
 }
 
 extension UINavigationController {

@@ -29,5 +29,5 @@ class MirroringLabel: UILabel {
             }
         }
     }
-    
+
 }

@@ -48,7 +48,7 @@ class  PostReviewRequest {
    
     
     
-    func postReqMakeOrder(userID : Int , items: [[String: Int]]   ,completed : @escaping () -> ()) {
+    func postReqMakeOrder(userID : String , items: [[String: Int]]   ,completed : @escaping () -> ()) {
 ////        let parameters : Parameters = ["user_id" : userID, "item_id" : itemID , "rate" : rate, "review" : reviewString ]
 //        print("that is the parameters in getReviewRequesData : \(parameters)")
         

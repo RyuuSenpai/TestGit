@@ -103,7 +103,10 @@ extension OnCartVC {
             let realm = try Realm()
             let onCart = items?[sender.tag]
             print("that is the quantity :  \(onCart?.quantity)")
-            guard let itemQuantity = onCart?.quantity , itemQuantity > 0  ,let itemPrice = onCart?.price, itemQuantity <= 12 else { print("addToQuantity error in guard Statement"); return }
+            guard let itemQuantity = onCart?.quantity , itemQuantity > 0  ,let itemPrice = onCart?.price, itemQuantity <= 4 else {
+                print("addToQuantity error in guard Statement")
+                
+                 return }
             let count = Int(itemQuantity) + 1
             let price = Double(count) * Double(itemPrice)
             

@@ -129,9 +129,11 @@ class OnCartVC: UIViewController   {
             print("checkOutBtnAct")
             self.postRequest = PostReviewRequest()
             let parameter2 =  postOnCartItemData()
-            self.postRequest.postReqMakeOrder(userID: 33, items: parameter2, completed: {
+            guard let id = UserDefaults.standard.value(forKey: "User_ID") as? String else { print("nill in User_ID"); return }
+            self.postRequest.postReqMakeOrder(userID: id, items: parameter2, completed: {
                print("DONE : checkOutBtnAct ")
-                
+//      SweetAlert().showAlert("Deleted!", subTitle: "Your imaginary file has been deleted!", style: AlertStyle.success)
+//                ad.reloadApp()
             })
            
 

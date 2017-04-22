@@ -15,20 +15,21 @@ class SubCategoryVC: UIViewController  , UICollectionViewDelegate, UICollectionV
     
     
     var catID : Int?
-    var postRequest : PostRequests?
+//    var postRequest : PostRequests?
     override func viewDidLoad() {
         super.viewDidLoad()
+        catID = 1
         collectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
-        postRequest = PostRequests()
-        if let catId = self.catID {
-        postRequest?.getCatProductsDetailsData(catID: catId, completed: { (productsArray) in
-            
-            
-        })
-        }
+//        postRequest = PostRequests()
+//        if let catId = self.catID {
+//        postRequest?.getCatProductsDetailsData(catID: catId, completed: { (productsArray) in
+//            print("that is the array ood getitems By Cat : \(productsArray)")
+//            
+//        })
+//        }
     }
     
     

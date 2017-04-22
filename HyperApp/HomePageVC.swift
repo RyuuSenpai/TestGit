@@ -38,7 +38,6 @@
 
     override func viewWillAppear(_ animated: Bool) {
         //        self.revealViewController().panGestureRecognizer().isEnabled = true
-        
         self.view.squareLoading.backgroundColor = UIColor.white
         self.view.squareLoading.color = UIColor.red
         if dataISA {
@@ -71,6 +70,21 @@
         infiniteScroll()
         
         self.sendNotification()
+        
+//        let xx = GetAllBrands()
+        
+//       xx.getAllBrands(pageNum: 2) {
+//        
+//        
+//        
+//        }
+        
+        let xxx = GetProductImages()
+        
+        xxx.getProductImages(product_id: 1) { 
+            
+            
+        }
     }
     
     func infiniteScroll() {

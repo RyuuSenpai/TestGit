@@ -24,7 +24,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     
     
     let postClass = LoginPostRequests()
-    var fbToken :String?
+//    var fbToken :String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

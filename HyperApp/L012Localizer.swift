@@ -16,13 +16,11 @@ extension UIApplication {
 
 class L102Localizer: NSObject {
     class func DoTheMagic() {
-        MethodSwizzleGivenClassName(cls: Bundle.self, originalSelector: #selector(Bundle.localizedString(forKey:value:table:)), overrideSelector: #selector(Bundle.specialLocalizedStringForKey(key:value:table:)))
+        MethodSwizzleGivenClassName(cls: Bundle.self, originalSelector: #selector(Bundle.localizedString(forKey:value:table:)), overrideSelector: #selector(Bundle.specialLocalizedStringForKey(_:value:table:)))
         MethodSwizzleGivenClassName(cls: UIApplication.self, originalSelector: #selector(getter: UIApplication.userInterfaceLayoutDirection), overrideSelector: #selector(getter: UIApplication.cstm_userInterfaceLayoutDirection))
- /*     MethodSwizzleGivenClassName(cls: UILabel.self, originalSelector: #selector(UILabel.layoutSubviews), overrideSelector: #selector(UILabel.cstmlayoutSubviews))
-        MethodSwizzleGivenClassName(cls: UITextField.self, originalSelector: #selector(UITextField.layoutSubviews), overrideSelector: #selector(UITextField.cstmlayoutSubviews))*/
-
+        MethodSwizzleGivenClassName(cls: UILabel.self, originalSelector: #selector(UILabel.layoutSubviews), overrideSelector: #selector(UILabel.cstmlayoutSubviews))
     }
-}/*
+}
 extension UILabel {
     public func cstmlayoutSubviews() {
         self.cstmlayoutSubviews()
@@ -46,32 +44,6 @@ extension UILabel {
         }
     }
 }
-
-extension UITextField {
-    public func cstmlayoutSubviews() {
-        self.cstmlayoutSubviews()
-        if self.tag <= 0  {
-            if UIApplication.isRTL()  {
-                if self.textAlignment == .right {
-                    return
-                }
-            } else {
-                if self.textAlignment == .left {
-                    return
-                }
-            }
-        }
-        if self.tag <= 0 {
-            if UIApplication.isRTL()  {
-                self.textAlignment = .right
-            } else {
-                self.textAlignment = .left
-            }
-        }
-        
-    }
-}
-*/
 extension UIApplication {
     var cstm_userInterfaceLayoutDirection : UIUserInterfaceLayoutDirection {
         get {
@@ -84,22 +56,24 @@ extension UIApplication {
     }
 }
 extension Bundle {
-     func specialLocalizedStringForKey(key: String, value: String?, table tableName: String?) -> String {
-          if self == Bundle.main {
-        let currentLanguage = L102Language.currentAppleLanguage()
-        var bundle = Bundle();
-        if let _path = Bundle.main.path(forResource: currentLanguage, ofType: "lproj") {
-             bundle = Bundle(path: _path)!
+    func specialLocalizedStringForKey(_ key: String, value: String?, table tableName: String?) -> String {
+        if self == Bundle.main {
+            let currentLanguage = L102Language.currentAppleLanguage()
+            var bundle = Bundle();
+            if let _path = Bundle.main.path(forResource: L102Language.currentAppleLanguageFull(), ofType: "lproj") {
+                bundle = Bundle(path: _path)!
+            }else
+            if let _path = Bundle.main.path(forResource: currentLanguage, ofType: "lproj") {
+                bundle = Bundle(path: _path)!
+            } else {
+                let _path = Bundle.main.path(forResource: "Base", ofType: "lproj")!
+                bundle = Bundle(path: _path)!
+            }
+            return (bundle.specialLocalizedStringForKey(key, value: value, table: tableName))
         } else {
-            let _path = Bundle.main.path(forResource: "Base", ofType: "lproj")!
-            bundle = Bundle(path: _path)!
+            return (self.specialLocalizedStringForKey(key, value: value, table: tableName))
         }
-        return (bundle.specialLocalizedStringForKey(key: key, value: value, table: tableName))
-    }else {
-    return (self.specialLocalizedStringForKey(key: key, value: value, table: tableName))
-
     }
-}
 }
 func disableMethodSwizzling() {
     

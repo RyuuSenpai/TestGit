@@ -46,14 +46,14 @@ class ProductCell: UICollectionViewCell {
     var productDetails :  ProductDetails? {
         
         didSet {
-            
+
             if let title = productDetails?.name {
-                pricelbl.text = title
+                prTitle.text = title
             }
             if let price = productDetails?.price {
                 self.pricelbl.text = "\(price) L.E"
             }
-            if let prePrice = productDetails?.preDiscountPrice {
+            if let prePrice = productDetails?.price {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
                 attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
                 discountedPriceLbl.attributedText = attributeString

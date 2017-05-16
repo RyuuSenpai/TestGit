@@ -7,18 +7,17 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
-class HomeAukCollectionViewHeader: UICollectionReusableView  {
+class HomeAukCollectionViewHeader: UICollectionReusableView ,UICollectionViewDelegate,UICollectionViewDataSource {
     
     @IBOutlet weak var promotionScrollView: UIScrollView!
     
-    @IBOutlet weak var Btn1OL: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var Btn2OL: UIButton!
-    
-    @IBOutlet weak var Btn3OL: UIButton!
-    
-    
+    var productsBrands : ProductCategories?
+    var brands : [GetAllBrandsModel]?
     
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
@@ -27,6 +26,41 @@ class HomeAukCollectionViewHeader: UICollectionReusableView  {
     static var theIndex : Int?
     override func awakeFromNib() {
         PromotionImageProtocoal(scrollView : promotionScrollView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        productsBrands = ProductCategories()
+        brands = [GetAllBrandsModel]()
+        productsBrands?.getAllBrandsData(pageNum: 2, compeleted: { [weak self ] (data) in
+            
+            print("that's the finaly data : \(data)")
+            self?.brands = data
+            self?.collectionView.reloadData()
+        })
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let count = brands?.count   else { return 0 }
+        return count  
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryActivityCell", for: indexPath) as! CategoryActivityCell
+        guard let data = brands , data.count > 0   else { return cell }
+//        if data.count    == indexPath.row {
+//            cell.seeMore.alpha = 1
+//            cell.catImage.alpha = 0 
+//        return cell
+//        }
+        print("thati's idex : \( data.count ) count : \( indexPath.row )")
+        print("that's the Get All Brands image URL : \(IMAGE_HOME_PATH + data[indexPath.row].image)")
+   cell.seeMore.alpha = 0
+        cell.catImage.af_setImage(
+            withURL: URL(string: IMAGE_HOME_PATH + data[indexPath.row] .image )!,
+            placeholderImage: UIImage(named: "PlaceHolder"),
+            filter: nil,
+            imageTransition: .crossDissolve(0.2)
+        )
+        return cell
     }
     //@Delete
     
@@ -70,4 +104,15 @@ extension HomeAukCollectionViewHeader : UIScrollViewDelegate {
         
         
     }
+}
+
+class CategoryActivityCell : UICollectionViewCell {
+    
+    @IBOutlet weak var catImage: UIImageView!
+    
+    @IBOutlet weak var seeMore: UILabel!
+    
+    
+    
+    
 }

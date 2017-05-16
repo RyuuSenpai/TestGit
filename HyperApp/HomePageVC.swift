@@ -302,11 +302,7 @@
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
             headerView.promotionScrollView.addGestureRecognizer(tap)
-            headerView.Btn1OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
-            headerView.Btn2OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
-            headerView.Btn3OL.addTarget(self, action: #selector(self.hotDealsButton(_:)), for: UIControlEvents.touchUpInside)
-            
-            return headerView
+                       return headerView
             
         }else {
             
@@ -326,26 +322,26 @@
         return CGSize(width: self.mainProductsRow.frame.width, height:(view.frame.size.height * 0.09))
     }
     
-    
-    func hotDealsButton(_ sender : UIButton) {
-        
-        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
-        print("that is the products 0 : ",productCategory?[0])
-        seeMoreA.productCatSelected = productCategory?[0]
-        navigationController?.pushViewController(seeMoreA, animated: true)
-        
-        switch sender.tag {
-        case 1:
-            print("that is the 1 Button")
-        case 2:
-            print("that is the 2 Button")
-        case 3:
-            print("that is the 3 Button")
-        default:
-            print("Error with the HotDeals Buttons Switch Case")
-            
-        }
-    }
+    //@Delete
+//    func hotDealsButton(_ sender : UIButton) {
+//        
+//        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
+//        print("that is the products 0 : ",productCategory?[0])
+//        seeMoreA.productCatSelected = productCategory?[0]
+//        navigationController?.pushViewController(seeMoreA, animated: true)
+//        
+//        switch sender.tag {
+//        case 1:
+//            print("that is the 1 Button")
+//        case 2:
+//            print("that is the 2 Button")
+//        case 3:
+//            print("that is the 3 Button")
+//        default:
+//            print("Error with the HotDeals Buttons Switch Case")
+//            
+//        }
+//    }
     
     func handleTap() {
         

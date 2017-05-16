@@ -125,7 +125,60 @@ class ProductCategories {
         }
     
     
-    
+    func getAllBrandsData( pageNum : Int ,compeleted: @escaping ([GetAllBrandsModel]) -> ()){
+        
+        var query_url : String!
+        if pageNum == 1 {
+            query_url = BASE_URL + GET_ALL_BRANDS
+            
+        }else {
+            query_url = BASE_URL + GET_ALL_BRANDS + "/page/\(pageNum)"
+            
+        }
+        print("that is the url for getAllBrandsData Data  :  " , query_url)
+        let request = alamoRequest(query_url: query_url)
+        Alamofire.request(request)
+            .responseJSON { (response) in
+                switch(response.result) {
+                case .success(_):
+                    print("Success")
+                    //                        URLCache.shared.removeAllCachedResponses()
+                    let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
+                    URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
+                    print("Killva: GetAllBrandsModel : ",response.result.value)
+                    guard response.result.error == nil else {
+                        // got an error in getting the data, need to handle it
+                        print("error fetching data from url")
+                        print(response.result.error!)
+                        return
+                    }
+                    let json = JSON(data: cachedURLResponse.data) // SwiftyJSON
+                    let productCatArray =  self.getJsonDataAllBrands(json: json)
+                    
+                    compeleted(productCatArray)
+                    break
+                case .failure(let err as NSError) :
+                    print("Killva: HomePage fail in getting the data Mate : %@",err.localizedDescription)
+                    if let urlRequest = request.urlRequest {
+                        let x = URLCache.shared.cachedResponse(for: urlRequest)
+                        guard let cache = x else {
+                            compeleted([])
+                            return
+                        }
+                        let json = JSON(data: cache.data) // SwiftyJSON
+                        //
+                        let productCatArray =  self.getJsonDataAllBrands(json: json)
+                        
+                        compeleted(productCatArray)
+                    }
+                    
+                    break
+                default :
+                    print("Problem getting the data Switch eeror ")
+                }
+                
+        }
+    }
     
     
     func getAllCategories( pageNum : Int ,compeleted: @escaping ([GetAllCategoriesModel]) -> ()){
@@ -260,6 +313,16 @@ class ProductCategories {
     }
     
     
+    func getJsonDataAllBrands(json : JSON) -> [GetAllBrandsModel] {
+        var productCatArray = [GetAllBrandsModel]()
+        for i in 0..<json.count {
+            let data = json[i]
+            print("that's gell all brands : \(data)")
+            let x = GetAllBrandsModel(jsonData: data)
+                productCatArray.append(x)
+        }
+        return productCatArray
+    }
     //test
     //    func getData( compeleted: @escaping ([ProductCategories]) -> ()){
     //

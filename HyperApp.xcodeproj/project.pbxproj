@@ -279,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				71875AE01E12D90900188F03 /* ProductCell.swift */,
-				71D1C0E81DD49FDF001C7A5F /* HomeAukCollectionViewHeader.swift */,
 				711529B41DD3D0A4007E59F4 /* subLargeHomeCategoriesCell.swift */,
 				71AA106D1DE4A7A1005AB553 /* MyProfileMainCell.swift */,
 				713AFA1E1DE469FA0006668C /* MyProfileCellHeader.swift */,
@@ -455,6 +454,7 @@
 				71CCDB821DD3B18300CA8FD8 /* LargeHomeCategoriesCell.swift */,
 				715B54F91E0746F000A27B20 /* HomeFooter.swift */,
 				714F848D1DEF173800253584 /* HPCartNumberPadge.swift */,
+				71D1C0E81DD49FDF001C7A5F /* HomeAukCollectionViewHeader.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";

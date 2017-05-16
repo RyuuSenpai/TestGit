@@ -25,9 +25,8 @@ let ADD_REVIEW = "AddReview"
 let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 let FACEBOOK_LOGIN =  "FBlogin"
-let GET_ALL_BRANDS = "GetAllBrands/page/"
-let GET_PRODUCT_IMAGES = "GetProductImages"
-
+ let GET_PRODUCT_IMAGES = "GetProductImages"
+let GET_ALL_BRANDS = "GetAllBrands"
 
 
 let IMAGE_HOME_PATH = "http://arafa.000webhostapp.com/Hyper/uploads/"

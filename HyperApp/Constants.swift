@@ -29,7 +29,8 @@ let GET_ALL_BRANDS = "GetAllBrands/page/"
 let GET_PRODUCT_IMAGES = "GetProductImages"
 
 
-let IMAGE_HOME_PATH = "http://arafa.host56.com/Hyper/uploads/"
+
+let IMAGE_HOME_PATH = "http://arafa.000webhostapp.com/Hyper/uploads/"
 //let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"
 let REFRESH_HOMEPAGE_CELLS = NSNotification.Name("RefreshHPNotification")
 let UPDATE_CART_BADGE = NSNotification.Name("UPDATE_CART_BADGE")

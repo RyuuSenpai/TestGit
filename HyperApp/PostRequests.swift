@@ -138,4 +138,48 @@ class  PostRequests {
 //        return ()
 //    }
     
+    
+    func postSearchService(query : String  ,completed : @escaping ([Search_Data]?) -> ()) {
+//        guard let catID = catID else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
+        let parameters : Parameters = ["query" : query]
+        print("that is query \(query)")
+        print("that is the parameters in postSearchService : \(parameters)")
+        
+        
+//        CONFIGURATION.timeoutIntervalForResource = 10 // seconds
+        print("that is url postSearchService By ID : \(BASE_URL + POST_SEARCH)")
+//        let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
+        
+        Alamofire.request(BASE_URL + POST_SEARCH , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
+            
+            switch(response.result) {
+            case .success(_):
+                guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
+                let json = JSON(data)
+                print(json)
+                var dataX = [Search_Data]()
+                for items in json {
+                    
+                    let data = Search_Data(items.1)
+                    print("that's the name : \(data.image) price : \(data.name) image : \(data.price)")
+                    dataX.append(data)
+                }
+                
+                
+                completed(dataX)
+                break
+                
+            case .failure(let err as NSError):
+                print(response.result.error)
+                print("that is the error Descriptio0n : \(err.description)")
+                completed(nil)
+                break
+            default :
+                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+                completed(nil)
+            }
+        }
+    }
+    
+    
 }

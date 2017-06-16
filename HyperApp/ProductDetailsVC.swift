@@ -72,7 +72,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         exCollectionVDataSourceProtocoal()
         print("\(categoryNumber)")
         print("\(productNumber)")
-        favAndCartIconState()
+        
         
         //        if let productid  = productNumber {
         //            productID.text = " product ID : \(productid)"
@@ -97,49 +97,49 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         self.view.squareLoading.start(0.0)
         
         getDataClass = ProductCategories()
-        getDataClass.getproductDetailsData(itemID: product_id) { (data) in
+        getDataClass.getproductDetailsData(itemID: product_id) { [weak self] (data) in
             if data != nil {
-                self.products = data
+                self?.products = data
             }
-            if let title = self.products?.name {
-                self.productTitle!.text = title
+            if let title = self?.products?.name {
+                self?.productTitle!.text = title
             }
-            if let price = self.products?.price{
-                self.priceOL.text = "\(price) L.E"
+            if let price = self?.products?.price{
+                self?.priceOL.text = "\(price) L.E"
             }
-            if let prePrice = self.products?.preDiscountPrice {
+            if let prePrice = self?.products?.preDiscountPrice {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
                 attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1.5, range: NSMakeRange(0, attributeString.length))
-                self.preDicountPrice.attributedText = attributeString
+                self?.preDicountPrice.attributedText = attributeString
             }
-            if let descrip = self.products?.prDescription {
-                self.descriptionLabel.text = descrip
+            if let descrip = self?.products?.prDescription {
+                self?.descriptionLabel.text = descrip
             }
-            if let spec = self.products?.highlights {
-                self.specefeicationsDtaLbl.text = spec
+            if let spec = self?.products?.highlights {
+                self?.specefeicationsDtaLbl.text = spec
             }
-            if let img = self.products?.image_pr {
-                self.imagelist = [img]
+            if let img = self?.products?.image_pr {
+                self?.imagelist = [img]
             }
-            if self.products?.on_sale == nil {
-                self.preDicountPrice.isHidden = true
+            if self?.products?.on_sale == nil {
+                self?.preDicountPrice.isHidden = true
             }
-            if let catId = self.products?.id_main_category {
-                self.postClass.getCatProductsDetailsData(catID: catId, completed: { (dataArray) in
+            if let catId = self?.products?.id_main_category {
+                self?.postClass.getCatProductsDetailsData(catID: catId, completed: { (dataArray) in
                     print("that is the  returneddata from getcatProducts : \(dataArray) /n and that's the catID : \(catId)")
                     guard let data = dataArray else { print("Empty Array in product Details"); return }
-                   self.relatedProducts = data
-                    self.RelatedItemsCollectionView.reloadData()
+                   self?.relatedProducts = data
+                    self?.RelatedItemsCollectionView.reloadData()
                 })
             }else {
                 print("ERROR: found nil in id_main_cat ")
             }
-         
-            self.drawViewSetUps()
+         self?.favAndCartIconState()
+            self?.drawViewSetUps()
             
-            self.view.squareLoading.stop(0.0)
-            self.toCartVC.isEnabled = true
-            self.navigationItem.setHidesBackButton(false, animated: true)
+            self?.view.squareLoading.stop(0.0)
+            self?.toCartVC.isEnabled = true
+            self?.navigationItem.setHidesBackButton(false, animated: true)
             
         }
         
@@ -154,19 +154,19 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     func favAndCartIconState() {
         let favFuncsClass = FavItemsFunctionality()
         let onCartFuncsClass = OnCartFunctionality()
-        if favFuncsClass.saveFavData(data: products, state: nil){
-            favItemBOL.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+        if favFuncsClass.saveFavData(products?.name, products?.price, products?.image_url, products?.id, state: nil){
+            favItemBOL.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
             favItemBOL.isSelected = true
         }else {
-            favItemBOL.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+            favItemBOL.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
             favItemBOL.isSelected = false
             
         }
         if onCartFuncsClass.saveCartData(data: onCartFuncsClass.transferDataToCartObj(data: products), state: nil){
-            addTOCarBOL.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
+            addTOCarBOL.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
             addTOCarBOL.isSelected = true
         }else {
-            addTOCarBOL.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
+            addTOCarBOL.setImage(UIImage(named:"cart"), for: UIControlState.normal)
             addTOCarBOL.isSelected = false
         }
     }
@@ -336,7 +336,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         print("add to fav list  ")
         
         let favFuncs = FavItemsFunctionality()
-        favFuncs.FavBtnAct(sender: sender, data: products)
+        favFuncs.FavBtnAct(sender: sender, products?.name, products?.price, products?.image_url, products?.id   )
         
     }
     

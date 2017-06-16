@@ -27,7 +27,7 @@ let POST_MAKE_ORDER = "makeOrder"
 let FACEBOOK_LOGIN =  "FBlogin"
  let GET_PRODUCT_IMAGES = "GetProductImages"
 let GET_ALL_BRANDS = "GetAllBrands"
-
+let POST_SEARCH =  "search"
 
 let IMAGE_HOME_PATH = "http://arafa.000webhostapp.com/Hyper/uploads/"
 //let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"

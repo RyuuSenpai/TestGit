@@ -10,16 +10,16 @@ import Foundation
 import RealmSwift
 class FavItemsFunctionality  {
     
-    func FavBtnAct(sender:UIButton,data:ProductDetails?) {
+    func FavBtnAct(sender:UIButton,_ name : String?, _ price : Double?,_ image : String?, _ id : Int?) {
         
         print("that is the button index : \(sender.tag)")
         sender.isSelected = !sender.isSelected
         if sender.isSelected == true {
-            sender.setBackgroundImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
-            saveFavData(data: data, state: true)
+            sender.setImage(UIImage(named:"heart_icon_selected"), for: UIControlState.normal)
+             saveFavData(name, price, image, id , state: true)
         }else {
-            sender.setBackgroundImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
-            saveFavData(data: data, state: false)
+            sender.setImage(UIImage(named:"Heart_icon"), for: UIControlState.normal)
+            saveFavData(name, price, image, id  , state: false )
         }
         
         
@@ -27,13 +27,17 @@ class FavItemsFunctionality  {
     
     
     
-    func saveFavData(data : ProductDetails? ,state : Bool?  ) -> Bool {
+    func saveFavData(_ _name : String?, _ _price : Double?,_ imgString : String?, _ _id : Int? ,state : Bool?  ) -> Bool {
         let fav = CDFavList()
-        
-        guard let name = data?.name , let price = data?.price , let imgString = data?.image_url , let id =  data?.id  else { print("name in CDFavList = nil "); return false  }
-        fav.name = name
+        guard let name = _name , let price = _price  , let id =  _id  else {
+            print(" saveFavData func passed a nil value : name : \(_name) , price : \(_price), id : \(_id) ");
+            return false  }
+
+         fav.name = name
         fav.price = price
+        if let imgString = imgString {
         fav.image_url = imgString
+        }
         fav.id = id
         do {
             

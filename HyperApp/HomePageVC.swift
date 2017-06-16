@@ -8,10 +8,14 @@
  
  import UIKit
  import RealmSwift
- class HomePageVC: UIViewController  ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout  {
+ class HomePageVC: UIViewController ,  UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout,  UISearchBarDelegate  {
     
     
+    @IBOutlet weak var searchText: UISearchBar!
     @IBOutlet weak var sideMenuBOL: UIBarButtonItem!
+//    @IBOutlet weak var searchText: UITextFieldX!
+    @IBOutlet weak var searchBtnOL: UIBarButtonItem!
+    @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var mainProductsRow: UICollectionView!
     
@@ -51,7 +55,7 @@
         }
         
         
-        
+        self.searchViewHeight.constant = 0
         upDateItemInCart()
         cartNumberOfItemsBadge()
     }
@@ -59,7 +63,8 @@
     override func viewDidLoad() {
         super.viewDidLoad()
         updateData()
-        
+        self.searchText.delegate = self
+        self.searchBtnOL.tag = 20 
         //        setUpButtonRoundedCorners(button: dailyOfferBtn)
         recivedNotification()
         //        productCategory = ProductCategories.productCategories()
@@ -83,6 +88,23 @@
         
         xxx.getProductImages(product_id: 1) { 
             
+            
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search activated")
+        let searchModel = PostRequests()
+        self.view.squareLoading.start(0)
+        searchModel.postSearchService(query: searchBar.text!) { [weak self ] (data) in
+            
+            if let data = data , data.count > 0 {
+                let vc = self?.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
+                vc.productsSearchArray = data
+                
+                self?.navigationController?.pushViewController(vc, animated: true )
+            }
+            self?.view.squareLoading.stop(0)
             
         }
     }
@@ -381,6 +403,32 @@
             
         }
     }
+    
+    @IBAction func searchBtnAct(_ sender: UIBarButtonItem) {
+       
+        if sender.tag == 20 {
+            print("tag 20 ")
+             sender.tag = 30
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.searchViewHeight.constant = 35
+                self.searchText.becomeFirstResponder()
+                self.view.layoutIfNeeded()
+            })
+        }else {
+            print("tag 30")
+            sender.tag = 20
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.searchViewHeight.constant = 0
+                self.searchText.resignFirstResponder()
+                self.view.layoutIfNeeded()
+
+            })
+        }
+    }
+    
+    
     
     @IBAction func switchLanguage(_ sender: UIBarButtonItem) {
         var transition: UIViewAnimationOptions = .transitionFlipFromLeft

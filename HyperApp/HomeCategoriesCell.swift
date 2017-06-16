@@ -100,7 +100,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
         cell.addToCart.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
         cell.share.tag = indexPath.row
         cell.share.addTarget(self, action: #selector(HomeCategoriesCell.shareButtonA(_:)), for: .touchUpInside)
-        if favFuncsClass.saveFavData(data: productCategory?.products?[indexPath.row], state: nil){
+        if favFuncsClass.saveFavData(productCategory?.products?[indexPath.row].name, productCategory?.products?[indexPath.row].price, productCategory?.products?[indexPath.row].image_url, productCategory?.products?[indexPath.row].id, state: nil){
             cell.isFav = true
             print("that is the index :  \(indexPath.row) in row  : \(catIndexPath)")
         }else { cell.isFav = false }
@@ -134,7 +134,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     func favButtonA(_ sender: UIButton) {
         let data = productCategory?.products?[sender.tag]
         
-        favFuncsClass.FavBtnAct(sender: sender, data: data )
+        favFuncsClass.FavBtnAct(sender: sender, data?.name, data?.price, data?.image_url, data?.id)
     }
     
     func cartButtonA(_ sender: UIButton) {

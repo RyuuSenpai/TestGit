@@ -20,8 +20,19 @@ class ProductCell: UICollectionViewCell {
     @IBOutlet weak var downRightBtnOL: UIButton!
     @IBOutlet weak var shareBtnOL: UIButton!
     
-    
-    override func prepareForReuse() {
+    var isFav = false {
+        didSet {
+            if isFav {
+                self.downRightBtnOL?.setImage(#imageLiteral(resourceName: "heart_icon_selected"), for: .normal)
+                self.isSelected = true
+
+            }else {
+                self.downRightBtnOL?.setImage(#imageLiteral(resourceName: "Heart_icon"), for: .normal)
+                  self.isSelected = false 
+            }
+        }
+    }
+     override func prepareForReuse() {
         self.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
     }
     
@@ -62,6 +73,24 @@ class ProductCell: UICollectionViewCell {
         }
     }
 
+    var productSearchDetails :  Search_Data? {
+        
+        didSet {
+            
+            if let title = productSearchDetails?.name {
+                prTitle.text = title
+            }
+            if let price = productSearchDetails?.price {
+                self.pricelbl.text = "\(price) L.E"
+            }
+            if let prePrice = productSearchDetails?.price {
+                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "\(prePrice) L.E")
+                attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                discountedPriceLbl.attributedText = attributeString
+            }
+ 
+        }
+    }
             
     override func awakeFromNib() {
         super.awakeFromNib()

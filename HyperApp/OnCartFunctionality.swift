@@ -8,20 +8,21 @@
 
 import Foundation
 import RealmSwift
+
 class OnCartFunctionality {
-    func cartBtnAct(sender: UIButton , data : ProductDetails?,buyNow : Bool) {
-        let obj = transferDataToCartObj(data: data)
+    func cartBtnAct(sender: UIButton , data : CartDetails?,buyNow : Bool) {
+//        let obj = transferDataToCartObj(data: data)
         sender.isSelected = !sender.isSelected
         if buyNow {
-            saveCartData(data: obj, state: true )
+            saveCartData(data: data, state: true )
         }else {
             if sender.isSelected == true {
                 sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
-                saveCartData(data: obj, state: true )
+                saveCartData(data: data, state: true )
             }else {
                 sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
                 
-                saveCartData(data: obj, state: false )
+                saveCartData(data: data, state: false )
                 
             }
             NotificationCenter.default.post(name: UPDATE_CART_BADGE , object: nil)
@@ -57,9 +58,9 @@ class OnCartFunctionality {
         obj.price = data?.price
         obj.image_url = data?.image_url
         obj.id = data?.id
-        print(obj.name)
-        print(obj.price)
-        print(obj.image_url)
+//        print(obj.name)
+//        print(obj.price)
+//        print(obj.image_url)
         return obj
     }
     
@@ -69,9 +70,21 @@ class OnCartFunctionality {
         obj.price = data?.price
         obj.image_url = data?.image_url
         obj.id = data?.id
-        print(obj.name)
-        print(obj.price)
-        print(obj.id)
+//        print(obj.name)
+//        print(obj.price)
+//        print(obj.id)
+        return obj
+    }
+    
+    func transSearch_DataToCartObj(data: Search_Data?) -> CartDetails?{
+        let obj = CartDetails()
+        obj.name = data?.name
+        obj.price = data?.price
+        obj.image_url = data?.image
+        obj.id = data?.id
+        //        print(obj.name)
+        //        print(obj.price)
+        //        print(obj.id)
         return obj
     }
     

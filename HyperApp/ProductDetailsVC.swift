@@ -70,8 +70,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         RatingProtocoal()
         exCollectionVDelegateProtocoal()
         exCollectionVDataSourceProtocoal()
-        print("\(categoryNumber)")
-        print("\(productNumber)")
+     
         
         
         //        if let productid  = productNumber {
@@ -126,7 +125,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
             }
             if let catId = self?.products?.id_main_category {
                 self?.postClass.getCatProductsDetailsData(catID: catId, completed: { (dataArray) in
-                    print("that is the  returneddata from getcatProducts : \(dataArray) /n and that's the catID : \(catId)")
+//                    print("that is the  returneddata from getcatProducts : \(dataArray) /n and that's the catID : \(catId)")
                     guard let data = dataArray else { print("Empty Array in product Details"); return }
                    self?.relatedProducts = data
                     self?.RelatedItemsCollectionView.reloadData()
@@ -301,7 +300,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         }
     }
     @IBAction func numberOfreviewBA(_ sender: AnyObject) {
-        print("that is the current rating : \(self.CurrentRating)")
+//        print("that is the current rating : \(self.CurrentRating)")
     }
     
     @IBAction func specificationTapGesture(_ sender: AnyObject) {
@@ -328,7 +327,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     @IBAction func addTOCarBA(_ sender: UIButton) {
         print("add to Cart ")
         let onCartFuncs = OnCartFunctionality()
-        onCartFuncs.cartBtnAct(sender: sender, data: products,buyNow:false)
+        onCartFuncs.cartBtnAct(sender: sender, data:  onCartFuncs.transferDataToCartObj(data: products) ,buyNow:false)
         
         
     }
@@ -346,9 +345,10 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         
         if ad.isUserLoggedIn() {
             
-            
+                let onCartFuncsClass = OnCartFunctionality()
+
             let onCartFuncs = OnCartFunctionality()
-            onCartFuncs.cartBtnAct(sender: sender, data: products,buyNow:true)
+            onCartFuncs.cartBtnAct(sender: sender, data: onCartFuncsClass.transferDataToCartObj(data: products) ,buyNow:true)
             
             let onCartVC = self.storyboard?.instantiateViewController(withIdentifier: "OnCartVC") as! OnCartVC
             onCartVC.isNotSubView = false

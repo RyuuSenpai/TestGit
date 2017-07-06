@@ -96,7 +96,7 @@
         print("search activated")
         let searchModel = PostRequests()
         self.view.squareLoading.start(0)
-        searchModel.postSearchService(query: searchBar.text!) { [weak self ] (data) in
+        searchModel.postSearchService(query: searchBar.text!, nil , nil ) { [weak self ] (data) in
             
             if let data = data , data.count > 0 {
                 let vc = self?.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
@@ -275,11 +275,15 @@
     }
     
     func showSubCategory(productDetails : Int , CatIndex : Int) {
-        let subCategoryVC = self.storyboard?.instantiateViewController(withIdentifier: "SubCategoryVC") as! SubCategoryVC
+         
         
-//        subCategoryVC.catID =
+        let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
+//        seeMoreA.productCatSelected = productCategory?[sender.tag]
+        seeMoreA.catID = CatIndex
+        print("that's the index : \(CatIndex)")
+        navigationController?.pushViewController(seeMoreA, animated: true)
         
-        navigationController?.pushViewController(subCategoryVC, animated: true)
+        
     }
     
     

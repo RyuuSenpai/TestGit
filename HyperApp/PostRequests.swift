@@ -139,12 +139,12 @@ class  PostRequests {
 //    }
     
     
-    func postSearchService(query : String  ,completed : @escaping ([Search_Data]?) -> ()) {
+    func postSearchService(query : String?,_ min_price : String?,_ max_price : String? ,completed : @escaping ([Search_Data]?) -> ()) {
 //        guard let catID = catID else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
-        let parameters : Parameters = ["query" : query]
+        let parameters : Parameters = ["query" : query ?? ""/*,"min_price" : min_price ?? "", "max_price" : max_price ?? ""*/]
         print("that is query \(query)")
         print("that is the parameters in postSearchService : \(parameters)")
-        
+        //query,category_id,min_price,max_price,brand_id
         
 //        CONFIGURATION.timeoutIntervalForResource = 10 // seconds
         print("that is url postSearchService By ID : \(BASE_URL + POST_SEARCH)")

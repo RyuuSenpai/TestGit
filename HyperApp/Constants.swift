@@ -28,6 +28,8 @@ let FACEBOOK_LOGIN =  "FBlogin"
  let GET_PRODUCT_IMAGES = "GetProductImages"
 let GET_ALL_BRANDS = "GetAllBrands"
 let POST_SEARCH =  "search"
+let GET_USER_BYID = "getUser"
+
 
 let IMAGE_HOME_PATH = "http://arafa.000webhostapp.com/Hyper/uploads/"
 //let IMAGE_HOME_PATH = "http://bubble.zeowls.com/uploads/"

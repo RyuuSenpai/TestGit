@@ -127,6 +127,7 @@ class OnCartVC: UIViewController   {
     @IBAction func checkOutBtnAct(_ sender: AnyObject) {
         if ad.isUserLoggedIn() {
             print("checkOutBtnAct")
+            /*
             self.postRequest = PostReviewRequest()
             let parameter2 =  postOnCartItemData()
             guard let id = UserDefaults.standard.value(forKey: "User_ID") as? String else { print("nill in User_ID"); return }
@@ -135,7 +136,11 @@ class OnCartVC: UIViewController   {
 //      SweetAlert().showAlert("Deleted!", subTitle: "Your imaginary file has been deleted!", style: AlertStyle.success)
 //                ad.reloadApp()
             })
-           
+           */
+            let vc = CheckOutLocationVC(nibName: "CheckOutLocationVC", bundle: nil)
+            vc.fName = "Eslam"
+            vc.lastName = "Abo"
+            self.navigationController?.pushViewController(vc, animated: true )
 
         }else {
             performSegue(withIdentifier: "login", sender: self )

@@ -112,8 +112,9 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("selected Product indexPath \(indexPath)  collectionView \(collectionView)")
-        
-        categoriesHomePageVC?.showSubCategory(productDetails: indexPath.row, CatIndex: catIndexPath!)
+        guard let data = productCategories  else { return }
+         let id = data[indexPath.row].id
+        categoriesHomePageVC?.showSubCategory(productDetails: indexPath.row, CatIndex: id )
     }
     
     

@@ -11,7 +11,8 @@
     import Onboard
     import FBSDKCoreKit
     import IQKeyboardManagerSwift
-
+    import Alamofire
+    
     @UIApplicationMain
     class AppDelegate: UIResponder, UIApplicationDelegate {
         
@@ -54,7 +55,32 @@
             
             IQKeyboardManager.sharedManager().enable = true
 
+            /*
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            
+            // In project directory storyboard looks like Main.storyboard,
+            // you should use only part before ".storyboard" as it's name,
+            // so in this example name is "Main".
+
+            
+            // controller identifier sets up in storyboard utilities
+            // panel (on the right), it called Storyboard ID
+            
+             let viewController = CheckOutLocationVC(nibName: "CheckOutLocationVC", bundle: nil)
+            let nav  = UINavigationController.init(rootViewController: viewController   )
+            self.window?.rootViewController = nav
+            self.window?.makeKeyAndVisible()
+            */
             return true
+        }
+        
+        func cancelAllAlamnofireNetRequests() {
+            let sessionManager = Alamofire.SessionManager.default
+            sessionManager.session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+                dataTasks.forEach { $0.cancel() }
+                uploadTasks.forEach { $0.cancel() }
+                downloadTasks.forEach { $0.cancel() } 
+            }
         }
         
         //    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -125,6 +151,21 @@
                 UserDefaults.standard.setValue(nil, forKey: "uid")
             }
             
+        }
+        
+        func saveUserName(_ firstName : String? , _ lastName : String?) {
+            if   let firstName = firstName   {
+                UserDefaults.standard.setValue(firstName, forKey: "firstName")
+            }else{
+                UserDefaults.standard.setValue(nil, forKey: "firstName")
+                
+            }
+            
+            if  let lastName = lastName {
+                UserDefaults.standard.setValue(lastName, forKey: "lastName")
+            }else {
+                UserDefaults.standard.setValue(nil, forKey: "lastName")
+            }
         }
         
         func isUserLoggedIn() -> Bool {

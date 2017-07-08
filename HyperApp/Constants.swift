@@ -29,6 +29,9 @@ let FACEBOOK_LOGIN =  "FBlogin"
 let GET_ALL_BRANDS = "GetAllBrands"
 let POST_SEARCH =  "search"
 let GET_USER_BYID = "getUser"
+let GET_ITEM_BY_BRAND = "GetItemByBrand"
+let Get_ADD_ADDRESS = "addAddress"
+let GET_USER_ADDRESS = "getUserAddress"
 
 
 let IMAGE_HOME_PATH = "http://arafa.000webhostapp.com/Hyper/uploads/"

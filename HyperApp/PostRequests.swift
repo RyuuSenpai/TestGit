@@ -58,6 +58,47 @@ class  PostRequests {
     }
     
     
+    func getBrandProductsDetailsData(brand_id : Int  ,completed : @escaping ([ProductDetails]?) -> ()) {
+          let parameters : Parameters = ["brand_id" : brand_id]
+         print("that is the parameters in getBrandProductsDetailsData : \(parameters)")
+        
+        
+        CONFIGURATION.timeoutIntervalForResource = 10 // seconds
+        print("that is url getBrandProductsDetailsData By ID : \(BASE_URL + GET_ITEM_BY_BRAND)")
+//        let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
+        
+        Alamofire.request(BASE_URL + GET_ITEM_BY_BRAND , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
+            
+            switch(response.result) {
+            case .success(_):
+                guard let data = response.result.value else { print(" getBrandProductsDetailsData data returbn == NULL") ; return }
+                let json = JSON(data)
+                //                print(json)
+                var productsDetails = [ProductDetails]()
+                for i in 0..<json.count {
+                    let productDetails = ProductDetails(jsonData: json[i])
+                    //                if let imageUrl =  productDetails.image_url
+                    //                {
+                    //                    let productCat = ProductCategories()
+                    //                    productDetails.image_pr = productCat.getImagee(image: imageUrl)
+                    //                }
+                    productsDetails.append(productDetails)
+                }
+                completed(productsDetails)
+                break
+                
+            case .failure(let err as NSError):
+//                print(response.result.error)
+                print("that is the error getBrandProductsDetailsData : \(err.localizedDescription)")
+                completed(nil)
+                break
+            default :
+                print("Erro in Switch State Ment in getBrandProductsDetailsData by ID Default was Selected")
+                completed(nil)
+            }
+        }
+    }
+    
     
     
         

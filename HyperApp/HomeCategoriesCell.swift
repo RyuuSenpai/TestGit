@@ -55,7 +55,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     override func awakeFromNib() {
         recivedNotification()
-        
+         productsCollectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         productsCollectionView.backgroundColor = UIColor.clear
@@ -91,7 +91,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     //    let  cartDetails = CartDetails()
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath.row)
+        print(indexPath.row)/*
         let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "HProductCell", for: indexPath) as! HomeProductCell
         cell.tag = indexPath.row
         cell.favButton.tag = indexPath.row
@@ -113,7 +113,23 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
             cell.configCell(products: productCategory?.products?[indexPath.item])
         }
         cell.catNum = indexPath.row
+        */
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath as IndexPath) as! ProductCell
+        
+        if let seeMoreProducts = productCategory?.products {
+            cell.productDetails = seeMoreProducts[indexPath.row]
+        }
+        cell.cartBtnOL.tag = indexPath.row
+        cell.cartBtnOL.addTarget(self, action: #selector(HomeCategoriesCell.cartButtonA(_:)), for: .touchUpInside)
+        
+        
+        
+        cell.downRightBtnOL.tag = indexPath.row
+        cell.downRightBtnOL.addTarget(self, action: #selector(self.favButtonA(_:)), for: .touchUpInside)
+        
+        cell.shareBtnOL.tag = indexPath.row
+        cell.shareBtnOL.addTarget(self, action: #selector(self.shareButtonA(_:)), for: .touchUpInside)
         
         return cell
         

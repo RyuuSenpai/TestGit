@@ -17,10 +17,10 @@ class OnCartFunctionality {
             saveCartData(data: data, state: true )
         }else {
             if sender.isSelected == true {
-                sender.setBackgroundImage(UIImage(named:"carticon"), for: UIControlState.normal)
+                sender.setImage(UIImage(named:"carticon"), for: UIControlState.normal)
                 saveCartData(data: data, state: true )
             }else {
-                sender.setBackgroundImage(UIImage(named:"cart"), for: UIControlState.normal)
+                sender.setImage(UIImage(named:"cart"), for: UIControlState.normal)
                 
                 saveCartData(data: data, state: false )
                 

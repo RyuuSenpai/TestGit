@@ -9,22 +9,47 @@
 import UIKit
 
 class SeeMoreCategories: UIViewController , UITableViewDelegate , UITableViewDataSource {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
-    var productCategories : [ProductCategories]?
+    
+    var categoriesData =  [GetAllCategoriesModel]()
+    var pageNum  = 1 {
+        didSet {
+            self.fetchData()
+        }
+    }
+    let dataRequest = ProductCategories()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.view.squareLoading.start(0)
+fetchData()
+        
+        tableView.addInfiniteScroll { [weak self ](tableView) -> Void in
+            // update table view
+            self?.pageNum += 1
+            // finish infinite scroll animation
+            tableView.finishInfiniteScroll()
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func fetchData() {
+        dataRequest.getAllCategories(pageNum: pageNum) { [weak self ] (data) in
+            DispatchQueue.main.async {
+                guard data.count > 0 else {
+                    self?.tableView.removeInfiniteScroll()
+                    return
+                }
+                self?.categoriesData.append(contentsOf: data)
+                self?.tableView.reloadData()
+                self?.view.squareLoading.stop(0)
+            }
+        }
     }
     
     
@@ -32,34 +57,36 @@ class SeeMoreCategories: UIViewController , UITableViewDelegate , UITableViewDat
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = productCategories?.count {
-            return count
-        }
-        return 0
+ 
+        return categoriesData.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.backgroundColor = UIColor.purple
-        cell.textLabel?.text = productCategories?[indexPath.row].name
+
+        cell.textLabel?.text = categoriesData[indexPath.row].name
         return cell
     }
+    
 
+    
+ 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
-        seeMoreA.productCatSelected = productCategories?[indexPath.row]
+        seeMoreA.catID = categoriesData[indexPath.row].id
         navigationController?.pushViewController(seeMoreA, animated: true)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

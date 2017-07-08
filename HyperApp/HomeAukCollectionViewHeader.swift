@@ -18,7 +18,8 @@ class HomeAukCollectionViewHeader: UICollectionReusableView ,UICollectionViewDel
     
     var productsBrands : ProductCategories?
     var brands : [GetAllBrandsModel]?
-    
+    var categoriesHomePageVC : HomePageVC?
+
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     
@@ -51,8 +52,8 @@ class HomeAukCollectionViewHeader: UICollectionReusableView ,UICollectionViewDel
 //            cell.catImage.alpha = 0 
 //        return cell
 //        }
-        print("thati's idex : \( data.count ) count : \( indexPath.row )")
-        print("that's the Get All Brands image URL : \(IMAGE_HOME_PATH + data[indexPath.row].image)")
+//        print("thati's idex : \( data.count ) count : \( indexPath.row )")
+//        print("that's the Get All Brands image URL : \(IMAGE_HOME_PATH + data[indexPath.row].image)")
    cell.seeMore.alpha = 0
         cell.catImage.af_setImage(
             withURL: URL(string: IMAGE_HOME_PATH + data[indexPath.row] .image )!,
@@ -61,6 +62,13 @@ class HomeAukCollectionViewHeader: UICollectionReusableView ,UICollectionViewDel
             imageTransition: .crossDissolve(0.2)
         )
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let data = brands  else { return }
+        let id = data[indexPath.row].id
+        categoriesHomePageVC?.showSubCategory(catIndex: nil, brandIndex: id )
     }
     //@Delete
     

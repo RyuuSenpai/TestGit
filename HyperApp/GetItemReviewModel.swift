@@ -113,7 +113,7 @@ class GetAllBrandsModel {
     
     private  var _nameAr : String?
     private  var _image : String?
-    private  var _id : String?
+    private  var _id : Int?
     
  
     
@@ -125,15 +125,15 @@ class GetAllBrandsModel {
         guard let x = _image else { return ""  }
         return x
     }
-    var id : String {
-        guard let x = _id else { return ""  }
+    var id : Int {
+        guard let x = _id else { return 0  }
         return x
     }
     
     init(jsonData : JSON) {
         self._nameAr = jsonData["nameAr"].stringValue
         self._image = jsonData["image"].stringValue
-        self._id = jsonData["id"].stringValue
+        self._id = jsonData["id"].intValue
      }
     init() {
         

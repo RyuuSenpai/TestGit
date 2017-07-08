@@ -146,9 +146,9 @@
             }
             
             if  let uid = uid {
-                UserDefaults.standard.setValue(uid, forKey: "uid")
+                UserDefaults.standard.setValue(uid, forKey: "User_ID")
             }else {
-                UserDefaults.standard.setValue(nil, forKey: "uid")
+                UserDefaults.standard.setValue(nil, forKey: "User_ID")
             }
             
         }

@@ -16,7 +16,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     var productCategories : [GetAllCategoriesModel]?
     
-    var catPageNumber = 2
+    var catPageNumber = 0
     var productCatData : ProductCategories?
 
     
@@ -96,8 +96,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
         //        }
         CategoryCollectionView.addInfiniteScroll { (collectionView) -> Void in
             self.CategoryCollectionView.performBatchUpdates({ () -> Void in
-                self.catPageNumber += 1
-                self.updateData()
+                 self.updateData()
                 // update collection view
             }, completion: { (finished) -> Void in
                 // finish infinite scroll animations
@@ -114,12 +113,13 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
         print("selected Product indexPath \(indexPath)  collectionView \(collectionView)")
         guard let data = productCategories  else { return }
          let id = data[indexPath.row].id
-        categoriesHomePageVC?.showSubCategory(productDetails: indexPath.row, CatIndex: id )
+        categoriesHomePageVC?.showSubCategory(catIndex: id, brandIndex: nil 	 )
     }
     
     
     func updateData() {
       
+        catPageNumber += 1
         productCatData = ProductCategories()
   
         productCatData?.getAllCategories(pageNum: self.catPageNumber, compeleted: { (arrayofCategories) in

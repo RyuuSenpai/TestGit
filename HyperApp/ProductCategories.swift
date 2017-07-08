@@ -188,7 +188,7 @@ class ProductCategories {
               query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/"
 
         }else {
-         query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(2)"
+         query_url = "http://hyper-testing.herokuapp.com/GetAllCategories/page/\(pageNum)"
         }
 
         print("GetAllCategories Url link : " ,query_url)

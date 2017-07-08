@@ -137,11 +137,8 @@ class OnCartVC: UIViewController   {
 //                ad.reloadApp()
             })
            */
-            let vc = CheckOutLocationVC(nibName: "CheckOutLocationVC", bundle: nil)
-            vc.fName = "Eslam"
-            vc.lastName = "Abo"
-            self.navigationController?.pushViewController(vc, animated: true )
 
+            self.performSegue(withIdentifier: "LocationsSegue", sender: self)
         }else {
             performSegue(withIdentifier: "login", sender: self )
         }

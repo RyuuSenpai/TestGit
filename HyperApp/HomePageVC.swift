@@ -24,14 +24,14 @@
     
     private let reuseIdentifier = "CategoriesCell"
     var dataISA :Bool = true
-    
+    var gettingPagerData = false
     //@AukHeaderID
     let imagelist = [UIImage(named:"0"),UIImage(named:"1"),UIImage(named:"2"),UIImage(named:"3"),UIImage(named:"4"),UIImage(named:"5")]
     
     //@end Auk
     
     var itemsInCart : Int = 0
-    var productPageNumber = 1
+    var productPageNumber = 0
     var catPageNumber = 1
 
     var productCategory : [ProductCategories]?
@@ -115,14 +115,16 @@
 //            
 //            return true
 //        }
-        mainProductsRow.addInfiniteScroll { (collectionView) -> Void in
-            self.mainProductsRow.performBatchUpdates({ () -> Void in
-                self.productPageNumber += 1
-                self.updateData()
+        mainProductsRow.addInfiniteScroll { [weak self ] (collectionView) -> Void in
+            self?.mainProductsRow.performBatchUpdates({ () -> Void in
+                self?.mainProductsRow.removeInfiniteScroll()
+                self?.updateData()
+                                self?.gettingPagerData = true
                 // update collection view
             }, completion: { (finished) -> Void in
                 // finish infinite scroll animations
-                self.mainProductsRow.finishInfiniteScroll()
+                self?.mainProductsRow.finishInfiniteScroll()
+               
             });
         }
     }
@@ -133,13 +135,23 @@
     }
     
     func updateData() {
+        guard !gettingPagerData else { print("working on getting data") ; return }
         if  self.productCategory == nil || categoriesArray == nil {
         self.view.squareLoading.start(0.0)
         }
         productCatData = ProductCategories()
-        productCatData?.downloadHomePageData(pageNum: productPageNumber, compeleted: { (productCategory) in
+        self.productPageNumber += 1
+
+        productCatData?.downloadHomePageData(pageNum: productPageNumber, compeleted: { [unowned  self ] (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
 
+                guard productCategory.count > 0 else {
+                    self.mainProductsRow.removeInfiniteScroll()
+                    self.gettingPagerData = false
+                    self.infiniteScroll()
+                    return
+                }
+                
                 if let productData = self.productCategory{
                     let productData = productData + productCategory
                     self.productCategory = productData
@@ -157,12 +169,16 @@
                     }else {
                         self.categoriesArray = catDataArray
                     }
-                    
+                    DispatchQueue.main.async {
+                        
+                        
+                    self.gettingPagerData = false
+                        self.infiniteScroll()
                     print("Done with getting Data")
                     self.view.squareLoading.stop(0.0)
                     self.mainProductsRow.reloadData()
                     self.revealMenu()
-                    
+                    }
                 })
             }
             
@@ -258,7 +274,7 @@
         
         
     }
-    func seeMore(_ sender:UIButton) {
+    func seeMore(_ sender:UIButton ) {
         print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
         seeMoreA.productCatSelected = productCategory?[sender.tag]
@@ -269,18 +285,24 @@
         print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreCategories") as! SeeMoreCategories
         //        seeMoreA.productCatSelected = productCategory?[sender.tag]
-        seeMoreA.productCategories = productCategory
+
         navigationController?.pushViewController(seeMoreA, animated: true)
         
     }
     
-    func showSubCategory(productDetails : Int , CatIndex : Int) {
+    func showSubCategory ( catIndex : Int? , brandIndex : Int? ) {
          
         
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
 //        seeMoreA.productCatSelected = productCategory?[sender.tag]
-        seeMoreA.catID = CatIndex
-        print("that's the index : \(CatIndex)")
+        if let id = brandIndex {
+            seeMoreA.brandID = brandIndex
+
+        }else if let id = catIndex {
+            seeMoreA.catID = catIndex
+
+        }
+//        print("that's the index : \(CatIndex)")
         navigationController?.pushViewController(seeMoreA, animated: true)
         
         
@@ -325,7 +347,7 @@
         
         if kind == UICollectionElementKindSectionHeader {
             let headerView: HomeAukCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AukHeaderID", for: indexPath) as! HomeAukCollectionViewHeader
-            
+            headerView.categoriesHomePageVC = self
             let tap = UITapGestureRecognizer(target: self, action: #selector(HomePageVC.handleTap))
             headerView.promotionScrollView.addGestureRecognizer(tap)
                        return headerView

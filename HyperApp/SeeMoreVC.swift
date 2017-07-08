@@ -16,6 +16,7 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var collectionView: UICollectionView!
     
     var catID : Int?
+    var brandID :Int?
     var productCatSelected : ProductCategories?
     
     var postRequest : PostRequests?
@@ -33,14 +34,34 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
         collectionView.register(ProductCell.nib, forCellWithReuseIdentifier: ProductCell.identifier)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        postRequest = PostRequests()
 
-        guard productsSearchArray == nil else {
+        if  let id =  brandID   {
+            self.view.squareLoading.start(0)
+            postRequest?.getBrandProductsDetailsData(brand_id: id, completed: { [weak self ](productsArray) in
+                
+                self?.productsArray = productsArray
+                DispatchQueue.main.async {
+                    guard let data = productsArray , data.count > 0 else {
+                        SweetAlert().showAlert("No Data To Present")
+                        self?.navigationController?.pop(animated: true)
+                        return
+                    }
+                    self?.view.squareLoading.stop(0.0)
+                    //                self?.getImageProductDetails()
+                    self?.collectionView.reloadData()
+                    return
+                }
+                
+                
+            })
+            
+        }else if productsSearchArray != nil   {
 //            self.getImageProductDetails()
             self.collectionView?.reloadData()
             return
-        }
+        }else {
         self.view.squareLoading.start(0.0)
-          postRequest = PostRequests()
         
         if catID == nil {
             
@@ -64,7 +85,7 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
 
         })
         
-        
+        }
         
     }
     
@@ -94,9 +115,7 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath as IndexPath) as! ProductCell
-//        cell.downRightBtnOL.setImage(#imageLiteral(resourceName: "Heart_icon"), for: .normal)
-   
-        
+
         if let seeMoreProducts = productsArray {
             cell.productDetails = seeMoreProducts[indexPath.row]
           }else  if let products = productsSearchArray {
@@ -110,6 +129,8 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
         cell.downRightBtnOL.tag = indexPath.row
         cell.downRightBtnOL.addTarget(self, action: #selector(self.favButtonA(_:)), for: .touchUpInside)
 
+        cell.shareBtnOL.tag = indexPath.row
+        cell.shareBtnOL.addTarget(self, action: #selector(self.shareButtonA(_:)), for: .touchUpInside)
         return cell
         
     }
@@ -173,6 +194,41 @@ class SeeMoreVC: UIViewController , UICollectionViewDelegate,UICollectionViewDat
 
          }
     }
+    
+    
+    func shareButtonA(_ sender: UIButton) {
+
+        var data : CartDetails?
+        if let products = productsSearchArray {
+             
+            data =  onCartFuncsClass.transSearch_DataToCartObj(data: products[sender.tag])
+        }else if let products = productsArray {
+            data = onCartFuncsClass.transferDataToCartObj(data: products[sender.tag])
+
+        }
+        guard let datA = data , let name = datA.name , let price = datA.price else { return }
+        let img: UIImage = #imageLiteral(resourceName: "PlaceHolder")
+        let shareItems:Array = [img, name , price ] as [Any]
+        
+        let  activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        //        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone {
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            //
+            //            if activityViewController.respondsToSelector(Selector("popoverPresentationController")) {
+            //                activityViewController.popoverPresentationController?.sourceView = self.view
+            //        }
+            
+            
+            
+            
+            
+        }
+
+        
+    }
+    
     
     /*
      // MARK: - Navigation

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,40 +18,59 @@
                 <rect key="frame" x="0.0" y="0.0" width="182" height="221"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3" translatesAutoresizingMaskIntoConstraints="NO" id="LTK-NO-dmU"/>
-                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-Hp-jcb">
-                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yga-Ja-1gd">
-                            <frame key="frameInset"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ruZ-DO-w6d">
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="ruZ-DO-w6d" firstAttribute="leading" secondItem="yga-Ja-1gd" secondAttribute="leading" id="JVx-Ad-bQe"/>
-                                <constraint firstAttribute="bottom" secondItem="ruZ-DO-w6d" secondAttribute="bottom" id="YWU-Xl-tO5"/>
-                                <constraint firstAttribute="trailing" secondItem="ruZ-DO-w6d" secondAttribute="trailing" id="aay-Er-EoU"/>
-                                <constraint firstItem="ruZ-DO-w6d" firstAttribute="top" secondItem="yga-Ja-1gd" secondAttribute="top" id="rdH-bc-3o5"/>
-                            </constraints>
-                        </view>
-                        <blurEffect style="dark"/>
-                    </visualEffectView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-AT-dgZ">
+                        <rect key="frame" x="0.0" y="0.0" width="182" height="221"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3" translatesAutoresizingMaskIntoConstraints="NO" id="LTK-NO-dmU">
+                                <rect key="frame" x="2" y="2" width="179" height="218"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-Hp-jcb">
+                                <rect key="frame" x="20" y="164" width="142" height="37"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yga-Ja-1gd">
+                                    <rect key="frame" x="0.0" y="0.0" width="142" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ruZ-DO-w6d">
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="37"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ruZ-DO-w6d" firstAttribute="leading" secondItem="yga-Ja-1gd" secondAttribute="leading" id="JVx-Ad-bQe"/>
+                                        <constraint firstAttribute="bottom" secondItem="ruZ-DO-w6d" secondAttribute="bottom" id="YWU-Xl-tO5"/>
+                                        <constraint firstAttribute="trailing" secondItem="ruZ-DO-w6d" secondAttribute="trailing" id="aay-Er-EoU"/>
+                                        <constraint firstItem="ruZ-DO-w6d" firstAttribute="top" secondItem="yga-Ja-1gd" secondAttribute="top" id="rdH-bc-3o5"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lFH-Hp-jcb" secondAttribute="trailing" constant="20" id="8Yc-JQ-PJh"/>
+                            <constraint firstAttribute="trailing" secondItem="LTK-NO-dmU" secondAttribute="trailing" constant="1.5" id="EBD-mx-RsG"/>
+                            <constraint firstItem="lFH-Hp-jcb" firstAttribute="leading" secondItem="jRv-AT-dgZ" secondAttribute="leading" constant="20" id="GHW-Gx-NrD"/>
+                            <constraint firstAttribute="bottom" secondItem="LTK-NO-dmU" secondAttribute="bottom" constant="1.5" id="dp8-m7-9Ut"/>
+                            <constraint firstAttribute="bottom" secondItem="lFH-Hp-jcb" secondAttribute="bottom" constant="20" id="e6K-uo-bfM"/>
+                            <constraint firstItem="LTK-NO-dmU" firstAttribute="leading" secondItem="jRv-AT-dgZ" secondAttribute="leading" constant="1.5" id="sTU-lT-pnY"/>
+                            <constraint firstItem="LTK-NO-dmU" firstAttribute="top" secondItem="jRv-AT-dgZ" secondAttribute="top" constant="1.5" id="txV-3A-OnW"/>
+                            <constraint firstItem="lFH-Hp-jcb" firstAttribute="height" secondItem="LTK-NO-dmU" secondAttribute="height" multiplier="0.17" id="yUd-cq-qKQ"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="lFH-Hp-jcb" firstAttribute="height" secondItem="LTK-NO-dmU" secondAttribute="height" multiplier="0.17" id="0GL-kE-ls0"/>
-                <constraint firstItem="LTK-NO-dmU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AOE-xF-aOR"/>
-                <constraint firstAttribute="bottom" secondItem="lFH-Hp-jcb" secondAttribute="bottom" id="Ca1-6D-ZgR"/>
-                <constraint firstItem="LTK-NO-dmU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Fmz-u9-oIT"/>
-                <constraint firstAttribute="trailing" secondItem="lFH-Hp-jcb" secondAttribute="trailing" id="UYb-08-ZNt"/>
-                <constraint firstAttribute="trailing" secondItem="LTK-NO-dmU" secondAttribute="trailing" id="aqF-p0-oKg"/>
-                <constraint firstItem="lFH-Hp-jcb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="f6e-vc-FIX"/>
-                <constraint firstAttribute="bottom" secondItem="LTK-NO-dmU" secondAttribute="bottom" id="x2d-9D-g7N"/>
+                <constraint firstItem="jRv-AT-dgZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="bgy-kG-wnH"/>
+                <constraint firstItem="jRv-AT-dgZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tRa-o1-EWN"/>
+                <constraint firstAttribute="trailing" secondItem="jRv-AT-dgZ" secondAttribute="trailing" id="vjP-L3-rVh"/>
+                <constraint firstAttribute="bottom" secondItem="jRv-AT-dgZ" secondAttribute="bottom" id="w27-sb-0YW"/>
             </constraints>
             <size key="customSize" width="182" height="221"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="categoryImage" destination="LTK-NO-dmU" id="UcJ-2V-MGs"/>
                 <outlet property="categorytitle" destination="ruZ-DO-w6d" id="KNf-IV-flB"/>

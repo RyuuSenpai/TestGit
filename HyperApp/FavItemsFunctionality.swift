@@ -44,9 +44,9 @@ class FavItemsFunctionality  {
             let realm = try Realm()
             
             if  let item = realm.object(ofType: CDFavList.self, forPrimaryKey: fav.name)  {
-                print("Dublicated data right there saveFavData ")
+//                print("Dublicated data right there saveFavData ")
                 if let stateOf = state , stateOf == false  {
-                    print("will delete : \(item)")
+//                    print("will delete : \(item)")
                     realm.beginWrite()
                     realm.delete(item)
                     try  realm.commitWrite()
@@ -57,10 +57,10 @@ class FavItemsFunctionality  {
                 
                 try realm.write{
                     realm.add(fav)
-                    print("that Saved ya Man \(fav.name)")
+//                    print("that Saved ya Man \(fav.name)")
                 }}
         }catch let err as NSError {
-            print("saveFavData that is error :    \(err)")
+//            print("saveFavData that is error :    \(err)")
             return false
         }
         return false

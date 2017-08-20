@@ -89,7 +89,7 @@ class ProductCategories {
 //                        URLCache.shared.removeAllCachedResponses()
                         let cachedURLResponse = CachedURLResponse(response: response.response!, data: (response.data! as NSData) as Data, userInfo: nil, storagePolicy: .allowed)
                         URLCache.shared.storeCachedResponse(cachedURLResponse, for: response.request!)
-                        print("Killva: HomepageData : ",response.result.value)
+//                        print("Killva: HomepageData : ",response.result.value)
                         guard response.result.error == nil else {
                             // got an error in getting the data, need to handle it
                             print("error fetching data from url")

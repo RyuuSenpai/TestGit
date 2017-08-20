@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout , UICollectionViewDelegate{
     
@@ -51,7 +53,7 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
     
     
     
-    let imageList = [ #imageLiteral(resourceName: "Fire"),#imageLiteral(resourceName: "Air"),#imageLiteral(resourceName: "ice"),#imageLiteral(resourceName: "water")]
+//    let imageList = [ #imageLiteral(resourceName: "Fire"),#imageLiteral(resourceName: "Air"),#imageLiteral(resourceName: "ice"),#imageLiteral(resourceName: "water")]
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = productCategories?.count {
@@ -65,9 +67,16 @@ class LargeHomeCategoriesCell: UICollectionViewCell  , UICollectionViewDataSourc
         cell.productCategory = productCategories?[indexPath.row]
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.backgroundColor = UIColor.cyan
-        if indexPath.row <= 3 {
-            cell.categoryImage.image = imageList[indexPath.row]
-        }
+//        if indexPath.row <= 3 {
+//            cell.cell.categoryImage.image.image = imageList[indexPath.row]
+        guard let data = productCategories else { return cell }
+        cell.categoryImage.af_setImage(
+            withURL: URL(string: data[indexPath.row].image )!,
+            placeholderImage: UIImage(named: "PlaceHolder"),
+            filter: nil,
+            imageTransition: .crossDissolve(0.2)
+        )
+//        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -14,6 +14,8 @@ class ListOfLocationsVC: UIViewController , UITableViewDelegate , UITableViewDat
     @IBOutlet weak var addAddressBtnOL: UIButtonX!
 
     var userId : String?
+    
+    var locationData : [LocationData]?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,29 +26,36 @@ class ListOfLocationsVC: UIViewController , UITableViewDelegate , UITableViewDat
         guard let id = UserDefaults.standard.value(forKey: "User_ID") as? String else { print("nill in User_ID"); return }
        
         userId = id
-        requestClass.postUserAddress(userID: id) { 
+        self.view.squareLoading.start(0.0)
+    requestClass.postUserAddress(userID: id) {[ weak self]  (data) in
+        
+        DispatchQueue.main.async {
             
-            
+            self?.view.squareLoading.stop(0.0)
+            self?.locationData = data
+            self?.tableView.reloadData()
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        }
     }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 4
+        guard let data =  locationData else { return 0 }
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ListOfLocationsCell
+        guard let data =  locationData?[indexPath.row] else { return cell }
 
+        cell.addressLbl.text = data.streetName
+        
         
         
         return cell

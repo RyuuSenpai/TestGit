@@ -18,7 +18,8 @@ class CategoryDetailsModel {
     private  var _code : String?
     private  var _active : Bool?
     private  var _id : Int?
-    
+//    private  var _imageUrl : String?
+
     var dateAdd : String {
         guard let dateAdd_ = _dateAdd else { return ""  }
         return dateAdd_
@@ -43,7 +44,11 @@ class CategoryDetailsModel {
         guard let id_ = _id else { return 0  }
         return id_
     }
-    
+//    var image : String {
+//        print("that's the imageURL : \(_imageUrl)")
+//        guard let x = _imageUrl else { return "" }
+//        return   IMAGE_HOME_PATH + "/" + x
+//    }
     init(jsonData : JSON) {
         
         self._dateAdd = jsonData["date_add"].stringValue
@@ -52,6 +57,8 @@ class CategoryDetailsModel {
         self._code = jsonData["code"].stringValue
         self._active = jsonData["active"].boolValue
         self._id = jsonData["id"].intValue
+//        self._imageUrl = jsonData["image"].stringValue
+
     }
     
    

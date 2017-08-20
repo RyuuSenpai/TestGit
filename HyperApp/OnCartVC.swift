@@ -98,22 +98,22 @@ class OnCartVC: UIViewController   {
        return pars
     }
     
-    func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
-        guard let items = self.items , let url = URL(string: items[index].imgString) else { return }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            () -> Void in
-            
-            let imgData = try? Data(contentsOf: url)
-            DispatchQueue.main.async(execute: {
-                () -> Void in
-                if let img = imgData {
-                    handler(img)
-                    
-                }
-            })
-        }
-    }
+//    func downloadImage(index : Int , completionHandler handler: @escaping (_ imageData : Data) -> Void) {
+//        guard let items = self.items , let url = URL(string: items[index].imgString) else { return }
+//        
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            () -> Void in
+//            
+//            let imgData = try? Data(contentsOf: url)
+//            DispatchQueue.main.async(execute: {
+//                () -> Void in
+//                if let img = imgData {
+//                    handler(img)
+//                    
+//                }
+//            })
+//        }
+//    }
     
     /*
      // MARK: - Navigation

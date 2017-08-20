@@ -198,7 +198,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
                 self.seeAllReviews.isHidden = false 
                 self.noReviewsLbl.isHidden = true
                 self.reviewsCollectionView.reloadData()
-                print("Done postGetitemreView")
+                print("Done postGetitemreView data.count : \(data.count)")
                 
             })
         }
@@ -223,7 +223,7 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
     }
     
     @IBAction func tappedProductImage(_ sender: AnyObject) {
-        tappedPromotionImg(scrollView : productImagescrollView)
+//        tappedPromotionImg(scrollView : productImagescrollView)
         
     }
     

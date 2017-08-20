@@ -17,7 +17,15 @@ class GetAllCategoriesModel {
     private  var _dateAdd : String?
       var _name : String?
     private  var _active : Bool?
+    private  var _imageUrl : String?
     
+    
+    var image : String {
+//        print("that's the imageURL : \(String(describing: _imageUrl))")
+        guard let x = _imageUrl else { return "" }
+        return   IMAGE_HOME_PATH + "/" + x
+    }
+
     var child : [GetAllCategoriesChildModel]?
     
     var dateAdd : String {
@@ -53,6 +61,8 @@ class GetAllCategoriesModel {
         self._code = jsonData["code"].stringValue
         self._active = jsonData["active"].boolValue
         self._id = jsonData["id"].intValue
+        self._imageUrl = jsonData["image"].stringValue
+
     }
     
     init() {

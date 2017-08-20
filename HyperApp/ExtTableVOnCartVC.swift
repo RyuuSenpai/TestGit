@@ -25,6 +25,10 @@ extension OnCartVC : UITableViewDelegate {
                 realm.beginWrite()
                 realm.delete(item)
                 try realm.commitWrite()
+                
+//                if self.items?[indexPath.row] == item  {
+//                    self.items?.remove(object: item)
+//                }
                 getTheData()
                 
             }catch let err as NSError {
@@ -59,7 +63,8 @@ extension OnCartVC : UITableViewDelegate {
         }
 }
 
-
+import Alamofire
+import AlamofireImage
 
 extension OnCartVC : UITableViewDataSource {
     
@@ -102,11 +107,18 @@ extension OnCartVC : UITableViewDataSource {
         }else {
             cell.deleteRowDataBtn.isHidden = true
         }
-        
-        
+ 
+        print("debugging : \(items?[indexPath.row])")
         if let item = items?[indexPath.row] {
             
             if item.imageData == nil {
+                cell.productImage.af_setImage(
+                    withURL: URL(string: item.imgString )!,
+                    placeholderImage: UIImage(named: "PlaceHolder"),
+                    filter: nil,
+                    imageTransition: .crossDissolve(0.2)
+                )
+                /*
                 downloadImage(index: indexPath.row, completionHandler: { (data) in
                     if cell.tag == indexPath.row {
                         
@@ -123,7 +135,7 @@ extension OnCartVC : UITableViewDataSource {
                         print(err)
                     }
                 })
-            }else {
+           */ }else {
                 if let imageData  = item.imageData {
                     cell.productImage.image = UIImage(data: imageData )
                 }

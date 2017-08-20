@@ -72,7 +72,7 @@ class UserDataModel {
     private  var _lastName : String?
 
     var id : Int {
-        guard let id_ = _id else { return 0  }
+         guard let id_ = _id else { return 0  }
         return id_
     }
     var email : String {
@@ -80,11 +80,11 @@ class UserDataModel {
         return email_
     }
     var firstName : String {
-        guard let firstName_ = _firstName else { return ""  }
+         guard let firstName_ = _firstName else { return ""  }
         return firstName_
     }
     var lastName : String {
-        guard let lastName_ = _lastName else { return ""  }
+         guard let lastName_ = _lastName else { return ""  }
         return lastName_
     }
     var fullname : String {

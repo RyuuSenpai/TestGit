@@ -12,7 +12,7 @@ import SwiftyJSON
 class User_LocationModel{
     
     
-    func postUserAddress(userID : String    ,completed : @escaping () -> ()) {
+    func postUserAddress(userID : String,completed : @escaping ([LocationData]?) -> ()) {
         let parameters : Parameters = ["user_id" : userID ]
         
         
@@ -28,17 +28,24 @@ class User_LocationModel{
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
+                
+             var locationArray = [LocationData]()
+                
+                for ( _ , value) in json {
+                    let x = LocationData(value)
+                    locationArray.append(x)
+                }
                 print(json)
-                completed()
+                completed(locationArray)
                 break
                 
             case .failure(let err as NSError):
                 print("that is the error Descriptio0n : \(err.description)")
-                completed()
+                completed(nil)
                 break
             default :
                 print("Erro in Switch State Ment in getItem by ID Default was Selected")
-                completed()
+                completed(nil)
             }
         }
     }
@@ -79,3 +86,65 @@ class User_LocationModel{
     
     
      }
+
+
+
+
+class LocationData {
+    
+    private var _dateAdded : String?
+    private var _actice : Bool?
+    private var _floorNum : Int?
+    private var _id : Int?
+    private var _buildingNum : Int?
+    private var _streetName : String?
+    private var _desc : String?
+    private var _dateUpd : String?
+    private var _userID : Int?
+    
+
+    
+    var floor : Int {
+        guard let x = _floorNum else {   return 0      }
+        return x
+    }
+    var address_ID : Int {
+        guard let x = _id else {   return 0      }
+        return x
+    }
+    var buildingNum : Int {
+        guard let x = _buildingNum else {   return 0      }
+        return x
+    }
+    var streetName : String {
+        guard let x = _streetName else { return "" }
+        return  x
+    }
+    var description : String {
+        guard let x = _desc else { return "" }
+        return    x
+    }
+    var user_ID : Int {
+        guard let x = _userID else {   return 0      }
+        return x
+    }
+    init(_ json : JSON ) {
+        
+        self._floorNum = json["floor_num"].intValue
+        self._id = json["id"].intValue
+        self._buildingNum = json["building_num"].intValue
+        self._streetName = json["street_name"].stringValue
+        self._desc = json["description"].stringValue
+        self._id = json["id_user"].intValue
+    }
+    
+    
+    
+    
+}
+
+
+
+
+
+

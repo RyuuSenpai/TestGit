@@ -133,6 +133,8 @@
 		71F5ADAE1DBBDA7C00D68D41 /* ProductCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F5ADAD1DBBDA7C00D68D41 /* ProductCategories.swift */; };
 		71F7618E1DBF729700634C7F /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F7618D1DBF729700634C7F /* SWRevealViewController.m */; };
 		71FA40331DC0D680005B0992 /* ProductCollectionVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FA40321DC0D680005B0992 /* ProductCollectionVDelegate.swift */; };
+		71FD81CF1F3E38250054C5B7 /* CheckoutItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD81CD1F3E38250054C5B7 /* CheckoutItemsList.swift */; };
+		71FD81D01F3E38250054C5B7 /* CheckoutItemsList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FD81CE1F3E38250054C5B7 /* CheckoutItemsList.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -271,6 +273,8 @@
 		71F7618C1DBF729700634C7F /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		71F7618D1DBF729700634C7F /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		71FA40321DC0D680005B0992 /* ProductCollectionVDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionVDelegate.swift; sourceTree = "<group>"; };
+		71FD81CD1F3E38250054C5B7 /* CheckoutItemsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutItemsList.swift; sourceTree = "<group>"; };
+		71FD81CE1F3E38250054C5B7 /* CheckoutItemsList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutItemsList.xib; sourceTree = "<group>"; };
 		73EE83F8A7E5D8C178A0BE53 /* Pods-HyperApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyperApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-HyperApp/Pods-HyperApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -598,6 +602,8 @@
 			children = (
 				71113CE21F10801C00417BBA /* ListOfLocationsVC.swift */,
 				7173E9291F06FF51000B50A5 /* CheckOutLocationVC.swift */,
+				71FD81CD1F3E38250054C5B7 /* CheckoutItemsList.swift */,
+				71FD81CE1F3E38250054C5B7 /* CheckoutItemsList.xib */,
 			);
 			name = User_Location;
 			sourceTree = "<group>";
@@ -739,6 +745,7 @@
 			files = (
 				71CCDB851DD3B18300CA8FD8 /* LargeHomeCategoriesCell.xib in Resources */,
 				712E5A681DAA95B800990B26 /* LaunchScreen.storyboard in Resources */,
+				71FD81D01F3E38250054C5B7 /* CheckoutItemsList.xib in Resources */,
 				712E5A651DAA95B800990B26 /* Assets.xcassets in Resources */,
 				712AE0DF1DD8B6C80004EBC0 /* WriteReviewsVC.xib in Resources */,
 				711529B71DD3D0A4007E59F4 /* subLargeHomeCategoriesCell.xib in Resources */,
@@ -879,6 +886,7 @@
 				71CE86EB1EE89B2E007DF2C7 /* SearchResultView.swift in Sources */,
 				7163DA4F1DD216C700863A37 /* RoundedImage.swift in Sources */,
 				713AFA1F1DE469FA0006668C /* MyProfileCellHeader.swift in Sources */,
+				71FD81CF1F3E38250054C5B7 /* CheckoutItemsList.swift in Sources */,
 				71C7E2B81DB6CD4600045660 /* HomePageVC.swift in Sources */,
 				71F305DA1E919D7E00E72A68 /* GetProductImages.swift in Sources */,
 				714141E51ED20FC3008EBE2E /* UILabelX.swift in Sources */,

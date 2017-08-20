@@ -10,7 +10,7 @@ import Foundation
 import Google
 import GoogleSignIn
 import FBSDKLoginKit
-
+import CDAlertView
 
 extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButtonDelegate  {
     
@@ -75,12 +75,15 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
                     let imageURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")
                     let imageString : String =  "\(imageURL!)"
                     
-                    self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
-                        self.postClass.fbLoginPostRequest(firstName: fName, lastName: lastName, ImageUrl: imageString, email: email, birthday: nil, gender: nil, Token: /*self.fbToken ??*/ "", id: id, completion: { (responseId) in
+                        self.postClass.fbLoginPostRequest(firstName: fName, lastName: lastName, ImageUrl: imageString, email: email, birthday: nil, gender: nil, Token: /*self.fbToken ??*/ "", id: id, completion: { (status, responseId) in
                             
-                            print("that is the response id for facebook : \(responseId)")
-                            guard let id = responseId else {return  }
-                            UserDefaults.standard.set(id, forKey: "User_ID")
+                            guard status , let id = responseId  else {
+                                CDAlertView(title: "Couldn't Login", message: "Please try again", type: .notification).show()
+                                self.setUIEnabled(enabled: true)
+                                return
+                            }
+                            self.afterLogginView.fadeIn(duration: 1.5, delay: 0, completion: { (finished: Bool) in
+
                             ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
                             ad.reloadApp()
                         })
@@ -117,19 +120,31 @@ extension LoginVC  :  GIDSignInUIDelegate, GIDSignInDelegate  , FBSDKLoginButton
             self.setUIEnabled(enabled: true)
             return
         }
-        
-        print("userId :\(id)")
+         print("userId :\(id)")
         print("email :\(email)")
         let imageString : String = "\(userImage)"
         self.afterLogginUserName.text = firstName
-        UIView.animate(withDuration: 2.5, delay: 0,
-                       options: UIViewAnimationOptions.curveEaseOut, animations: {
-                        self.afterLogginView.alpha = 1.0
-        },  completion: {  finished in
-            ad.saveUserLogginData(email: email, photoUrl: imageString , uid : id)
-            ad.reloadApp()
-            
-        })
+        
+        self.postClass.googleLoginPostRequest(firstName: firstName, lastName: user.profile.familyName, ImageUrl: imageString, email: email, birthday: "", gender: "", Token: id) { (status,idCode) in
+            guard status else {
+                CDAlertView(title: "Couldn't Login", message: "Please try again", type: .notification).show()
+   self.setUIEnabled(enabled: true)
+                return
+            }
+            DispatchQueue.main.async {
+                
+                UIView.animate(withDuration: 2.5, delay: 0,
+                               options: UIViewAnimationOptions.curveEaseOut, animations: {
+                                self.afterLogginView.alpha = 1.0
+                },  completion: {  finished in
+                    ad.saveUserLogginData(email: email, photoUrl: imageString , uid : idCode)
+                    ad.reloadApp()
+                    
+                })
+                
+            }
+        }
+      
         
         
         /*

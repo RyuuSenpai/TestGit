@@ -48,10 +48,10 @@ class LoginPostRequests {
     }
     
     
-    func fbLoginPostRequest(firstName: String , lastName : String ,ImageUrl : String , email : String , birthday: String? , gender : String? , Token : String , id : String ,completion: @escaping (String?) -> ()){
+    func fbLoginPostRequest(firstName: String , lastName : String ,ImageUrl : String , email : String? , birthday: String? , gender : String? , Token : String , id : String ,completion: @escaping (Bool,String?) -> ()){
     
          let parameters : Parameters = [
-            "first_name" :  firstName , "last_name" : lastName , "picture" : ImageUrl , "email" : email , "birthday" : birthday , "gender" : gender  , "fb_token" : Token , "id" : id ]
+            "first_name" :  firstName , "last_name" : lastName , "picture" : ImageUrl , "email" : email ?? "", "birthday" : birthday , "gender" : gender  , "fb_token" : Token , "id" : id ]
         print("that is the fbloggin parameters \(parameters)")
         let query_url = BASE_URL + FACEBOOK_LOGIN
 
@@ -62,20 +62,20 @@ class LoginPostRequests {
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
                 print("Killva: that is the response value from fbSignIn  : " , response.result.value)
-                completion(json["response"].stringValue)
+                completion(true,json["response"].stringValue)
                 break
                 
             case .failure(let err as NSError):
-                print(response.result.error)
-                print(response)
-                print(response.request)
+//                print(response.result.error)
+//                print(response)
+//                print(response.request)
                 
-                print("that is the error Descriptio0n : \(err.description)")
-                completion(nil)
+                print("that is the error Descriptio0n : \(err.localizedDescription)")
+                completion(false,nil)
                 break
             default :
                 print("Erro in Switch State Ment in getItem by ID Default was Selected")
-                completion(nil)
+                completion(false,nil)
             }
         }
         
@@ -83,10 +83,38 @@ class LoginPostRequests {
         
     }
  
-    func googleLoginPostRequest(firstName : String , lastName: String , email : String , birthday : Date , gender : Character , completion : @escaping ((String?) -> () ) ){
+    func googleLoginPostRequest(firstName: String , lastName : String ,ImageUrl : String , email : String? , birthday: String? , gender : String? , Token : String,completion: @escaping (Bool,String?) -> ()){
         
         let parameters : Parameters = [
-            "first_name" :  firstName , "last_name" : lastName , "email" : email , "birthday" : birthday , "gender" : gender
-        ]
+            "first_name" :  firstName , "last_name" : lastName , "picture" : ImageUrl , "email" : email ?? "", "birthday" : birthday ?? "" , "gender" : gender ?? "" , "google_id" : Token  ]
+        print("that is the googleLoginPostRequest parameters \(parameters)")
+        let query_url = BASE_URL + GOOGLE_LOGIN
+        
+        Alamofire.request( query_url , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
+            
+            switch(response.result) {
+            case .success(_):
+                guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
+                let json = JSON(data)
+                print("Killva: that is the response value from googleLoginPostRequest  : " , response.result.value)
+                completion(true,json["response"].stringValue)
+                break
+                
+            case .failure(let err as NSError):
+//                print(response.result.error)
+//                print(response)
+//                print(response.request)
+                
+                print("that is the error Descriptio0n : \(err.localizedDescription)")
+                completion(false,nil)
+                break
+            default :
+                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+                completion(false,nil)
+            }
+        }
+        
+        
+        
     }
 }

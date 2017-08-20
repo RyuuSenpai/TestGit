@@ -110,7 +110,8 @@ class  PostRequests {
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        
+        print("that is the url in postGetitemreView : \(BASE_URL + GET_ITEM_REVIEW)")
+
         let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
         Alamofire.request(BASE_URL + GET_ITEM_REVIEW , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
@@ -119,10 +120,11 @@ class  PostRequests {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                
+//                 print(" ProductDetails review \(response.result.value)")
                 var itemsReview = [GetItemReviewModel]()
-                for i in 0..<json.count {
-                    let data = json[i]
+                let reviews = json["reviews"]
+                for i in reviews {
+                    let data = i.1
                     let itemReview = GetItemReviewModel(jsonData: data)
                     let productDetails = ProductDetails(jsonData: data["product"])
                     let userDetails = UserDataModel(jsonData: data["user"])
@@ -130,6 +132,7 @@ class  PostRequests {
                     itemReview.productDetails = productDetails
                     itemsReview.append(itemReview)
                 }
+                print("count of reviews : \(itemsReview.count)")
                 completed(itemsReview)
                 break
                 
@@ -138,7 +141,7 @@ class  PostRequests {
                 print(response)
                 print(response.request)
                 
-                print("that is the error Descriptio0n : \(err.description)")
+                print("that is the error Descriptio0n : \(err.localizedDescription)")
                 completed(nil)
                 break
             default :

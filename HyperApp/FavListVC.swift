@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import RealmSwift
 import Alamofire
+import AlamofireImage
+
 class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout   {
     
     @IBOutlet weak var emptyListPH: UIImageView!
@@ -77,11 +79,11 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
         cell.downRightBtnOL.layer.setValue(indexPath.row, forKey: "index")
         cell.downRightBtnOL.tag = indexPath.row
         cell.downRightBtnOL.addTarget(self, action: #selector(removeFav(sender:)) , for: .touchUpInside)
-        cell.downRightBtnOL.setBackgroundImage(#imageLiteral(resourceName: "Trash"), for: UIControlState.normal)
+        cell.downRightBtnOL.setImage(#imageLiteral(resourceName: "Trash"), for: UIControlState.normal)
         cell.productImage.image = #imageLiteral(resourceName: "PlaceHolder")
-        getImageClass.getFavListImages(data: favList?[indexPath.row]) { (img) in
-            cell.productImage.image = img
-        }
+//        getImageClass.getFavListImages(data: favList?[indexPath.row]) { (img) in
+//            cell.productImage.image = img
+//        }
         
         cell.cartBtnOL.tag = indexPath.row
         cell.cartBtnOL.addTarget(self, action: #selector(FavListVC.cartButtonA(_:)), for: .touchUpInside)
@@ -90,21 +92,28 @@ class FavListVC: UIViewController  , UICollectionViewDelegate, UICollectionViewD
             if let imageData = item.imageData {
                 cell.productImage.image = UIImage(data: imageData)
             }else {
-                getImageClass.downloadImage(favItem: favList?[indexPath.row]) { (data) in
-                    if cell.tag == indexPath.row {
-                        
-                        cell.productImage.image = UIImage(data: data)
-                    }
-                    do {
-                        let realm = try Realm()
-                        
-                        try realm.write{
-                            item.imageData = data
-                        }
-                    } catch let err as NSError {
-                        print(err)
-                    }
-                }
+                
+                cell.productImage.af_setImage(
+                    withURL: URL(string: item.image_url )!,
+                    placeholderImage: UIImage(named: "PlaceHolder"),
+                    filter: nil,
+                    imageTransition: .crossDissolve(0.2)
+                )
+//                getImageClass.downloadImage(favItem: favList?[indexPath.row]) { (data) in
+//                    if cell.tag == indexPath.row {
+//                        
+//                        cell.productImage.image = UIImage(data: data)
+//                    }
+//                    do {
+//                        let realm = try Realm()
+//                        
+//                        try realm.write{
+//                            item.imageData = data
+//                        }
+//                    } catch let err as NSError {
+//                        print(err)
+//                    }
+//                }
             }
         }
         return cell

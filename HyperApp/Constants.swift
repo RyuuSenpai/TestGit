@@ -25,6 +25,8 @@ let ADD_REVIEW = "AddReview"
 let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 let FACEBOOK_LOGIN =  "FBlogin"
+let GOOGLE_LOGIN =  "GoogleLogin"
+
  let GET_PRODUCT_IMAGES = "GetProductImages"
 let GET_ALL_BRANDS = "GetAllBrands"
 let POST_SEARCH =  "search"

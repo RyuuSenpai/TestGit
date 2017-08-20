@@ -53,11 +53,14 @@
             self.sideMenuBOL.isEnabled = true
             self.switchLanguageBtnOL.isEnabled = true
         }
-        
-        
         self.searchViewHeight.constant = 0
         upDateItemInCart()
         cartNumberOfItemsBadge()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchText.text = ""
     }
     
     override func viewDidLoad() {
@@ -94,6 +97,7 @@
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search activated")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         let searchModel = PostRequests()
         self.view.squareLoading.start(0)
         searchModel.postSearchService(query: searchBar.text!, nil , nil ) { [weak self ] (data) in
@@ -101,10 +105,12 @@
             if let data = data , data.count > 0 {
                 let vc = self?.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
                 vc.productsSearchArray = data
-                
+                self?.doneWithSearch()
                 self?.navigationController?.pushViewController(vc, animated: true )
+                
             }
             self?.view.squareLoading.stop(0)
+             self?.navigationController?.setNavigationBarHidden(false, animated: true)
             
         }
     }
@@ -433,8 +439,7 @@
     @IBAction func searchBtnAct(_ sender: UIBarButtonItem) {
        
         if sender.tag == 20 {
-            print("tag 20 ")
-             sender.tag = 30
+              sender.tag = 30
             UIView.animate(withDuration: 0.3, animations: {
                 
                 self.searchViewHeight.constant = 35
@@ -442,18 +447,24 @@
                 self.view.layoutIfNeeded()
             })
         }else {
-            print("tag 30")
-            sender.tag = 20
-            UIView.animate(withDuration: 0.3, animations: {
-                
-                self.searchViewHeight.constant = 0
-                self.searchText.resignFirstResponder()
-                self.view.layoutIfNeeded()
-
-            })
-        }
+//             sender.tag = 20
+             doneWithSearch()
+                    }
     }
     
+    func doneWithSearch() {
+        searchBtnOL.tag = 20
+        self.searchText.resignFirstResponder()
+        self.view.endEditing(true)
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.searchViewHeight.constant = 0
+            self.searchText.resignFirstResponder()
+            self.view.layoutIfNeeded()
+            
+        })
+
+    }
     
     
     @IBAction func switchLanguage(_ sender: UIBarButtonItem) {

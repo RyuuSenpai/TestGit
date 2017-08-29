@@ -67,7 +67,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
             //            largerCell.reloadData()
             
             self.productsCollectionView.reloadData()
-            print("recivedNotification : \(notification)")
+//            print("recivedNotification : \(notification)")
         }
     }
     
@@ -91,7 +91,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     //    let  cartDetails = CartDetails()
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath.row)/*
+       /* print(indexPath.row)
         let   cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "HProductCell", for: indexPath) as! HomeProductCell
         cell.tag = indexPath.row
         cell.favButton.tag = indexPath.row
@@ -160,7 +160,7 @@ class HomeCategoriesCell: UICollectionViewCell , UICollectionViewDataSource , UI
     
     func shareButtonA(_ sender: UIButton) {
         
-        print("that is the button index : \(sender.tag)")
+//        print("that is the button index : \(sender.tag)")
         let data = productCategory?.products?[sender.tag]
         
         categoriesHomePageVC?.shareItems(sender : sender , data: data)

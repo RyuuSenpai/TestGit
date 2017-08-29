@@ -26,7 +26,7 @@ let GET_ALL_CATEGORIES = "GetAllCategories"
 let POST_MAKE_ORDER = "makeOrder"
 let FACEBOOK_LOGIN =  "FBlogin"
 let GOOGLE_LOGIN =  "GoogleLogin"
-
+let GETOrdersByUser = "getOrdersByUser"
  let GET_PRODUCT_IMAGES = "GetProductImages"
 let GET_ALL_BRANDS = "GetAllBrands"
 let POST_SEARCH =  "search"
@@ -58,6 +58,13 @@ func setOutLetsTitle(arabicTitle : String , engTitle:String ) -> String{
 
 class GLOBAL {
     
+    static var USER_ID :Int = {
+        guard  let userID = UserDefaults.standard.value(forKey: "User_ID") as? Int else {
+            //        print("error fetching userId from NSUserD.userId")
+            return 0
+        }
+        return userID
+    }()
     
     static func alamoRequest (query_url : String ) -> URLRequest {
         

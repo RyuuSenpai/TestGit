@@ -63,8 +63,13 @@ class ListOfLocationsVC: UIViewController , UITableViewDelegate , UITableViewDat
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let data =  locationData?[indexPath.row] else { return  }
+
+        let vc = CheckoutItemsList()
+        vc.locationData = data 
+         self.navigationController?.pushViewController(vc, animated: true)
         
-        
+
         }
 
     @IBAction func addAddressBtnAct(_ sender: UIButtonX) {

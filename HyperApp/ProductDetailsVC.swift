@@ -188,16 +188,30 @@ class ProductDetailsVC: UIViewController    /* , UICollectionViewDataSource , UI
         self.view.squareLoading.color = UIColor.red
         if let id = self.product_id {
             
-            postClass.postGetitemreView(itemID: id, completed: { (reviewArrayData) in
-                guard let data = reviewArrayData  , data.count > 0 else {
-                self.seeAllReviews.isHidden = true
-                    self.noReviewsLbl.isHidden = false
+            postClass.postGetitemreView(itemID: id, completed: { [weak self ] (reviewArrayData) in
+                guard let data = reviewArrayData.0  , data.count > 0 else {
+                self?.seeAllReviews.isHidden = true
+                    self?.noReviewsLbl.isHidden = false
                     return
                 }
-                self.getReviewArray = data
-                self.seeAllReviews.isHidden = false 
-                self.noReviewsLbl.isHidden = true
-                self.reviewsCollectionView.reloadData()
+            
+                if let rating = reviewArrayData.1 {
+                    self?.floatRatingView.rating = Float(rating)
+                }else {
+                    self?.floatRatingView.rating = 0
+                }
+                
+                if let reviewsCount = reviewArrayData.2 {
+                    self?.numperOfReviews.alpha = 1
+                    self?.numperOfReviews.setTitle("\(reviewsCount) review", for: .normal)
+                }else {
+                    self?.numperOfReviews.alpha = 0
+                }
+
+                self?.getReviewArray = data
+                self?.seeAllReviews.isHidden = false
+                self?.noReviewsLbl.isHidden = true
+                self?.reviewsCollectionView.reloadData()
                 print("Done postGetitemreView data.count : \(data.count)")
                 
             })

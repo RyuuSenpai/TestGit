@@ -23,7 +23,7 @@ class GetImagesFromWeb {
                 debugPrint(response.result)
                 
                 if let image = response.result.value {
-                    print("image downloaded: \(image)")
+//                    print("image downloaded: \(image)")
                 pd.image_pr = image
                 }
             }

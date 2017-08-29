@@ -17,12 +17,12 @@ class  PostRequests {
     func getCatProductsDetailsData(catID : Int?  ,completed : @escaping ([ProductDetails]?) -> ()) {
         guard let catID = catID else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
         let parameters : Parameters = ["cat_id" : catID]
-        print("that is itemID \(catID)")
-        print("that is the parameters in Get_ItemById : \(parameters)")
+//        print("that is itemID \(catID)")
+//        print("that is the parameters in Get_ItemById : \(parameters)")
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        print("that is url getCat By ID : \(BASE_URL + GET_ITEM_BY_CAT)")
+//        print("that is url getCat By ID : \(BASE_URL + GET_ITEM_BY_CAT)")
         let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
         Alamofire.request(BASE_URL + GET_ITEM_BY_CAT , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
@@ -46,12 +46,12 @@ class  PostRequests {
                 break
                 
             case .failure(let err as NSError):
-                print(response.result.error)
-                print("that is the error Descriptio0n : \(err.description)")
+//                print(response.result.error)
+//                print("that is the error Descriptio0n : \(err.description)")
                 completed(nil)
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
                 completed(nil)
             }
         }
@@ -60,11 +60,11 @@ class  PostRequests {
     
     func getBrandProductsDetailsData(brand_id : Int  ,completed : @escaping ([ProductDetails]?) -> ()) {
           let parameters : Parameters = ["brand_id" : brand_id]
-         print("that is the parameters in getBrandProductsDetailsData : \(parameters)")
+//         print("that is the parameters in getBrandProductsDetailsData : \(parameters)")
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        print("that is url getBrandProductsDetailsData By ID : \(BASE_URL + GET_ITEM_BY_BRAND)")
+//        print("that is url getBrandProductsDetailsData By ID : \(BASE_URL + GET_ITEM_BY_BRAND)")
 //        let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
         Alamofire.request(BASE_URL + GET_ITEM_BY_BRAND , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
@@ -89,11 +89,11 @@ class  PostRequests {
                 
             case .failure(let err as NSError):
 //                print(response.result.error)
-                print("that is the error getBrandProductsDetailsData : \(err.localizedDescription)")
+//                print("that is the error getBrandProductsDetailsData : \(err.localizedDescription)")
                 completed(nil)
                 break
             default :
-                print("Erro in Switch State Ment in getBrandProductsDetailsData by ID Default was Selected")
+//                print("Erro in Switch State Ment in getBrandProductsDetailsData by ID Default was Selected")
                 completed(nil)
             }
         }
@@ -104,13 +104,13 @@ class  PostRequests {
         
     
     
-    func postGetitemreView(itemID : Int ,completed : @escaping ([GetItemReviewModel]?) -> ()) {
+    func postGetitemreView(itemID : Int ,completed : @escaping ([GetItemReviewModel]?,_ rate : Double?,_ reviews_count:Int? ) -> ()) {
         let parameters : Parameters = ["item_id" : itemID]
-        print("that is the parameters in postGetitemreView : \(parameters)")
+//        print("that is the parameters in postGetitemreView : \(parameters)")
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
-        print("that is the url in postGetitemreView : \(BASE_URL + GET_ITEM_REVIEW)")
+//        print("that is the url in postGetitemreView : \(BASE_URL + GET_ITEM_REVIEW)")
 
         let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
@@ -123,6 +123,8 @@ class  PostRequests {
 //                 print(" ProductDetails review \(response.result.value)")
                 var itemsReview = [GetItemReviewModel]()
                 let reviews = json["reviews"]
+                let allReviewsRate = json["rate"].doubleValue
+                let reviews_count = json["reviews_count"].intValue
                 for i in reviews {
                     let data = i.1
                     let itemReview = GetItemReviewModel(jsonData: data)
@@ -132,21 +134,21 @@ class  PostRequests {
                     itemReview.productDetails = productDetails
                     itemsReview.append(itemReview)
                 }
-                print("count of reviews : \(itemsReview.count)")
-                completed(itemsReview)
+//                print("count of reviews : \(itemsReview.count)")
+                completed(itemsReview,allReviewsRate,reviews_count)
                 break
                 
             case .failure(let err as NSError):
-                print(response.result.error)
-                print(response)
-                print(response.request)
+//                print(response.result.error)
+//                print(response)
+//                print(response.request)
                 
-                print("that is the error Descriptio0n : \(err.localizedDescription)")
-                completed(nil)
+//                print("that is the error Descriptio0n : \(err.localizedDescription)")
+                completed(nil,nil,nil)
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
-                completed(nil)
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+                completed(nil,nil,nil)
             }
         }
 
@@ -186,8 +188,8 @@ class  PostRequests {
     func postSearchService(query : String?,_ min_price : String?,_ max_price : String? ,completed : @escaping ([Search_Data]?) -> ()) {
 //        guard let catID = catID else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
         let parameters : Parameters = ["query" : query ?? ""/*,"min_price" : min_price ?? "", "max_price" : max_price ?? ""*/]
-        print("that is query \(query)")
-        print("that is the parameters in postSearchService : \(parameters)")
+//        print("that is query \(query)")
+//        print("that is the parameters in postSearchService : \(parameters)")
         //query,category_id,min_price,max_price,brand_id
         
 //        CONFIGURATION.timeoutIntervalForResource = 10 // seconds
@@ -200,12 +202,12 @@ class  PostRequests {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
+//                print(json)
                 var dataX = [Search_Data]()
                 for items in json {
                     
                     let data = Search_Data(items.1)
-                    print("that's the name : \(data.image) price : \(data.name) image : \(data.price)")
+//                    print("that's the name : \(data.image) price : \(data.name) image : \(data.price)")
                     dataX.append(data)
                 }
                 
@@ -214,12 +216,12 @@ class  PostRequests {
                 break
                 
             case .failure(let err as NSError):
-                print(response.result.error)
-                print("that is the error Descriptio0n : \(err.description)")
+//                print(response.result.error)
+//                print("that is the error Descriptio0n : \(err.description)")
                 completed(nil)
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
                 completed(nil)
             }
         }

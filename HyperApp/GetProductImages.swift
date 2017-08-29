@@ -16,8 +16,8 @@ class GetProductImages {
     func getProductImages(product_id : Int?  ,completed : @escaping () -> ()) {
         guard let productId = product_id else { print("Error in getCatProductsDetailsData Item Id == Nil and that make Infinite Loading  Loop ***") ; return }
         let parameters : Parameters = ["product_id" : productId]
-        print("that is productId \(productId)")
-        print("that is the parameters in Get_ItemById : \(parameters)")
+//        print("that is productId \(productId)")
+//        print("that is the parameters in Get_ItemById : \(parameters)")
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
@@ -30,8 +30,8 @@ class GetProductImages {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print("getProductImages \(json)" )
-                print("getProductImages \(data)" )
+//                print("getProductImages \(json)" )
+//                print("getProductImages \(data)" )
 //                let productDetails = ProductDetails(jsonData: json[0])
 //                print(productDetails.name,productDetails.price)
 //                if let imageUrl =  productDetails.image_url {
@@ -42,12 +42,12 @@ class GetProductImages {
                 break
                 
             case .failure(let err as NSError):
-                print(response.result.error)
-                print("that is the error Descriptio0n : \(err.description)")
+//                print(response.result.error)
+//                print("that is the error Descriptio0n : \(err.description)")
                 completed( )
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
                 completed( )
             }
         }

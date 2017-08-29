@@ -108,7 +108,7 @@ extension OnCartVC : UITableViewDataSource {
             cell.deleteRowDataBtn.isHidden = true
         }
  
-        print("debugging : \(items?[indexPath.row])")
+//        print("debugging : \(items?[indexPath.row])")
         if let item = items?[indexPath.row] {
             
             if item.imageData == nil {

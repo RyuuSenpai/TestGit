@@ -11,16 +11,14 @@ import RealmSwift
 
 class CheckoutItemsList : UIViewController , UITableViewDelegate , UITableViewDataSource {
     
+    @IBOutlet weak var checkoutOL: UIButton!
+    @IBOutlet weak var totalPriceLbl: UILabel!
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var totalPriceValue: UILabel!
     var totalPrice : Double = 0
+    var locationData : LocationData?
 
-    let totalPriceValue : UILabel = {
-       let lbl = UILabel()
-        lbl.backgroundColor = .blue
-        lbl.text = "Sup"
-        return lbl
-    }()
+ 
  
     var items : [CDOnCart]?
 
@@ -33,15 +31,50 @@ class CheckoutItemsList : UIViewController , UITableViewDelegate , UITableViewDa
         tableView.dataSource = self
          // Do any additional setup after loading the view.
         tableView.register(CheckListCell.self , forCellReuseIdentifier: "CellID")
-        self.view.addSubview(totalPriceValue)
-        totalPriceValue.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        getTheData()
+          getTheData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func checkoutBtnAct(_ sender: UIButton) {
+        
+        let postRequest = PostReviewRequest()
+        let parameter2 =  postOnCartItemData()
+        guard let id = UserDefaults.standard.value(forKey: "User_ID") as? String else { print("nill in User_ID"); return }
+        postRequest.postReqMakeOrder(userID: id, items: parameter2, completed: { [weak self] (true ) in
+            print("DONE : checkOutBtnAct ")
+            DispatchQueue.main.async {
+                self?.view.isUserInteractionEnabled = false
+                                  SweetAlert().showAlert("All Done", subTitle: "Confirmation call will reach you shortly.", style: AlertStyle.success)
+                self?.deletaAllData()
+            }
+
+            // to run something in 0.1 seconds
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.41) {
+                 self?.view.isUserInteractionEnabled = true 
+                ad.reloadApp()
+
+            }
+        })
+        
+        
     }
+    
+    func postOnCartItemData() -> [Dictionary<String , Int>] {
+        
+        guard  let items = items else {
+            return [[:]]
+        }
+        var pars = [Dictionary<String , Int>]()
+        for i in items {
+            var par  = [String:Int]()
+            
+            par = ["item_id" : i.id , "item_quantity":i.quantity]
+            pars.append(par)
+        }
+        return pars
+    }
+
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = items?.count else {
@@ -75,6 +108,19 @@ class CheckoutItemsList : UIViewController , UITableViewDelegate , UITableViewDa
      }
      */
     
+    func deletaAllData() {
+        guard let data = items else { return }
+        do {
+            
+            let realm = try Realm()
+            
+                     realm.beginWrite()
+                    realm.delete(data)
+                    try  realm.commitWrite()
+           }catch let err as NSError {
+            print(" saveCartData that is error :    \(err)")
+        }
+    }
     func getTheData() {
         do {
             let realm = try Realm()
@@ -103,7 +149,7 @@ class CheckoutItemsList : UIViewController , UITableViewDelegate , UITableViewDa
                 }
                 
             }
-            self.totalPriceValue.text = "\(totalPrice) L.E"
+            self.totalPriceLbl.text = "\(totalPrice) L.E"
             
        
             

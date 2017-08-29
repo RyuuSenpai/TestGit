@@ -87,16 +87,16 @@
 //        
 //        }
         
-        let xxx = GetProductImages()
-        
-        xxx.getProductImages(product_id: 1) { 
-            
-            
-        }
+//        let xxx = GetProductImages()
+//        
+//        xxx.getProductImages(product_id: 1) { 
+//            
+//            
+//        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("search activated")
+//        print("search activated")
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         let searchModel = PostRequests()
         self.view.squareLoading.start(0)
@@ -141,7 +141,7 @@
     }
     
     func updateData() {
-        guard !gettingPagerData else { print("working on getting data") ; return }
+        guard !gettingPagerData else {/* print("working on getting data") ; */return }
         if  self.productCategory == nil || categoriesArray == nil {
         self.view.squareLoading.start(0.0)
         }
@@ -150,8 +150,12 @@
 
         productCatData?.downloadHomePageData(pageNum: productPageNumber, compeleted: { [unowned  self ] (productCategory) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-
-                guard productCategory.count > 0 else {
+                guard let data = productCategory   else {
+                    let vc = OffLine()
+                     self.present(vc, animated: true, completion: nil)
+                    return
+                }
+                guard data.count > 0 else {
                     self.mainProductsRow.removeInfiniteScroll()
                     self.gettingPagerData = false
                     self.infiniteScroll()
@@ -159,7 +163,7 @@
                 }
                 
                 if let productData = self.productCategory{
-                    let productData = productData + productCategory
+                    let productData = productData + data
                     self.productCategory = productData
                 }else {
                 self.productCategory = productCategory
@@ -180,7 +184,7 @@
                         
                     self.gettingPagerData = false
                         self.infiniteScroll()
-                    print("Done with getting Data")
+//                    print("Done with getting Data")
                     self.view.squareLoading.stop(0.0)
                     self.mainProductsRow.reloadData()
                     self.revealMenu()
@@ -197,7 +201,7 @@
             //            largerCell.reloadData()
             self.upDateItemInCart()
             self.cartNumberOfItemsBadge()
-            print("recivedNotification : \(notification)")
+//            print("recivedNotification : \(notification)")
         }
     }
     
@@ -222,7 +226,7 @@
     
     
     @IBAction func searchGesture(_ sender: AnyObject) {
-        print("Search clicked")
+//        print("Search clicked")
     }
     
     
@@ -281,14 +285,14 @@
         
     }
     func seeMore(_ sender:UIButton ) {
-        print(sender.tag)
+//        print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreVC") as! SeeMoreVC
         seeMoreA.productCatSelected = productCategory?[sender.tag]
         navigationController?.pushViewController(seeMoreA, animated: true)
         
     }
     func seeMoreCat(_ sender:UIButton) {
-        print(sender.tag)
+//        print(sender.tag)
         let seeMoreA = self.storyboard?.instantiateViewController(withIdentifier: "SeeMoreCategories") as! SeeMoreCategories
         //        seeMoreA.productCatSelected = productCategory?[sender.tag]
 

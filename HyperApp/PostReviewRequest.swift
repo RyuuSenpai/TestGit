@@ -16,7 +16,7 @@ class  PostReviewRequest {
     
     func getReviewRequesData(userID : Int , itemID: Int , rate : Float, reviewString : String  ,completed : @escaping () -> ()) {
         let parameters : Parameters = ["user_id" : userID, "item_id" : itemID , "rate" : rate, "review" : reviewString ]
-        print("that is the parameters in getReviewRequesData : \(parameters)")
+//        print("that is the parameters in getReviewRequesData : \(parameters)")
         
         
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
@@ -29,16 +29,16 @@ class  PostReviewRequest {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
+//                print(json)
                 completed()
                 break
                 
             case .failure(let err as NSError):
-                print("that is the error Descriptio0n : \(err.description)")
+//                print("that is the error Descriptio0n : \(err.description)")
                 completed()
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
                 completed()
             }
         }
@@ -56,7 +56,7 @@ class  PostReviewRequest {
             "user_id": userID,
             "items": items
         ]
-        print(parameters)
+//        print(parameters)
         CONFIGURATION.timeoutIntervalForResource = 10 // seconds
         
         let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
@@ -67,16 +67,16 @@ class  PostReviewRequest {
             case .success(_):
                 guard let data = response.result.value else { print(" ProductDetails data returbn == NULL") ; return }
                 let json = JSON(data)
-                print(json)
+//                print(json)
                 completed()
                 break
                 
             case .failure(let err as NSError):
-                print("that is the error Descriptio0n : \(err.description)")
+//                print("that is the error Descriptio0n : \(err.description)")
                 completed()
                 break
             default :
-                print("Erro in Switch State Ment in getItem by ID Default was Selected")
+//                print("Erro in Switch State Ment in getItem by ID Default was Selected")
                 completed()
             }
         }

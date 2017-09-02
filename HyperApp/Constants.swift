@@ -58,10 +58,10 @@ func setOutLetsTitle(arabicTitle : String , engTitle:String ) -> String{
 
 class GLOBAL {
     
-    static var USER_ID :Int = {
-        guard  let userID = UserDefaults.standard.value(forKey: "User_ID") as? Int else {
+    static var USER_ID :String = {
+        guard  let userID = UserDefaults.standard.value(forKey: "User_ID") as? String else {
             //        print("error fetching userId from NSUserD.userId")
-            return 0
+            return "0"
         }
         return userID
     }()

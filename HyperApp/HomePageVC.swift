@@ -156,9 +156,13 @@
                     return
                 }
                 guard data.count > 0 else {
+                DispatchQueue.main.async {
                     self.mainProductsRow.removeInfiniteScroll()
                     self.gettingPagerData = false
                     self.infiniteScroll()
+                    self.view.squareLoading.stop(0)
+                    
+                }
                     return
                 }
                 

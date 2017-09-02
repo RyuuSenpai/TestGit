@@ -25,17 +25,16 @@ extension PostRequests {
         //        let alamofireManager = Alamofire.SessionManager(configuration: CONFIGURATION)
         
         Alamofire.request(BASE_URL + GETOrdersByUser , method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response:DataResponse<Any>) in
-            
+            print("that's the url : \(BASE_URL + GETOrdersByUser) and id : \(GLOBAL.USER_ID)")
             switch(response.result) {
             case .success(_):
                 guard let data = response.result.value else { print(" getBrandProductsDetailsData data returbn == NULL") ; return }
                 let json = JSON(data)
-                //                print(json)
+                                print(json)
                 
                 var productsDetails = [OrderList]()
-                for i in 0..<json.count {
-                    let jsonn = json[i]
-                    let current_state = jsonn["current_state"]
+                for(_, jsonn) in json{
+                     let current_state = jsonn["current_state"]
                     let cart = jsonn["cart"]
                     
                     let productDetails = OrderList( jsonn)
@@ -47,8 +46,8 @@ extension PostRequests {
                     
                     
                     var orderCartList = [OrderCartList]()
-                    for i in 0..<cart.count {
-                        let productDetails = OrderCartList( cart[i])
+                    for (_,json) in  cart {
+                        let productDetails = OrderCartList( json)
                         orderCartList.append(productDetails)
                     }
                     let currentState = CurrentState(current_state)
@@ -88,6 +87,7 @@ class OrderList {
     
     private var _date_add : String?
     
+ 
     var orderCartList : [OrderCartList]?
     
     var currentState : CurrentState?
@@ -116,6 +116,7 @@ class OrderList {
         return x
     }
     
+   
     init(_ json : JSON ) {
         
         self._date_upd = json["date_upd"].stringValue
@@ -144,10 +145,10 @@ class OrderCartList {
     
     
     
-    var product_name_ar : String {
-        guard let x = _product_name_ar else {    return ""  }
-        return x
-    }
+//    var product_name_ar : String {
+//        guard let x = _product_name_ar else {    return ""  }
+//        return x
+//    }
     
     var product_image : String {
         guard let x = _product_image else { return "" }
@@ -163,8 +164,11 @@ class OrderCartList {
     }
     
     var product_name : String {
-        guard let x = _product_name else {   return ""      }
-        return x
+        guard L102Language.currentAppleLanguage() == "ar" , let x = _product_name_ar else {
+            guard let x = _product_name else {   return ""      }
+            return x
+        }
+         return x
     }
     var quantity : Int {
         guard let x = _quantity else {   return 0      }

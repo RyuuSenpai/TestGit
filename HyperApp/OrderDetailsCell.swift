@@ -9,6 +9,9 @@
 import UIKit
 
 class OrderDetailsCell: UITableViewCell {
+    @IBOutlet weak var orderNumLbl: UILabel!
+    @IBOutlet weak var numOfItems: UILabel!
+    @IBOutlet weak var DateOfOrder: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

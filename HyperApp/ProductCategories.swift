@@ -80,7 +80,23 @@ class ProductCategories {
  
         }
 //        print("that is the url for homepage Data  :  " , query_url)
+        /*
+         if let url = URL(string: "https://mashape-community-urban-dictionary.p.mashape.com/define?term=smh") {
+         var urlRequest = URLRequest(url: url)
+         urlRequest.httpMethod = HTTPMethod.get.rawValue
+         
+         urlRequest.addValue(MY_API_KEY, forHTTPHeaderField: "X-Mashape-Key")
+         urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+         
+         Alamofire.request(urlRequest)
+         .responseJSON { response in
+         debugPrint(response)
+         }
+         }
+ */
         let request = alamoRequest(query_url: query_url)
+//        request.addValue("Authorization", forHTTPHeaderField: "627562626c6520617069206b6579")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
             Alamofire.request(request)
                 .responseJSON { (response) in
                     switch(response.result) {
@@ -103,7 +119,7 @@ class ProductCategories {
                         compeleted(productCatArray)
                         break
                     case .failure(let err as NSError) :
-//                        print("Killva: HomePage fail in getting the data Mate : %@",err.localizedDescription)
+                        print("Killva: HomePage fail in getting the data Mate : \(err.localizedDescription)\n and the url : \(query_url) ")
                         if let urlRequest = request.urlRequest {
                             let x = URLCache.shared.cachedResponse(for: urlRequest)
                             guard let cache = x else {

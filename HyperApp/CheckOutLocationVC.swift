@@ -155,9 +155,7 @@ class CheckOutLocationVC: UIViewController ,CLLocationManagerDelegate  ,MKMapVie
     
     
     @IBAction func sendLocation(_ sender: 	UIButton) {
-        let vc = CheckoutItemsList()
-        vc.ss = false 
-        self.navigationController?.pushViewController(vc, animated: true)
+      
 
         guard let id = userId , let address = addressTxt.text , !address.isEmpty , let floor = self.floorTxt.text ,!floor.isEmpty , let buildNum = buildingTxt.text , !buildNum.isEmpty else {
             
@@ -167,9 +165,10 @@ class CheckOutLocationVC: UIViewController ,CLLocationManagerDelegate  ,MKMapVie
         requestClass.postAddingUserAddress(user_id: id , floor_num: floor, building_num: buildNum , street_name: address, longitude: long, latitude: lat) {
             
             DispatchQueue.main.async {
-                
-                 self.navigationController?.pushViewController(CheckoutItemsList(), animated: true)
-            }
+                let vc = CheckoutItemsList()
+                vc.ss = false
+                self.navigationController?.pushViewController(vc, animated: true)
+             }
             
         }
         

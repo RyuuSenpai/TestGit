@@ -10,6 +10,12 @@ import UIKit
 
 class OrderDetailsViewCell: UITableViewCell {
 
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var discountView: UIView!
+    @IBOutlet weak var discountValueinPercent: UILabel!
+    @IBOutlet weak var quantity: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
